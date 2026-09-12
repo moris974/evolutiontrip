@@ -8,7 +8,7 @@ import {
   Bike, Car, Star, KeyRound, Link2, MessageCircle, Send, Globe,
   CalendarDays, Briefcase, PartyPopper, UtensilsCrossed, Mountain, FileText,
   Instagram, Facebook, Music2, Link as LinkIcon, Share2, CalendarClock, ParkingCircle, Bell,
-  Building2, Map, Cloud, ChevronDown,
+  Building2, Map, Cloud, ChevronDown, LogOut,
 } from "lucide-react";
 
 const INK = "#1B2A41";
@@ -748,12 +748,67 @@ function TopAppBar({ goChat, lang, setLang }) {
   );
 }
 
+function CheckInBanner() {
+  const { checkInDate, checkOutDate } = useGuestData();
+  if (!checkInDate) return null;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const checkIn = new Date(checkInDate + "T00:00:00");
+  const daysToCheckIn = Math.round((checkIn - today) / 86400000);
+
+  // Prima del check-in: banner con il conto alla rovescia all'arrivo.
+  if (daysToCheckIn > 0) {
+    return (
+      <div className="px-4 pt-3">
+        <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: BLUE }}>
+          <Clock size={18} color={PARCHMENT} className="shrink-0" />
+          <div>
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: PARCHMENT }}>
+              {daysToCheckIn === 1 ? "Manca 1 giorno al check-in" : `Mancano ${daysToCheckIn} giorni al check-in`}
+            </p>
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#D9E8F2", marginTop: "1px" }}>
+              Vi aspettiamo il {checkIn.toLocaleDateString("it-IT", { day: "2-digit", month: "long" })}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Dal giorno del check-in in poi: banner con il conto alla rovescia alla partenza.
+  if (!checkOutDate) return null;
+  const checkOut = new Date(checkOutDate + "T00:00:00");
+  const daysToCheckOut = Math.round((checkOut - today) / 86400000);
+  if (daysToCheckOut < 0) return null;
+
+  return (
+    <div className="px-4 pt-3">
+      <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: CLAY }}>
+        <Clock size={18} color={PARCHMENT} className="shrink-0" />
+        <div>
+          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: PARCHMENT }}>
+            {daysToCheckOut === 0
+              ? "Oggi è il vostro check-out"
+              : daysToCheckOut === 1
+              ? "Manca 1 giorno al check-out"
+              : `Mancano ${daysToCheckOut} giorni al check-out`}
+          </p>
+          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#F6E3D9", marginTop: "1px" }}>
+            {daysToCheckOut === 0 ? "Vi auguriamo un buon rientro!" : `Partenza prevista il ${checkOut.toLocaleDateString("it-IT", { day: "2-digit", month: "long" })}`}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStruttura, goItinerary, goChat, openFeedback, lang, setLang, t }) {
   const PROPERTY = useGuestProperty();
   const { places } = useGuestData();
   return (
     <div style={{ backgroundColor: PARCHMENT, minHeight: "100%" }}>
       <TopAppBar goChat={goChat} lang={lang} setLang={setLang} />
+      <CheckInBanner />
 
       <button
         className="w-full flex items-center justify-center gap-2 py-3"
@@ -930,7 +985,7 @@ function ItineraryScreen({ goExcursions, goEvents, goMenu }) {
 
 function StructureScreen({ openFeedback }) {
   const PROPERTY = useGuestProperty();
-  const { rooms, propertyId, guestStayId } = useGuestData();
+  const { rooms, propertyId, guestStayId, propertySlug } = useGuestData();
   const [bellRung, setBellRung] = useState(false);
   const [bellSending, setBellSending] = useState(false);
   const hasCoords = PROPERTY.latitude != null && PROPERTY.longitude != null;
@@ -1070,6 +1125,17 @@ function StructureScreen({ openFeedback }) {
             </div>
           </button>
         </div>
+
+        {guestStayId && propertySlug && (
+          <button
+            onClick={() => { if (typeof window !== "undefined") window.location.href = `/g/${propertySlug}`; }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full mb-3"
+            style={{ border: "1px solid #E4DAC4" }}
+          >
+            <LogOut size={13} color="#8A8371" />
+            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: "#8A8371" }}>Esci dal soggiorno</span>
+          </button>
+        )}
 
         {socialLinks.length > 0 && (
           <div className="flex items-center gap-2.5 mb-4">
@@ -1721,7 +1787,10 @@ export default function GuestWelcomeBook({ accessToken, property, notFound, gues
   const propLng = property?.longitude;
   const guestData = {
     propertyId: property?.id,
+    propertySlug: property?.slug || null,
     guestStayId: guestStay?.id || null,
+    checkInDate: guestStay?.check_in_date || null,
+    checkOutDate: guestStay?.check_out_date || null,
     places: (places || []).map((p) => placeRowToVM(p, propLat, propLng)),
     services: (services || []).map(serviceRowToVM),
     events: (events || []).map(eventRowToVM),

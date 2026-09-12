@@ -2885,7 +2885,7 @@ function OverviewManager() {
 
       <Section eyebrow="CONTENUTI" title="Lingue disponibili">
         <div className="flex items-center gap-2 flex-wrap">
-          {[{ code: "IT", full: true }, { code: "EN", full: true }, { code: "FR", full: false }, { code: "DE", full: false }].map((l) => (
+          {[{ code: "IT", full: true }, { code: "EN", full: true }, { code: "RU", full: true }, { code: "FR", full: false }, { code: "DE", full: false }].map((l) => (
             <div key={l.code} className="flex items-center gap-2 px-3.5 py-2 rounded-full" style={{ backgroundColor: l.full ? "#E4EEE9" : "#F1EAD9" }}>
               <Globe size={13} color={l.full ? TEAL : "#8A8371"} />
               <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "11px", color: l.full ? TEAL : "#8A8371" }}>{l.code}</span>

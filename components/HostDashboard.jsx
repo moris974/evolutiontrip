@@ -10,7 +10,7 @@ import {
   Briefcase, PartyPopper, CalendarDays, ExternalLink, Repeat,
   UtensilsCrossed, FileText, Mountain, Timer, Leaf,
   Instagram, Facebook, Music2, Link as LinkIcon, Share2, CalendarClock, ParkingCircle, Car,
-  Settings, ToggleRight, RotateCcw, CreditCard, Zap, Crown, Hourglass, Check, Lock, Unlock, AlertTriangle,
+  Settings, ToggleRight, RotateCcw, CreditCard, Zap, Crown, Hourglass, Check, Lock, Unlock, AlertTriangle, LogOut,
 } from "lucide-react";
 
 const INK = "#1B2A41";
@@ -227,7 +227,7 @@ function Sidebar({ active, setActive }) {
       </nav>
 
       <div className="px-4 pb-5 pt-3" style={{ borderTop: `1px solid ${AZURE_DARK}` }}>
-        <div className="flex items-center gap-2.5 px-2">
+        <div className="flex items-center gap-2.5 px-2 mb-3">
           <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BRASS }}>
             <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>
               {(structureName || "Host").split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
@@ -238,6 +238,18 @@ function Sidebar({ active, setActive }) {
             <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#BFDCEC" }}>Host</p>
           </div>
         </div>
+        <button
+          onClick={async () => {
+            const supabase = createClient();
+            await supabase.auth.signOut();
+            if (typeof window !== "undefined") window.location.href = "/";
+          }}
+          className="w-full flex items-center gap-2 px-2 py-2 rounded-lg"
+          style={{ backgroundColor: "transparent" }}
+        >
+          <LogOut size={14} color="#BFDCEC" />
+          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: "#BFDCEC" }}>Esci</span>
+        </button>
       </div>
     </div>
   );
@@ -3700,7 +3712,7 @@ function HostAuthScreen({ onSuccess }) {
           const { error: propertyError } = await supabase.from("properties").insert({
             owner_id: userId,
             name: form.structureName.trim(),
-            slug: slugify(form.structureName.trim()),
+            slug: slugifyName(form.structureName.trim()),
           });
           if (propertyError) throw propertyError;
           onSuccess();

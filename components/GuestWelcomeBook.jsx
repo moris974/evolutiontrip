@@ -8,7 +8,7 @@ import {
   Bike, Car, Star, KeyRound, Link2, MessageCircle, Send, Globe,
   CalendarDays, Briefcase, PartyPopper, UtensilsCrossed, Mountain, FileText,
   Instagram, Facebook, Music2, Link as LinkIcon, Share2, CalendarClock, ParkingCircle, Bell,
-  Building2, Map, Cloud, ChevronDown, LogOut,
+  Building2, Map, Cloud, ChevronDown, LogOut, Ticket,
 } from "lucide-react";
 
 const INK = "#1B2A41";
@@ -89,8 +89,9 @@ function useGuestData() {
 const CATEGORY_FROM_DB = {
   ristorante: "mangiare", bar: "mangiare", spiaggia: "spiagge", attrazione: "vedere",
   shopping: "shopping", prodotto_locale: "shopping", servizio: "vedere", altro: "vedere",
+  parco_tematico: "parchi",
 };
-const CATEGORY_COLOR = { mangiare: CLAY, spiagge: TEAL, vedere: BRASS, shopping: CLAY };
+const CATEGORY_COLOR = { mangiare: CLAY, spiagge: TEAL, vedere: BRASS, shopping: CLAY, parchi: BRASS };
 const EVENT_COLOR = { fiera: TEAL, sagra: CLAY, concerto: BRASS, evento_locale: TEAL, sport: BRASS, altro: CLAY };
 const DIFFICULTY_LABEL = { facile: "Facile", media: "Media", impegnativa: "Impegnativa" };
 const MEAL_LABEL = { colazione: "Colazione", mezza_pensione: "Mezza pensione", pensione_completa: "Pensione completa" };
@@ -181,6 +182,8 @@ function menuRowsToVM(rows) {
     label: MEAL_LABEL[row.meal_type] || row.meal_type,
     mode: row.mode,
     pdfUrl: row.pdf_url,
+    included: row.is_included,
+    price: row.price,
     items: (row.menu_items || []).slice().sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0)),
   }));
 }
@@ -199,6 +202,7 @@ const CATEGORIES = [
   { id: "spiagge", label: "Spiagge", icon: Waves },
   { id: "vedere", label: "Da vedere", icon: Landmark },
   { id: "shopping", label: "Shopping", icon: ShoppingBag },
+  { id: "parchi", label: "Parchi tematici", icon: Ticket },
 ];
 
 const LANGUAGES = ["IT", "EN", "RU"];
@@ -452,7 +456,16 @@ function MenuScreen() {
         )}
         {menus.map((m) => (
           <div key={m.id} className="mb-4 rounded-2xl p-4" style={{ backgroundColor: "#FFFDF8", border: "1px solid #E4DAC4" }}>
-            <p className="italic mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "19px", color: INK }}>{m.label}</p>
+            <div className="flex items-center gap-2 mb-3">
+              <p className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "19px", color: INK }}>{m.label}</p>
+              {m.included === false && (
+                <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#FBEFD9" }}>
+                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: BRASS }}>
+                    A PAGAMENTO{m.price ? ` · ${m.price} €` : ""}
+                  </span>
+                </span>
+              )}
+            </div>
             {m.mode === "pdf" ? (
               m.pdfUrl ? (
                 <a href={m.pdfUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">

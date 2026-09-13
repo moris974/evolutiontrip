@@ -10,7 +10,7 @@ import {
   Briefcase, PartyPopper, CalendarDays, ExternalLink, Repeat,
   UtensilsCrossed, FileText, Mountain, Timer, Leaf,
   Instagram, Facebook, Music2, Link as LinkIcon, Share2, CalendarClock, ParkingCircle, Car,
-  Settings, ToggleRight, RotateCcw, CreditCard, Zap, Crown, Hourglass, Check, Lock, Unlock, AlertTriangle, LogOut,
+  Settings, ToggleRight, RotateCcw, CreditCard, Zap, Crown, Hourglass, Check, Lock, Unlock, AlertTriangle, LogOut, Ticket,
 } from "lucide-react";
 
 const INK = "#1B2A41";
@@ -1023,15 +1023,17 @@ const CATEGORIES = [
   { id: "spiagge", label: "Spiagge", Icon: Waves },
   { id: "vedere", label: "Da vedere", Icon: Landmark },
   { id: "shopping", label: "Shopping", Icon: ShoppingBag },
+  { id: "parchi", label: "Parchi tematici", Icon: Ticket },
 ];
 
-// La UI usa 4 categorie semplici, ma la tabella "places" nel DB usa un
+// La UI usa 5 categorie semplici, ma la tabella "places" nel DB usa un
 // enum più ampio (place_category): mappiamo le due cose in entrambe le
 // direzioni, senza dover cambiare né lo schema né la UI esistente.
-const CATEGORY_TO_DB = { mangiare: "ristorante", spiagge: "spiaggia", vedere: "attrazione", shopping: "shopping" };
+const CATEGORY_TO_DB = { mangiare: "ristorante", spiagge: "spiaggia", vedere: "attrazione", shopping: "shopping", parchi: "parco_tematico" };
 const CATEGORY_FROM_DB = {
   ristorante: "mangiare", bar: "mangiare", spiaggia: "spiagge", attrazione: "vedere",
   shopping: "shopping", prodotto_locale: "shopping", servizio: "vedere", altro: "vedere",
+  parco_tematico: "parchi",
 };
 
 function placeRowToForm(row) {
@@ -3178,7 +3180,7 @@ const MEAL_TYPES = [
 ];
 
 function emptyMenuState() {
-  return { id: null, mode: "pdf", pdf_url: null, active: true, items: [] };
+  return { id: null, mode: "pdf", pdf_url: null, active: true, items: [], included: true, price: "" };
 }
 
 function MenuManager() {
@@ -3213,6 +3215,8 @@ function MenuManager() {
             mode: row.mode,
             pdf_url: row.pdf_url,
             active: row.is_active,
+            included: row.is_included,
+            price: row.price != null ? String(row.price) : "",
             items: (row.menu_items || []).slice().sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0)),
           }
         : emptyMenuState();
@@ -3234,6 +3238,8 @@ function MenuManager() {
       mode: patch.mode ?? current.mode,
       pdf_url: patch.pdf_url !== undefined ? patch.pdf_url : current.pdf_url,
       is_active: patch.active !== undefined ? patch.active : current.active,
+      is_included: patch.included !== undefined ? patch.included : current.included,
+      price: patch.price !== undefined ? (patch.price === "" ? null : parseFloat(patch.price)) : (current.price === "" ? null : parseFloat(current.price)),
     };
     const { data, error: upsertError } = await supabase
       .from("property_menus")
@@ -3244,12 +3250,25 @@ function MenuManager() {
       setError(upsertError.message);
       return null;
     }
-    setMenus((prev) => ({ ...prev, [meal]: { ...(prev[meal] || emptyMenuState()), id: data.id, mode: data.mode, pdf_url: data.pdf_url, active: data.is_active } }));
+    setMenus((prev) => ({
+      ...prev,
+      [meal]: {
+        ...(prev[meal] || emptyMenuState()),
+        id: data.id,
+        mode: data.mode,
+        pdf_url: data.pdf_url,
+        active: data.is_active,
+        included: data.is_included,
+        price: data.price != null ? String(data.price) : "",
+      },
+    }));
     return data;
   };
 
   const setMode = (mode) => { ensureMenuRow({ mode }); };
   const toggleActive = () => { ensureMenuRow({ active: !current.active }); };
+  const toggleIncluded = () => { ensureMenuRow({ included: !current.included }); };
+  const savePrice = (price) => { ensureMenuRow({ price }); };
 
   const handlePdfChange = async (e) => {
     const file = e.target.files && e.target.files[0];
@@ -3355,6 +3374,28 @@ function MenuManager() {
           </button>
         </div>
 
+        <div className="flex items-center gap-3 mb-5">
+          <button onClick={toggleIncluded} className="flex items-center gap-2">
+            <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: !current.included ? BRASS : "#D8CDB2", justifyContent: !current.included ? "flex-end" : "flex-start" }}>
+              <div className="w-4 h-4 rounded-full bg-white" />
+            </div>
+            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: INK }}>A pagamento (non incluso nel soggiorno)</span>
+          </button>
+          {!current.included && (
+            <div className="flex items-center gap-1.5">
+              <input
+                value={current.price}
+                onChange={(e) => setMenus((prev) => ({ ...prev, [meal]: { ...prev[meal], price: e.target.value } }))}
+                onBlur={(e) => savePrice(e.target.value)}
+                placeholder="0"
+                className="w-20 px-2.5 py-1.5 rounded-lg outline-none"
+                style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }}
+              />
+              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371" }}>€ a persona</span>
+            </div>
+          )}
+        </div>
+
         {current.mode === "pdf" ? (
           <div>
             <input ref={pdfInputRef} type="file" accept="application/pdf" onChange={handlePdfChange} className="hidden" />
@@ -3368,9 +3409,14 @@ function MenuManager() {
                   <FileText size={18} color={CLAY} className="shrink-0" />
                   <span className="truncate" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: INK }}>{pdfFileName}</span>
                 </a>
-                <button onClick={() => pdfInputRef.current.click()} className="px-3 py-1.5 rounded-full shrink-0" style={{ border: `1px solid ${LINE}` }}>
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Sostituisci</span>
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button onClick={() => pdfInputRef.current.click()} className="px-3 py-1.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
+                    <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Sostituisci</span>
+                  </button>
+                  <button onClick={() => ensureMenuRow({ pdf_url: null })} className="p-2 rounded-full" style={{ backgroundColor: "#F7E3DB" }} title="Elimina PDF">
+                    <Trash2 size={14} color={CLAY} />
+                  </button>
+                </div>
               </div>
             ) : (
               <button onClick={() => pdfInputRef.current.click()} className="w-full h-28 rounded-xl flex flex-col items-center justify-center gap-1.5" style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F1EAD9" }}>

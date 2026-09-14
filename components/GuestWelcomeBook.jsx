@@ -68,6 +68,9 @@ function propertyRowToViewModel(row) {
     tiktokUrl: row.tiktok_url || null,
     websiteUrl: row.website_url || null,
     isLocked: !!row.is_locked,
+    noticeActive: !!row.notice_active,
+    noticeTitle: row.notice_title || "",
+    noticeMessage: row.notice_message || "",
   };
 }
 
@@ -773,13 +776,15 @@ function CheckInBanner() {
   if (daysToCheckIn > 0) {
     return (
       <div className="px-4 pt-3">
-        <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: BLUE }}>
-          <Clock size={18} color={PARCHMENT} className="shrink-0" />
+        <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: "#FFFDF8", border: `1.5px solid ${BLUE}` }}>
+          <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BLUE }}>
+            <Clock size={18} color="#FFFFFF" />
+          </div>
           <div>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: PARCHMENT }}>
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 700, color: INK }}>
               {daysToCheckIn === 1 ? "Manca 1 giorno al check-in" : `Mancano ${daysToCheckIn} giorni al check-in`}
             </p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#D9E8F2", marginTop: "1px" }}>
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#6B6455", marginTop: "1px" }}>
               Vi aspettiamo il {checkIn.toLocaleDateString("it-IT", { day: "2-digit", month: "long" })}
             </p>
           </div>
@@ -796,17 +801,19 @@ function CheckInBanner() {
 
   return (
     <div className="px-4 pt-3">
-      <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: CLAY }}>
-        <Clock size={18} color={PARCHMENT} className="shrink-0" />
+      <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: "#FFFDF8", border: `1.5px solid ${CLAY}` }}>
+        <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: CLAY }}>
+          <Clock size={18} color="#FFFFFF" />
+        </div>
         <div>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: PARCHMENT }}>
+          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 700, color: INK }}>
             {daysToCheckOut === 0
               ? "Oggi è il vostro check-out"
               : daysToCheckOut === 1
               ? "Manca 1 giorno al check-out"
               : `Mancano ${daysToCheckOut} giorni al check-out`}
           </p>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#F6E3D9", marginTop: "1px" }}>
+          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#6B6455", marginTop: "1px" }}>
             {daysToCheckOut === 0 ? "Vi auguriamo un buon rientro!" : `Partenza prevista il ${checkOut.toLocaleDateString("it-IT", { day: "2-digit", month: "long" })}`}
           </p>
         </div>
@@ -833,26 +840,30 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
         </span>
       </button>
 
-      <div className="px-4 pt-4">
-        <div
-          className="flex items-start gap-3 p-3.5 rounded-2xl"
-          style={{
-            backgroundColor: "#FFFDF8",
-            border: `1px solid ${LINE_C}`,
-            backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 6px, #F1EAD9 6px, #F1EAD9 7px)",
-          }}
-        >
-          <Bell size={17} color={BRASS} className="shrink-0 mt-0.5" />
-          <div>
-            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", letterSpacing: "0.06em", color: BRASS }}>
-              MANUTENZIONE PISCINA
-            </p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#6B6455", marginTop: "3px", lineHeight: 1.5 }}>
-              La piscina non sarà agibile dalle 8:00 alle 10:00 per manutenzione. Grazie per la collaborazione.
-            </p>
+      {PROPERTY.noticeActive && PROPERTY.noticeMessage && (
+        <div className="px-4 pt-4">
+          <div
+            className="flex items-start gap-3 p-3.5 rounded-2xl"
+            style={{
+              backgroundColor: "#FFFDF8",
+              border: `1px solid ${LINE_C}`,
+              backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 6px, #F1EAD9 6px, #F1EAD9 7px)",
+            }}
+          >
+            <Bell size={17} color={BRASS} className="shrink-0 mt-0.5" />
+            <div>
+              {PROPERTY.noticeTitle && (
+                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", letterSpacing: "0.06em", color: BRASS }}>
+                  {PROPERTY.noticeTitle.toUpperCase()}
+                </p>
+              )}
+              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#6B6455", marginTop: "3px", lineHeight: 1.5 }}>
+                {PROPERTY.noticeMessage}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="px-4 pt-4">
         <button onClick={goStruttura} className="w-full flex items-center justify-between py-3 text-left" style={{ borderBottom: `1px solid ${LINE_C}` }}>

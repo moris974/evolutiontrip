@@ -461,6 +461,9 @@ function PropertySettings() {
       brand_color: property.brand_color || "#1B2A41",
       cover_photo_url: property.cover_photo_url || null,
       logo_url: property.logo_url || null,
+      notice_title: property.notice_title || "",
+      notice_message: property.notice_message || "",
+      notice_active: !!property.notice_active,
     });
     setEmergency(
       Array.isArray(property.emergency_numbers) && property.emergency_numbers.length
@@ -594,6 +597,9 @@ function PropertySettings() {
       brand_color: form.brand_color,
       cover_photo_url: form.cover_photo_url || null,
       logo_url: form.logo_url || null,
+      notice_title: form.notice_title.trim() || null,
+      notice_message: form.notice_message.trim() || null,
+      notice_active: !!form.notice_active,
       emergency_numbers: emergency.filter((e) => e.label.trim() || e.number.trim()),
     };
     const { data, error } = await supabase
@@ -903,6 +909,37 @@ function PropertySettings() {
             <Plus size={13} color={TEAL} />
             <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: TEAL, fontWeight: 600 }}>Aggiungi numero</span>
           </button>
+        </div>
+      </Section>
+
+      <Section eyebrow="COMUNICAZIONI" title="Avviso in evidenza">
+        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginBottom: "12px", lineHeight: 1.5 }}>
+          Un messaggio ben visibile in cima alla Home dell'app ospite — utile per manutenzioni, chiusure temporanee di servizi o avvisi importanti.
+        </p>
+        <div className="flex items-center gap-2 mb-4">
+          <button onClick={() => set("notice_active", !form.notice_active)} className="flex items-center gap-2">
+            <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.notice_active ? TEAL : "#D8CDB2", justifyContent: form.notice_active ? "flex-end" : "flex-start" }}>
+              <div className="w-4 h-4 rounded-full bg-white" />
+            </div>
+          </button>
+          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
+            {form.notice_active ? "Avviso visibile agli ospiti" : "Avviso nascosto"}
+          </span>
+        </div>
+        <div className="grid grid-cols-1 gap-4">
+          <Field label="Titolo" hint="Es. Manutenzione piscina">
+            <input value={form.notice_title} onChange={(e) => set("notice_title", e.target.value)} placeholder="Es. Manutenzione piscina" className="w-full px-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
+          </Field>
+          <Field label="Messaggio">
+            <textarea
+              rows={2}
+              value={form.notice_message}
+              onChange={(e) => set("notice_message", e.target.value)}
+              placeholder="Es. La piscina non sarà agibile dalle 8:00 alle 10:00 per manutenzione. Grazie per la collaborazione."
+              className="w-full px-3 py-2.5 rounded-xl outline-none resize-none"
+              style={inputStyle()}
+            />
+          </Field>
         </div>
       </Section>
 

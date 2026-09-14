@@ -2,7 +2,7 @@ import { createServiceClient } from "../../../lib/supabase/server";
 import GuestWelcomeBook from "../../../components/GuestWelcomeBook";
 
 const PROPERTY_FIELDS =
-  "id, slug, name, description, address, latitude, longitude, check_in_time, check_out_time, contact_email, contact_phone, wifi_ssid, wifi_password, house_rules, emergency_numbers, instagram_url, facebook_url, tiktok_url, website_url, brand_color, home_color, accent_color, visible_sections, cover_photo_url, logo_url, is_locked";
+  "id, slug, name, description, address, latitude, longitude, check_in_time, check_out_time, contact_email, contact_phone, wifi_ssid, wifi_password, house_rules, emergency_numbers, instagram_url, facebook_url, tiktok_url, website_url, brand_color, home_color, accent_color, visible_sections, cover_photo_url, logo_url, is_locked, notice_title, notice_message, notice_active";
 
 // Carica tutti i contenuti pubblici di una struttura (luoghi, servizi,
 // eventi, escursioni, menù, camere) in un colpo solo, lato server.

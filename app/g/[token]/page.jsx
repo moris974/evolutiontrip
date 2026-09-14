@@ -1,8 +1,14 @@
 import { createServiceClient } from "../../../lib/supabase/server";
 import GuestWelcomeBook from "../../../components/GuestWelcomeBook";
 
-const PROPERTY_FIELDS =
-  "id, slug, name, description, address, latitude, longitude, check_in_time, check_out_time, contact_email, contact_phone, wifi_ssid, wifi_password, house_rules, emergency_numbers, instagram_url, facebook_url, tiktok_url, website_url, brand_color, home_color, accent_color, visible_sections, cover_photo_url, logo_url, is_locked, notice_title, notice_message, notice_active";
+// Carichiamo TUTTE le colonne di "properties" con select("*") invece di
+// elencarle a mano una per una. Prima, ogni volta che si aggiungeva una
+// colonna nuova (es. notice_title) bisognava ricordarsi di aggiungerla
+// anche qui: se la migration su Supabase non era ancora stata eseguita,
+// la select falliva per intero e la pagina mostrava "Link non valido"
+// anche per un link corretto. Con select("*") questo non può più
+// succedere: qualunque colonna esista davvero nel database viene letta,
+// punto — nessuna lista da tenere sincronizzata a mano.
 
 // Carica tutti i contenuti pubblici di una struttura (luoghi, servizi,
 // eventi, escursioni, menù, camere) in un colpo solo, lato server.
@@ -49,11 +55,13 @@ export default async function GuestPage({ params }) {
   const looksLikeUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(token);
 
   if (looksLikeUuid) {
-    const { data: stay } = await supabase
+    const { data: stay, error: stayError } = await supabase
       .from("guest_stays")
-      .select(`id, guest_name, check_in_date, check_out_date, properties (${PROPERTY_FIELDS})`)
+      .select("id, guest_name, check_in_date, check_out_date, properties (*)")
       .eq("access_token", token)
       .maybeSingle();
+
+    if (stayError) console.error("Errore caricamento soggiorno ospite:", stayError.message);
 
     if (stay?.properties) {
       const content = await loadGuestContent(supabase, stay.properties.id);
@@ -61,11 +69,13 @@ export default async function GuestPage({ params }) {
     }
   }
 
-  const { data: property } = await supabase
+  const { data: property, error: propertyError } = await supabase
     .from("properties")
-    .select(PROPERTY_FIELDS)
+    .select("*")
     .eq("slug", token)
     .maybeSingle();
+
+  if (propertyError) console.error("Errore caricamento struttura:", propertyError.message);
 
   if (!property) {
     return <GuestWelcomeBook notFound />;

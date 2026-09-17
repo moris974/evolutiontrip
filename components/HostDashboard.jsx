@@ -1636,8 +1636,8 @@ function BookingsManager() {
               <span className="px-2.5 py-1 rounded-full shrink-0" style={{ backgroundColor: meta.bg }}>
                 <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", color: meta.text }}>{meta.label.toUpperCase()}</span>
               </span>
-              <button className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#E4EEE9" }} title="Contatta su WhatsApp">
-                <MessageCircle size={14} color={TEAL} />
+              <button className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#E7F7EC" }} title="Contatta su WhatsApp">
+                <MessageCircle size={14} color="#25D366" />
               </button>
               {b.status === "pending" && (
                 <div className="flex items-center gap-2 shrink-0">

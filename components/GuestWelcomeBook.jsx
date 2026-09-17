@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 const INK = "#1B2A41";
-const PARCHMENT = "#F6F1E4";
+const PARCHMENT = "#FFFFFF";
 const BRASS = "#D0AC80";
 const TEAL = "#2F5D62";
 const CLAY = "#C2542E";
@@ -750,8 +750,8 @@ function BottomNav({ tab, setTab, t }) {
 function TopAppBar({ goChat, lang, setLang }) {
   return (
     <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: "#FFFDF8", borderBottom: "1px solid #E4DAC4" }}>
-      <button onClick={goChat} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: "#F1EAD9" }}>
-        <MessageCircle size={17} color={BLUE} />
+      <button onClick={goChat} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: "#E7F7EC" }}>
+        <MessageCircle size={17} color="#25D366" />
       </button>
       <div className="flex items-center gap-2">
         <div className="w-7 h-7 rounded-full flex items-center justify-center border" style={{ borderColor: BLUE }}>
@@ -776,7 +776,7 @@ function CheckInBanner() {
   if (daysToCheckIn > 0) {
     return (
       <div className="px-4 pt-3">
-        <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: "#FFFDF8", border: `1.5px solid ${BLUE}` }}>
+        <div className="flex items-center gap-3 p-4 rounded-2xl" style={{ backgroundColor: "#EAF3FB" }}>
           <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BLUE }}>
             <Clock size={18} color="#FFFFFF" />
           </div>
@@ -801,7 +801,7 @@ function CheckInBanner() {
 
   return (
     <div className="px-4 pt-3">
-      <div className="flex items-center gap-3 p-3.5 rounded-2xl" style={{ backgroundColor: "#FFFDF8", border: `1.5px solid ${CLAY}` }}>
+      <div className="flex items-center gap-3 p-4 rounded-2xl" style={{ backgroundColor: "#FBEFE9" }}>
         <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: CLAY }}>
           <Clock size={18} color="#FFFFFF" />
         </div>
@@ -908,19 +908,21 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
       <div className="px-4 pt-4">
         <button
           onClick={goGuide}
-          className="w-full flex items-center gap-3 p-4 rounded-2xl text-left"
-          style={{ backgroundColor: "#F1EAD9" }}
+          className="w-full flex items-center gap-4 p-4 rounded-2xl text-left"
+          style={{ backgroundColor: "#FBEFE9" }}
         >
-          <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BLUE }}>
-            <Compass size={20} color={PARCHMENT} />
+          <div className="w-14 h-14 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: CLAY }}>
+            <Compass size={24} color="#FFFFFF" />
           </div>
           <div className="flex-1">
-            <p className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "17px", color: INK }}>{t.guideTitle}</p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "1px" }}>
-              Scoprite i nostri consigli per il territorio e la sua cultura
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "16px", fontWeight: 800, color: CLAY, lineHeight: 1.2 }}>
+              I Nostri Consigli
+            </p>
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginTop: "3px", lineHeight: 1.4 }}>
+              Qui troverete i nostri consigli per scoprire meglio il territorio e la sua cultura
             </p>
           </div>
-          <ChevronRight size={16} color="#8A8371" />
+          <ChevronRight size={18} color="#8A8371" />
         </button>
       </div>
 

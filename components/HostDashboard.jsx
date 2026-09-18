@@ -1081,6 +1081,7 @@ function placeRowToForm(row) {
     tip: row.host_tip || "",
     discount: row.discount_info || "",
     address: row.address || "",
+    phone: row.phone || "",
     officialUrl: row.official_url || "",
     published: row.is_published,
     seasonal: !!row.season_start,
@@ -1101,7 +1102,7 @@ function CategoryBadge({ category }) {
 
 function PlaceEditor({ place, onClose, onSave, saving }) {
   const [form, setForm] = useState(
-    place || { category: "mangiare", name: "", tip: "", discount: "", address: "", officialUrl: "", published: true, seasonal: false, photos: [] }
+    place || { category: "mangiare", name: "", tip: "", discount: "", address: "", phone: "", officialUrl: "", published: true, seasonal: false, photos: [] }
   );
 
   return (
@@ -1144,6 +1145,10 @@ function PlaceEditor({ place, onClose, onSave, saving }) {
 
           <Field label="Indirizzo">
             <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} placeholder="Es. Via Roma 4" className="w-full px-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
+          </Field>
+
+          <Field label="Telefono" hint="Facoltativo — mostrato nella scheda che vede l'ospite.">
+            <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Es. +39 0187 123456" className="w-full px-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
           </Field>
 
           <Field label="Consiglio personalizzato" hint="Il tocco personale che gli ospiti leggeranno sulla scheda.">
@@ -1245,6 +1250,7 @@ function PlacesManager() {
       host_tip: form.tip?.trim() || null,
       discount_info: form.discount?.trim() || null,
       address: form.address?.trim() || null,
+      phone: form.phone?.trim() || null,
       official_url: form.officialUrl?.trim() || null,
       is_published: !!form.published,
       photo_urls: form.photos || [],

@@ -8,8 +8,33 @@ import {
   Bike, Car, Star, KeyRound, Link2, MessageCircle, Send, Globe,
   CalendarDays, Briefcase, PartyPopper, UtensilsCrossed, Mountain, FileText,
   Instagram, Facebook, Music2, Link as LinkIcon, Share2, CalendarClock, ParkingCircle, Bell,
-  Building2, Map, Cloud, ChevronDown, LogOut, Ticket,
+  Building2, Map, Cloud, ChevronDown, LogOut, Ticket, Heart,
 } from "lucide-react";
+
+// Preferiti salvati sul dispositivo dell'ospite (localStorage), niente
+// account o server: bastano per far funzionare il cuoricino sulle card.
+function useFavorites() {
+  const [favorites, setFavorites] = useState(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      return JSON.parse(window.localStorage.getItem("et_favorite_places") || "[]");
+    } catch {
+      return [];
+    }
+  });
+
+  const toggleFavorite = (id) => {
+    setFavorites((prev) => {
+      const next = prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id];
+      try {
+        window.localStorage.setItem("et_favorite_places", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  };
+
+  return { favorites, toggleFavorite };
+}
 
 const INK = "#1B2A41";
 const PARCHMENT = "#FFFFFF";
@@ -132,6 +157,7 @@ function placeRowToVM(row, propLat, propLng) {
     name: row.name,
     tip: row.host_tip,
     address: row.address,
+    phone: row.phone,
     discount: row.discount_info,
     distance: distanceLabel(propLat, propLng, row.latitude, row.longitude),
     color: CATEGORY_COLOR[category],
@@ -825,6 +851,7 @@ function CheckInBanner() {
 function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStruttura, goItinerary, goChat, openFeedback, lang, setLang, t }) {
   const PROPERTY = useGuestProperty();
   const { places } = useGuestData();
+  const { favorites, toggleFavorite } = useFavorites();
   return (
     <div style={{ backgroundColor: PARCHMENT, minHeight: "100%" }}>
       <TopAppBar goChat={goChat} lang={lang} setLang={setLang} />
@@ -930,27 +957,55 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
         <div className="flex items-center justify-between mb-3">
           <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: INK }}>Alcuni dei nostri consigli</p>
           <button onClick={goGuide} className="flex items-center gap-0.5">
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: BLUE }}>Vedi tutti</span>
-            <ChevronRight size={13} color={BLUE} />
+            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: CLAY }}>Vedi tutti</span>
+            <ChevronRight size={13} color={CLAY} />
           </button>
         </div>
-        <div className="flex gap-3 overflow-x-auto pb-1">
-          {places.slice(0, 4).map((p) => (
-            <button key={p.id} onClick={goGuide} className="rounded-2xl overflow-hidden shrink-0" style={{ width: "140px", border: `1px solid ${LINE_C}` }}>
-              <div
-                className="h-20"
-                style={{
-                  backgroundColor: p.color,
-                  backgroundImage: p.photo ? `url(${p.photo})` : undefined,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              />
-              <div className="px-2.5 py-2" style={{ backgroundColor: "#FFFDF8" }}>
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>{p.name}</span>
+        <div className="flex gap-3 overflow-x-auto pb-2">
+          {places.slice(0, 4).map((p) => {
+            const isFav = favorites.includes(p.id);
+            return (
+              <div key={p.id} className="rounded-2xl overflow-hidden shrink-0" style={{ width: "220px", border: `1px solid ${LINE_C}` }}>
+                <div className="relative">
+                  <button onClick={goGuide} className="w-full text-left block">
+                    <div
+                      className="h-32"
+                      style={{
+                        backgroundColor: p.color,
+                        backgroundImage: p.photo ? `url(${p.photo})` : undefined,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); toggleFavorite(p.id); }}
+                    className="absolute top-2 right-2 w-8 h-8 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: "rgba(255,255,255,0.9)" }}
+                  >
+                    <Heart size={15} color={CLAY} fill={isFav ? CLAY : "none"} />
+                  </button>
+                </div>
+                <button onClick={goGuide} className="w-full text-left block px-3 py-3" style={{ backgroundColor: "#FFFDF8" }}>
+                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: CLAY, lineHeight: 1.3 }}>{p.name}</p>
+                  {p.address && (
+                    <div className="flex items-center gap-1 mt-1.5">
+                      <MapPin size={11} color="#9C9483" className="shrink-0" />
+                      <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371" }}>
+                        {p.address}{p.distance ? ` · ${p.distance}` : ""}
+                      </span>
+                    </div>
+                  )}
+                  {p.phone && (
+                    <div className="flex items-center gap-1 mt-1">
+                      <Phone size={11} color="#9C9483" className="shrink-0" />
+                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", color: "#8A8371" }}>{p.phone}</span>
+                    </div>
+                  )}
+                </button>
               </div>
-            </button>
-          ))}
+            );
+          })}
           {places.length === 0 && (
             <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371" }}>Nessun consiglio pubblicato ancora.</p>
           )}
@@ -1193,6 +1248,7 @@ function StructureScreen({ openFeedback }) {
 
 function GuideScreen({ onOpenPlace, t, goExcursions, goEvents }) {
   const { places } = useGuestData();
+  const { favorites, toggleFavorite } = useFavorites();
   const [cat, setCat] = useState("mangiare");
   const filtered = places.filter((p) => p.category === cat);
 
@@ -1243,24 +1299,34 @@ function GuideScreen({ onOpenPlace, t, goExcursions, goEvents }) {
             Nessun consiglio pubblicato in questa categoria.
           </p>
         )}
-        {filtered.map((place) => (
-          <button
+        {filtered.map((place) => {
+          const isFav = favorites.includes(place.id);
+          return (
+          <div
             key={place.id}
-            onClick={() => onOpenPlace(place)}
-            className="w-full text-left relative mb-4 rounded-2xl overflow-hidden active:scale-[0.99] transition-transform"
+            className="relative mb-4 rounded-2xl overflow-hidden"
             style={{ backgroundColor: "#FFFDF8", border: "1px solid #E4DAC4" }}
           >
             {place.discount && <StampBadge text={place.discount} />}
-            <div
-              className="h-20"
-              style={{
-                backgroundColor: place.color,
-                backgroundImage: place.photo ? `url(${place.photo})` : undefined,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            />
-            <div className="p-4">
+            <button onClick={() => onOpenPlace(place)} className="w-full text-left block active:scale-[0.99] transition-transform">
+              <div
+                className="h-36"
+                style={{
+                  backgroundColor: place.color,
+                  backgroundImage: place.photo ? `url(${place.photo})` : undefined,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+            </button>
+            <button
+              onClick={() => toggleFavorite(place.id)}
+              className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: "rgba(255,255,255,0.9)" }}
+            >
+              <Heart size={15} color={CLAY} fill={isFav ? CLAY : "none"} />
+            </button>
+            <button onClick={() => onOpenPlace(place)} className="w-full text-left block p-4 active:scale-[0.99] transition-transform">
               <p className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "20px", color: INK }}>
                 {place.name}
               </p>
@@ -1272,23 +1338,26 @@ function GuideScreen({ onOpenPlace, t, goExcursions, goEvents }) {
                   “{place.tip}”
                 </p>
               )}
-              <div className="flex items-center gap-3 mt-3">
-                {place.distance && (
+              <div className="flex flex-col gap-1 mt-3">
+                {place.address && (
                   <div className="flex items-center gap-1">
-                    <MapPin size={11} color="#9C9483" />
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", color: "#9C9483" }}>{place.distance}</span>
+                    <MapPin size={11} color="#9C9483" className="shrink-0" />
+                    <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#9C9483" }}>
+                      {place.address}{place.distance ? ` · ${place.distance}` : ""}
+                    </span>
                   </div>
                 )}
-                {place.address && !place.distance && (
+                {place.phone && (
                   <div className="flex items-center gap-1">
-                    <MapPin size={11} color="#9C9483" />
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", color: "#9C9483" }}>{place.address}</span>
+                    <Phone size={11} color="#9C9483" className="shrink-0" />
+                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10.5px", color: "#9C9483" }}>{place.phone}</span>
                   </div>
                 )}
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          </div>
+          );
+        })}
       </div>
     </div>
   );

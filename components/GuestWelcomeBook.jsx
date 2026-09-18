@@ -8,7 +8,7 @@ import {
   Bike, Car, Star, KeyRound, Link2, MessageCircle, Send, Globe,
   CalendarDays, Briefcase, PartyPopper, UtensilsCrossed, Mountain, FileText,
   Instagram, Facebook, Music2, Link as LinkIcon, Share2, CalendarClock, ParkingCircle, Bell,
-  Building2, Map, Cloud, ChevronDown, LogOut, Ticket, Heart,
+  Building2, Map, Cloud, ChevronDown, LogOut, Ticket, Heart, CalendarPlus, CalendarCheck2,
 } from "lucide-react";
 
 // Preferiti salvati sul dispositivo dell'ospite (localStorage), niente
@@ -34,6 +34,32 @@ function useFavorites() {
   };
 
   return { favorites, toggleFavorite };
+}
+
+// Stesso meccanismo dei preferiti, ma per i luoghi che l'ospite vuole
+// "segnarsi" da fare durante il soggiorno — compaiono poi nella
+// schermata Itinerario, sempre salvati solo sul dispositivo.
+function usePlanned() {
+  const [planned, setPlanned] = useState(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      return JSON.parse(window.localStorage.getItem("et_planned_places") || "[]");
+    } catch {
+      return [];
+    }
+  });
+
+  const togglePlanned = (id) => {
+    setPlanned((prev) => {
+      const next = prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id];
+      try {
+        window.localStorage.setItem("et_planned_places", JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  };
+
+  return { planned, togglePlanned };
 }
 
 const INK = "#1B2A41";
@@ -852,6 +878,7 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
   const PROPERTY = useGuestProperty();
   const { places } = useGuestData();
   const { favorites, toggleFavorite } = useFavorites();
+  const { planned, togglePlanned } = usePlanned();
   return (
     <div style={{ backgroundColor: PARCHMENT, minHeight: "100%" }}>
       <TopAppBar goChat={goChat} lang={lang} setLang={setLang} />
@@ -964,6 +991,7 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
         <div className="flex gap-3 overflow-x-auto pb-2">
           {places.slice(0, 4).map((p) => {
             const isFav = favorites.includes(p.id);
+            const isPlanned = planned.includes(p.id);
             return (
               <div key={p.id} className="rounded-2xl overflow-hidden shrink-0" style={{ width: "220px", border: `1px solid ${LINE_C}` }}>
                 <div className="relative">
@@ -984,6 +1012,14 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
                     style={{ backgroundColor: "rgba(255,255,255,0.9)" }}
                   >
                     <Heart size={15} color={CLAY} fill={isFav ? CLAY : "none"} />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); togglePlanned(p.id); }}
+                    className="absolute top-2 right-12 w-8 h-8 rounded-full flex items-center justify-center"
+                    style={{ backgroundColor: isPlanned ? TEAL : "rgba(255,255,255,0.9)" }}
+                    title="Aggiungi all'itinerario"
+                  >
+                    {isPlanned ? <CalendarCheck2 size={15} color="#FFFFFF" /> : <CalendarPlus size={15} color={TEAL} />}
                   </button>
                 </div>
                 <button onClick={goGuide} className="w-full text-left block px-3 py-3" style={{ backgroundColor: "#FFFDF8" }}>
@@ -1029,7 +1065,10 @@ function HomeScreen({ goGuide, goServices, goEvents, goMenu, goExcursions, goStr
   );
 }
 
-function ItineraryScreen({ goExcursions, goEvents, goMenu }) {
+function ItineraryScreen({ goExcursions, goEvents, goMenu, onOpenPlace }) {
+  const { places } = useGuestData();
+  const { planned, togglePlanned } = usePlanned();
+  const plannedPlaces = places.filter((p) => planned.includes(p.id));
   const cards = [
     { label: "Escursioni & tour", desc: "Sentieri, gite in barca e attività organizzate", Icon: Mountain, color: TEAL, onClick: goExcursions },
     { label: "Fiere & eventi", desc: "Cosa succede in zona durante il soggiorno", Icon: CalendarDays, color: BRASS, onClick: goEvents },
@@ -1042,6 +1081,39 @@ function ItineraryScreen({ goExcursions, goEvents, goMenu }) {
         <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#6B6455", marginBottom: "14px" }}>
           Tutto quello che potete organizzare durante il soggiorno, in un unico posto.
         </p>
+
+        {plannedPlaces.length > 0 && (
+          <>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", letterSpacing: "0.06em", color: "#8A8371", marginBottom: "8px" }}>
+              I VOSTRI PIANI
+            </p>
+            {plannedPlaces.map((place) => (
+              <div key={place.id} className="flex items-center gap-3 mb-3 p-3 rounded-2xl" style={{ backgroundColor: "#FFFDF8", border: "1px solid #E4DAC4" }}>
+                <button onClick={() => onOpenPlace && onOpenPlace(place)} className="flex items-center gap-3 flex-1 text-left min-w-0">
+                  <div
+                    className="w-12 h-12 rounded-xl shrink-0"
+                    style={{
+                      backgroundColor: place.color,
+                      backgroundImage: place.photo ? `url(${place.photo})` : undefined,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  />
+                  <div className="min-w-0">
+                    <p className="truncate" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 700, color: INK }}>{place.name}</p>
+                    {place.address && (
+                      <p className="truncate" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371" }}>{place.address}</p>
+                    )}
+                  </div>
+                </button>
+                <button onClick={() => togglePlanned(place.id)} className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+                  <X size={13} color="#8A8371" />
+                </button>
+              </div>
+            ))}
+          </>
+        )}
+
         {cards.map((c) => (
           <button
             key={c.label}
@@ -1249,6 +1321,7 @@ function StructureScreen({ openFeedback }) {
 function GuideScreen({ onOpenPlace, t, goExcursions, goEvents }) {
   const { places } = useGuestData();
   const { favorites, toggleFavorite } = useFavorites();
+  const { planned, togglePlanned } = usePlanned();
   const [cat, setCat] = useState("mangiare");
   const filtered = places.filter((p) => p.category === cat);
 
@@ -1301,6 +1374,7 @@ function GuideScreen({ onOpenPlace, t, goExcursions, goEvents }) {
         )}
         {filtered.map((place) => {
           const isFav = favorites.includes(place.id);
+          const isPlanned = planned.includes(place.id);
           return (
           <div
             key={place.id}
@@ -1325,6 +1399,14 @@ function GuideScreen({ onOpenPlace, t, goExcursions, goEvents }) {
               style={{ backgroundColor: "rgba(255,255,255,0.9)" }}
             >
               <Heart size={15} color={CLAY} fill={isFav ? CLAY : "none"} />
+            </button>
+            <button
+              onClick={() => togglePlanned(place.id)}
+              className="absolute top-3 right-14 w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: isPlanned ? TEAL : "rgba(255,255,255,0.9)" }}
+              title="Aggiungi all'itinerario"
+            >
+              {isPlanned ? <CalendarCheck2 size={15} color="#FFFFFF" /> : <CalendarPlus size={15} color={TEAL} />}
             </button>
             <button onClick={() => onOpenPlace(place)} className="w-full text-left block p-4 active:scale-[0.99] transition-transform">
               <p className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "20px", color: INK }}>
@@ -1933,7 +2015,7 @@ export default function GuestWelcomeBook({ accessToken, property, notFound, gues
           {authed && tab === "excursions" && <ExcursionsScreen />}
           {authed && tab === "menu" && <MenuScreen />}
           {authed && tab === "chat" && <ChatScreen t={t} />}
-          {authed && tab === "itinerary" && <ItineraryScreen goExcursions={() => setTab("excursions")} goEvents={() => setTab("events")} goMenu={() => setTab("menu")} />}
+          {authed && tab === "itinerary" && <ItineraryScreen goExcursions={() => setTab("excursions")} goEvents={() => setTab("events")} goMenu={() => setTab("menu")} onOpenPlace={setPlace} />}
           {authed && tab === "struttura" && <StructureScreen openFeedback={() => setFeedbackOpen(true)} />}
             </>
           )}

@@ -3848,11 +3848,13 @@ function HostAuthScreen({ onSuccess }) {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center py-10" style={{ backgroundColor: AZURE }}>
+    <div className="w-full min-h-screen flex" style={{ backgroundColor: INK }}>
       <style>{`
         @import url(https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap);
       `}</style>
-      <div className="w-full max-w-md rounded-3xl overflow-hidden" style={{ backgroundColor: PAPER, boxShadow: "0 20px 60px rgba(27,42,65,0.25)" }}>
+
+      <div className="flex-1 flex items-center justify-center py-10 px-4">
+      <div className="w-full max-w-md rounded-3xl overflow-hidden" style={{ backgroundColor: PAPER, boxShadow: "0 20px 60px rgba(0,0,0,0.35)" }}>
         <div className="px-8 pt-8 pb-6 text-center" style={{ backgroundColor: AZURE_DARK }}>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 border-2" style={{ borderColor: BRASS, borderStyle: "dashed" }}>
             <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
@@ -4010,6 +4012,47 @@ function HostAuthScreen({ onSuccess }) {
           )}
         </form>
         )}
+      </div>
+      </div>
+
+      <div className="hidden lg:flex flex-1 items-center justify-center relative overflow-hidden" style={{ backgroundColor: "#FFFFFF" }}>
+        <svg width="70%" height="70%" viewBox="0 0 400 500" fill="none" style={{ maxWidth: "420px" }}>
+          <path d="M60 380 C 110 380, 100 300, 150 300" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
+          <path d="M60 380 C 90 340, 160 260, 210 220" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
+          <path d="M60 380 C 140 360, 220 300, 280 190" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
+          <path d="M60 380 C 150 400, 230 420, 300 400" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
+
+          <rect x="140" y="70" width="180" height="360" rx="28" fill={PAPER} stroke={LINE} strokeWidth="2" />
+          <rect x="156" y="94" width="148" height="290" rx="6" fill="#F1EAD9" />
+          <line x1="156" y1="140" x2="304" y2="140" stroke="#E4DAC4" strokeWidth="1.5" />
+          <line x1="156" y1="190" x2="304" y2="190" stroke="#E4DAC4" strokeWidth="1.5" />
+          <line x1="156" y1="240" x2="304" y2="240" stroke="#E4DAC4" strokeWidth="1.5" />
+          <line x1="156" y1="290" x2="304" y2="290" stroke="#E4DAC4" strokeWidth="1.5" />
+          <line x1="156" y1="340" x2="304" y2="340" stroke="#E4DAC4" strokeWidth="1.5" />
+          <line x1="200" y1="94" x2="200" y2="384" stroke="#E4DAC4" strokeWidth="1.5" />
+          <line x1="245" y1="94" x2="245" y2="384" stroke="#E4DAC4" strokeWidth="1.5" />
+
+          <g>
+            <circle cx="60" cy="380" r="20" fill={CLAY} opacity="0.12" />
+            <path d="M60 366 C 71 366, 79 374, 79 384 C 79 397, 60 412, 60 412 C 60 412, 41 397, 41 384 C 41 374, 49 366, 60 366 Z" fill={CLAY} />
+            <circle cx="60" cy="384" r="6" fill="#FFFFFF" />
+          </g>
+          <g>
+            <circle cx="210" cy="220" r="20" fill={TEAL} opacity="0.12" />
+            <path d="M210 206 C 221 206, 229 214, 229 224 C 229 237, 210 252, 210 252 C 210 252, 191 237, 191 224 C 191 214, 199 206, 210 206 Z" fill={TEAL} />
+            <circle cx="210" cy="224" r="6" fill="#FFFFFF" />
+          </g>
+          <g>
+            <circle cx="280" cy="190" r="24" fill={BRASS} opacity="0.15" />
+            <path d="M280 172 C 293 172, 302 181, 302 193 C 302 208, 280 227, 280 227 C 280 227, 258 208, 258 193 C 258 181, 267 172, 280 172 Z" fill={BRASS} />
+            <text x="280" y="199" textAnchor="middle" fontSize="17" fontWeight="700" fill={INK}>!</text>
+          </g>
+          <g>
+            <circle cx="300" cy="400" r="18" fill={TEAL} opacity="0.12" />
+            <path d="M300 388 C 309 388, 316 395, 316 403 C 316 414, 300 427, 300 427 C 300 427, 284 414, 284 403 C 284 395, 291 388, 300 388 Z" fill={TEAL} />
+            <circle cx="300" cy="403" r="5" fill="#FFFFFF" />
+          </g>
+        </svg>
       </div>
     </div>
   );

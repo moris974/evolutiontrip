@@ -3728,7 +3728,8 @@ function ExcursionsManager() {
 }
 
 function HostAuthScreen({ onSuccess }) {
-  const [mode, setMode] = useState("register"); // "register" | "login" | "forgot"
+  const [mode, setMode] = useState("login"); // "register" | "login" | "forgot"
+  const [remember, setRemember] = useState(true);
   const [form, setForm] = useState({ structureName: "", fullName: "", email: "", password: "", confirm: "" });
   const [resetEmail, setResetEmail] = useState("");
   const [resetSent, setResetSent] = useState(false);
@@ -3867,33 +3868,12 @@ function HostAuthScreen({ onSuccess }) {
             EVOLUTIONTRIP HOST
           </p>
           <p className="italic mt-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: PARCHMENT }}>
-            {mode === "register" ? "Create il vostro account gratuito" : mode === "forgot" ? "Reimpostate la password" : "Bentornati"}
+            {mode === "register" ? "Create il vostro account gratuito" : mode === "forgot" ? "Reimpostate la password" : "Consigli per i tuoi ospiti"}
           </p>
         </div>
 
-        <div className="flex gap-1 p-1 m-6 mb-2 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
-          <button
-            onClick={() => { setMode("register"); setError(""); }}
-            className="flex-1 py-2 rounded-full"
-            style={{ backgroundColor: mode === "register" ? INK : "transparent" }}
-          >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: mode === "register" ? PARCHMENT : INK }}>
-              Nuova struttura
-            </span>
-          </button>
-          <button
-            onClick={() => { setMode("login"); setError(""); }}
-            className="flex-1 py-2 rounded-full"
-            style={{ backgroundColor: mode === "login" ? INK : "transparent" }}
-          >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: mode === "login" ? PARCHMENT : INK }}>
-              Ho già un account
-            </span>
-          </button>
-        </div>
-
         {mode === "forgot" ? (
-          <form onSubmit={submitReset} noValidate className="px-6 pb-6 space-y-3">
+          <form onSubmit={submitReset} noValidate className="px-6 pt-6 pb-6 space-y-3">
             {resetSent ? (
               <div className="text-center py-2">
                 <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 border-2" style={{ borderColor: TEAL, borderStyle: "dashed" }}>
@@ -3937,7 +3917,7 @@ function HostAuthScreen({ onSuccess }) {
             )}
           </form>
         ) : (
-        <form onSubmit={submit} noValidate className="px-6 pb-6 space-y-3">
+        <form onSubmit={submit} noValidate className="px-6 pt-6 pb-6 space-y-3">
           {mode === "register" && (
             <>
               <Field label="Nome della struttura">
@@ -3960,7 +3940,7 @@ function HostAuthScreen({ onSuccess }) {
               </Field>
             </>
           )}
-          <Field label="Email">
+          <Field label={mode === "register" ? "Email" : "Nome utente"}>
             <input
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -3978,12 +3958,15 @@ function HostAuthScreen({ onSuccess }) {
               className="w-full px-3 py-2.5 rounded-xl outline-none"
               style={inputStyle()}
             />
-            {mode === "login" && (
-              <button type="button" onClick={() => { setMode("forgot"); setError(""); }} className="mt-1.5">
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: TEAL }}>Password dimenticata?</span>
-              </button>
-            )}
           </Field>
+          {mode === "login" && (
+            <button type="button" onClick={() => setRemember(!remember)} className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded flex items-center justify-center" style={{ border: `1.5px solid ${LINE}`, backgroundColor: remember ? CLAY : "transparent" }}>
+                {remember && <Check size={11} color={PARCHMENT} />}
+              </div>
+              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: INK }}>Ricordami</span>
+            </button>
+          )}
           {mode === "register" && (
             <Field label="Conferma password">
               <input
@@ -4005,10 +3988,36 @@ function HostAuthScreen({ onSuccess }) {
             </span>
           </button>
 
+          {mode === "login" && (
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => { setMode("register"); setError(""); }}
+                className="flex-1 py-2.5 rounded-full"
+                style={{ border: `1px solid ${LINE}` }}
+              >
+                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Registrati</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => { setMode("forgot"); setError(""); }}
+                className="flex-1 py-2.5 rounded-full"
+                style={{ border: `1px solid ${LINE}` }}
+              >
+                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Password dimenticata</span>
+              </button>
+            </div>
+          )}
+
           {mode === "register" && (
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371", textAlign: "center" }}>
-              Nessuna carta richiesta ora. Creando l'account accettate termini e informativa privacy.
-            </p>
+            <>
+              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371", textAlign: "center" }}>
+                Nessuna carta richiesta ora. Creando l'account accettate termini e informativa privacy.
+              </p>
+              <button type="button" onClick={() => { setMode("login"); setError(""); }} className="w-full py-1">
+                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: TEAL }}>Avete già un account? Accedi</span>
+              </button>
+            </>
           )}
         </form>
         )}

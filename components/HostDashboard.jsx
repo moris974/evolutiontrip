@@ -3864,24 +3864,15 @@ function HostAuthScreen({ onSuccess }) {
       <div className="flex-1 flex items-center justify-center py-10 px-4">
       <div className="w-full max-w-md rounded-3xl overflow-hidden" style={{ backgroundColor: PAPER, boxShadow: "0 20px 60px rgba(0,0,0,0.35)" }}>
         <div className="px-8 pt-8 pb-6 text-center" style={{ backgroundColor: AUTH_PURPLE }}>
-          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 border-2" style={{ borderColor: AUTH_CORAL, borderStyle: "dashed" }}>
-            <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
-              <path d="M3 20 C 7 20, 6 13, 11 13 C 16 13, 15 6, 21 6" stroke={AUTH_CORAL} strokeWidth="2.4" strokeLinecap="round" fill="none" />
-              <circle cx="3" cy="20" r="2.4" fill={AUTH_CORAL} />
-              <path d="M17.5 3 L21 6 L17.5 9" stroke={AUTH_CORAL} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
+          <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-3 border-2 bg-white" style={{ borderColor: AUTH_CORAL }}>
+            <img src="/logo-icon.png" alt="EvolutionTrip" className="w-full h-full object-cover" />
           </div>
           <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", letterSpacing: "0.12em", color: AUTH_CORAL }}>
-            EVOLUTIONTRIP HOST
+            I CONSIGLI PER I TUOI OSPITI
           </p>
           <p className="mt-1" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "22px", fontWeight: 800, color: mode === "login" ? AUTH_CORAL : PARCHMENT }}>
             {mode === "register" ? "Create il vostro account gratuito" : mode === "forgot" ? "Reimpostate la password" : "Login"}
           </p>
-          {mode === "login" && (
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#D9CDEE", marginTop: "2px" }}>
-              Consigli per i tuoi ospiti
-            </p>
-          )}
         </div>
 
         {mode === "forgot" ? (

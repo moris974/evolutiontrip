@@ -122,6 +122,8 @@ function propertyRowToViewModel(row) {
     noticeActive: !!row.notice_active,
     noticeTitle: row.notice_title || "",
     noticeMessage: row.notice_message || "",
+    logoUrl: row.logo_url || null,
+    coverPhotoUrl: row.cover_photo_url || null,
   };
 }
 
@@ -800,16 +802,23 @@ function BottomNav({ tab, setTab, t }) {
   );
 }
 function TopAppBar({ goChat, lang, setLang }) {
+  const PROPERTY = useGuestProperty();
   return (
     <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: "#FFFDF8", borderBottom: "1px solid #E4DAC4" }}>
       <button onClick={goChat} className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: "#E7F7EC" }}>
         <MessageCircle size={17} color="#25D366" />
       </button>
       <div className="flex items-center gap-2">
-        <div className="w-7 h-7 rounded-full flex items-center justify-center border" style={{ borderColor: BLUE }}>
-          <Compass size={13} color={BLUE} />
-        </div>
-        <span className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "15px", color: INK }}>EvolutionTrip</span>
+        {PROPERTY.logoUrl ? (
+          <div className="w-7 h-7 rounded-full overflow-hidden border" style={{ borderColor: BLUE }}>
+            <img src={PROPERTY.logoUrl} alt="" className="w-full h-full object-cover" />
+          </div>
+        ) : (
+          <div className="w-7 h-7 rounded-full flex items-center justify-center border" style={{ borderColor: BLUE }}>
+            <Compass size={13} color={BLUE} />
+          </div>
+        )}
+        <span className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "15px", color: INK }}>{PROPERTY.name}</span>
       </div>
       <LanguageSwitch lang={lang} setLang={setLang} light />
     </div>

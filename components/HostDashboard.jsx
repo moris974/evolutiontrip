@@ -3728,6 +3728,13 @@ function ExcursionsManager() {
 }
 
 function HostAuthScreen({ onSuccess }) {
+  // Colori dedicati a questa schermata (viola scuro + rosa corallo),
+  // usati SOLO qui: il resto della dashboard resta con la sua palette
+  // abituale (blu notte/rame/ottone).
+  const AUTH_PURPLE = "#3D1B7A";
+  const AUTH_PURPLE_DARK = "#2E1560";
+  const AUTH_CORAL = "#E8768C";
+  const AUTH_CORAL_DARK = "#D96481";
   const [mode, setMode] = useState("login"); // "register" | "login" | "forgot"
   const [remember, setRemember] = useState(true);
   const [form, setForm] = useState({ structureName: "", fullName: "", email: "", password: "", confirm: "" });
@@ -3849,27 +3856,32 @@ function HostAuthScreen({ onSuccess }) {
   };
 
   return (
-    <div className="w-full min-h-screen flex" style={{ backgroundColor: INK }}>
+    <div className="w-full min-h-screen flex" style={{ backgroundColor: AUTH_PURPLE_DARK }}>
       <style>{`
         @import url(https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap);
       `}</style>
 
       <div className="flex-1 flex items-center justify-center py-10 px-4">
       <div className="w-full max-w-md rounded-3xl overflow-hidden" style={{ backgroundColor: PAPER, boxShadow: "0 20px 60px rgba(0,0,0,0.35)" }}>
-        <div className="px-8 pt-8 pb-6 text-center" style={{ backgroundColor: AZURE_DARK }}>
-          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 border-2" style={{ borderColor: BRASS, borderStyle: "dashed" }}>
+        <div className="px-8 pt-8 pb-6 text-center" style={{ backgroundColor: AUTH_PURPLE }}>
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 border-2" style={{ borderColor: AUTH_CORAL, borderStyle: "dashed" }}>
             <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
-              <path d="M3 20 C 7 20, 6 13, 11 13 C 16 13, 15 6, 21 6" stroke={BRASS} strokeWidth="2.4" strokeLinecap="round" fill="none" />
-              <circle cx="3" cy="20" r="2.4" fill={BRASS} />
-              <path d="M17.5 3 L21 6 L17.5 9" stroke={BRASS} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <path d="M3 20 C 7 20, 6 13, 11 13 C 16 13, 15 6, 21 6" stroke={AUTH_CORAL} strokeWidth="2.4" strokeLinecap="round" fill="none" />
+              <circle cx="3" cy="20" r="2.4" fill={AUTH_CORAL} />
+              <path d="M17.5 3 L21 6 L17.5 9" stroke={AUTH_CORAL} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
             </svg>
           </div>
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", letterSpacing: "0.12em", color: BRASS }}>
+          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", letterSpacing: "0.12em", color: AUTH_CORAL }}>
             EVOLUTIONTRIP HOST
           </p>
-          <p className="italic mt-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: PARCHMENT }}>
-            {mode === "register" ? "Create il vostro account gratuito" : mode === "forgot" ? "Reimpostate la password" : "Consigli per i tuoi ospiti"}
+          <p className="mt-1" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "22px", fontWeight: 800, color: mode === "login" ? AUTH_CORAL : PARCHMENT }}>
+            {mode === "register" ? "Create il vostro account gratuito" : mode === "forgot" ? "Reimpostate la password" : "Login"}
           </p>
+          {mode === "login" && (
+            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#D9CDEE", marginTop: "2px" }}>
+              Consigli per i tuoi ospiti
+            </p>
+          )}
         </div>
 
         {mode === "forgot" ? (
@@ -3906,8 +3918,8 @@ function HostAuthScreen({ onSuccess }) {
                     style={inputStyle()}
                   />
                 </Field>
-                {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: CLAY }}>{error}</p>}
-                <button type="submit" className="w-full py-3 rounded-full mt-2 active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
+                {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: AUTH_CORAL_DARK }}>{error}</p>}
+                <button type="submit" className="w-full py-3 rounded-full mt-2 active:scale-[0.98] transition-transform" style={{ backgroundColor: AUTH_CORAL }}>
                   <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>Invia link di reset</span>
                 </button>
                 <button type="button" onClick={() => { setMode("login"); setError(""); }} className="w-full py-2">
@@ -3982,7 +3994,7 @@ function HostAuthScreen({ onSuccess }) {
 
           {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: CLAY }}>{error}</p>}
 
-          <button type="submit" className="w-full py-3 rounded-full mt-2 active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
+          <button type="submit" className="w-full py-3 rounded-full mt-2 active:scale-[0.98] transition-transform" style={{ backgroundColor: AUTH_CORAL }}>
             <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>
               {mode === "register" ? "Inizia la prova gratuita di 14 giorni" : "Accedi"}
             </span>
@@ -4026,10 +4038,10 @@ function HostAuthScreen({ onSuccess }) {
 
       <div className="hidden lg:flex flex-1 items-center justify-center relative overflow-hidden" style={{ backgroundColor: "#FFFFFF" }}>
         <svg width="70%" height="70%" viewBox="0 0 400 500" fill="none" style={{ maxWidth: "420px" }}>
-          <path d="M60 380 C 110 380, 100 300, 150 300" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
-          <path d="M60 380 C 90 340, 160 260, 210 220" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
-          <path d="M60 380 C 140 360, 220 300, 280 190" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
-          <path d="M60 380 C 150 400, 230 420, 300 400" stroke={LINE} strokeWidth="2" strokeDasharray="5 5" fill="none" />
+          <path d="M60 380 C 110 380, 100 300, 150 300" stroke={AUTH_CORAL} strokeWidth="2" strokeDasharray="5 5" fill="none" opacity="0.5" />
+          <path d="M60 380 C 90 340, 160 260, 210 220" stroke={AUTH_CORAL} strokeWidth="2" strokeDasharray="5 5" fill="none" opacity="0.5" />
+          <path d="M60 380 C 140 360, 220 300, 280 190" stroke={AUTH_CORAL} strokeWidth="2" strokeDasharray="5 5" fill="none" opacity="0.5" />
+          <path d="M60 380 C 150 400, 230 420, 300 400" stroke={AUTH_CORAL} strokeWidth="2" strokeDasharray="5 5" fill="none" opacity="0.5" />
 
           <rect x="140" y="70" width="180" height="360" rx="28" fill={PAPER} stroke={LINE} strokeWidth="2" />
           <rect x="156" y="94" width="148" height="290" rx="6" fill="#F1EAD9" />
@@ -4042,26 +4054,29 @@ function HostAuthScreen({ onSuccess }) {
           <line x1="245" y1="94" x2="245" y2="384" stroke="#E4DAC4" strokeWidth="1.5" />
 
           <g>
-            <circle cx="60" cy="380" r="20" fill={CLAY} opacity="0.12" />
-            <path d="M60 366 C 71 366, 79 374, 79 384 C 79 397, 60 412, 60 412 C 60 412, 41 397, 41 384 C 41 374, 49 366, 60 366 Z" fill={CLAY} />
+            <circle cx="60" cy="380" r="20" fill={AUTH_CORAL} opacity="0.15" />
+            <path d="M60 366 C 71 366, 79 374, 79 384 C 79 397, 60 412, 60 412 C 60 412, 41 397, 41 384 C 41 374, 49 366, 60 366 Z" fill={AUTH_CORAL} />
             <circle cx="60" cy="384" r="6" fill="#FFFFFF" />
           </g>
           <g>
-            <circle cx="210" cy="220" r="20" fill={TEAL} opacity="0.12" />
-            <path d="M210 206 C 221 206, 229 214, 229 224 C 229 237, 210 252, 210 252 C 210 252, 191 237, 191 224 C 191 214, 199 206, 210 206 Z" fill={TEAL} />
+            <circle cx="210" cy="220" r="20" fill={AUTH_CORAL} opacity="0.15" />
+            <path d="M210 206 C 221 206, 229 214, 229 224 C 229 237, 210 252, 210 252 C 210 252, 191 237, 191 224 C 191 214, 199 206, 210 206 Z" fill={AUTH_CORAL} />
             <circle cx="210" cy="224" r="6" fill="#FFFFFF" />
           </g>
           <g>
-            <circle cx="280" cy="190" r="24" fill={BRASS} opacity="0.15" />
-            <path d="M280 172 C 293 172, 302 181, 302 193 C 302 208, 280 227, 280 227 C 280 227, 258 208, 258 193 C 258 181, 267 172, 280 172 Z" fill={BRASS} />
-            <text x="280" y="199" textAnchor="middle" fontSize="17" fontWeight="700" fill={INK}>!</text>
+            <circle cx="280" cy="190" r="24" fill={AUTH_CORAL_DARK} opacity="0.18" />
+            <path d="M280 172 C 293 172, 302 181, 302 193 C 302 208, 280 227, 280 227 C 280 227, 258 208, 258 193 C 258 181, 267 172, 280 172 Z" fill={AUTH_CORAL_DARK} />
+            <text x="280" y="199" textAnchor="middle" fontSize="17" fontWeight="700" fill="#FFFFFF">!</text>
           </g>
           <g>
-            <circle cx="300" cy="400" r="18" fill={TEAL} opacity="0.12" />
-            <path d="M300 388 C 309 388, 316 395, 316 403 C 316 414, 300 427, 300 427 C 300 427, 284 414, 284 403 C 284 395, 291 388, 300 388 Z" fill={TEAL} />
+            <circle cx="300" cy="400" r="18" fill={AUTH_CORAL} opacity="0.15" />
+            <path d="M300 388 C 309 388, 316 395, 316 403 C 316 414, 300 427, 300 427 C 300 427, 284 414, 284 403 C 284 395, 291 388, 300 388 Z" fill={AUTH_CORAL} />
             <circle cx="300" cy="403" r="5" fill="#FFFFFF" />
           </g>
         </svg>
+        <div className="absolute bottom-8 right-8 w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: AUTH_CORAL, boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}>
+          <MessageCircle size={22} color="#FFFFFF" />
+        </div>
       </div>
     </div>
   );

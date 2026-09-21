@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EvolutionTrip – Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        sidebar: 'var(--sidebar)',
+        accent: 'var(--accent)',
+        alert: 'var(--alert)',
+        page: 'var(--bg)',
+        card: 'var(--card)',
+        line: 'var(--border)',
+        ink: 'var(--ink)',
+        muted: 'var(--muted)',
+        tile: 'var(--tile)',
+        ok: 'var(--ok)',
+        guide: 'var(--guide-bg)',
+        'guide-ink': 'var(--guide-ink)'
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'system-ui', 'Segoe UI', 'sans-serif'],
+        logo: ['"Playfair Display"', 'Georgia', 'serif']
+      }
+    }
+  }
+};
+</script>
+<style>
+  :root {
+    --sidebar: #310e80;
+    --accent: #db5c70;
+    --alert: #5314b3;
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --border: #e3e5e8;
+    --ink: #1f2430;
+    --muted: #6b7280;
+    --tile: #efe9fb;
+    --ok: #15803d;
+    --guide-bg: #4fb9d6;
+    --guide-ink: #ffffff;
+    --dash: #c4c7cc;
+    --email: #7a5fb3;
+    --chev-bg: #f0f0f0;
+    --chev: #666666;
+    --field: #eeeeee;
+    --link: #2b6cb0;
+    --warn: #a16207;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141021;
+      --card: #1e1832;
+      --border: #352b52;
+      --ink: #f1eefb;
+      --muted: #a9a1c2;
+      --tile: #2d2250;
+      --ok: #4ade80;
+      --guide-bg: #2f8ea8;
+      --guide-ink: #ffffff;
+      --dash: #4a3f6b;
+      --email: #b9a7e6;
+      --chev-bg: #2a2244;
+      --chev: #c9c1e0;
+      --field: #2a2244;
+      --link: #8ec5ff;
+      --warn: #facc15;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141021;
+    --card: #1e1832;
+    --border: #352b52;
+    --ink: #f1eefb;
+    --muted: #a9a1c2;
+    --tile: #2d2250;
+    --ok: #4ade80;
+    --guide-bg: #2f8ea8;
+    --guide-ink: #ffffff;
+    --dash: #4a3f6b;
+    --email: #b9a7e6;
+    --chev-bg: #2a2244;
+    --chev: #c9c1e0;
+    --field: #2a2244;
+    --link: #8ec5ff;
+      --warn: #facc15;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body { background: var(--bg); color: var(--ink); font-family: Montserrat, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: 2px solid var(--alert); outline-offset: 2px; }
+  #sidebar :focus-visible { outline-color: #ffffff; }
+  [data-theme="dark"] :focus-visible { outline-color: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) :focus-visible { outline-color: #ffffff; } }
+  .card-btn { transition: border-color .15s; }
+  .card-btn:hover { border-color: var(--accent); }
+  .chev { background: var(--chev-bg); color: var(--chev); }
+  .field { background: var(--field); }
+  .field:focus-within { outline: 2px solid var(--alert); outline-offset: 2px; }
+  .dashed { border: 1px dashed var(--dash); }
+  .email-box { border: 1px dashed var(--dash); color: var(--email); }
+  .btn-y { background: #e8bd3a; color: #ffffff; }
+  .btn-g { background: #3f9142; color: #ffffff; }
+  .btn-y:hover, .btn-g:hover { filter: brightness(.95); }
+  .dl-link { color: var(--link); }
+  .dl-link:hover { text-decoration: underline; }
+  .pill { border: 1px solid var(--accent); color: var(--accent); background: var(--card); border-radius: 6px; padding: 5px 14px; font-size: 12px; font-weight: 500; }
+  .pill:hover { background: var(--accent); color: #fff; }
+  .inp { width: 100%; border: 1px solid var(--border); background: var(--bg); color: var(--ink); border-radius: 6px; padding: 8px 10px; font-size: 14px; }
+  .inp::placeholder { color: var(--muted); }
+  .sw { position: relative; width: 38px; height: 22px; border-radius: 999px; background: var(--dash); transition: background .15s; }
+  .sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .15s; }
+  .sw[aria-checked="true"] { background: var(--ok); }
+  .sw[aria-checked="true"]::after { transform: translateX(16px); }
+  .badge { display: inline-block; border-radius: 999px; padding: 2px 9px; font-size: 11px; font-weight: 600; background: color-mix(in srgb, currentColor 14%, transparent); }
+  .b-ok { color: var(--ok); } .b-warn { color: var(--warn); } .b-info { color: var(--link); } .b-muted { color: var(--muted); } .b-bad { color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body class="min-h-full">
+
+<!-- Overlay mobile -->
+<div id="overlay" class="fixed inset-0 z-30 hidden bg-black/50 lg:hidden"></div>
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-[280px] -translate-x-full flex-col bg-sidebar text-white transition-transform duration-200 lg:translate-x-0"
+       style="padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)">
+  <div class="flex items-center justify-between px-6 pb-5 pt-6">
+    <a href="#" id="logo" class="flex items-center gap-2.5" aria-label="EvolutionTrip – vai alla dashboard">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+        <rect width="34" height="34" rx="9" fill="#ffffff" fill-opacity=".1"/>
+        <path d="M7 26v-5h6v-5h6v-5h5" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="26.5" cy="9" r="2.7" fill="#db5c70"/>
+      </svg>
+      <span class="font-logo text-[22px] font-semibold leading-none tracking-tight">Evolution<span class="italic" style="color:var(--accent)">Trip</span></span>
+    </a>
+    <button id="closeSidebar" class="rounded-md p-1.5 text-white/80 hover:bg-white/10 lg:hidden" aria-label="Chiudi menu">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <nav id="menu" class="flex-1 overflow-y-auto px-3 py-2" aria-label="Menu principale"></nav>
+
+  <div class="px-6 py-5 text-center text-sm text-white">
+    <a href="#" class="underline-offset-2 hover:underline" data-noop>Termini e Privacy</a>
+  </div>
+</aside>
+
+<!-- AREA PRINCIPALE -->
+<div class="lg:pl-[280px]">
+  <header class="sticky z-20 border-b border-line bg-page lg:static lg:border-0" style="top:env(safe-area-inset-top,0px)">
+    <div class="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-3 gap-y-2 px-4 py-3 sm:px-8">
+      <button id="openSidebar" class="rounded-md p-2 text-ink hover:bg-tile lg:hidden" aria-label="Apri menu">
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="flex-1"></div>
+      <button data-go="guida" class="order-last inline-flex w-full items-center justify-center gap-1.5 rounded bg-guide px-2.5 py-1.5 text-xs font-semibold text-guide-ink hover:brightness-95 sm:order-none sm:w-auto">
+        <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.7.4-1.2.9-1.2 1.8M12 17h.01" stroke="var(--guide-bg)" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+        Guida alla configurazione di EvolutionTrip
+      </button>
+      <div class="email-box inline-flex items-center gap-1.5 rounded px-2.5 py-1.5 text-xs" aria-label="Utente connesso">
+        <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8" r="4.4"/><path d="M4 21a8 8 0 0 1 16 0z"/></svg>
+        <span class="max-w-[200px] truncate sm:max-w-none">info@hotelcriss.net</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-[1180px] px-4 pb-32 pt-1 sm:px-8">
+
+    <!-- Vista Dashboard -->
+    <section id="view-dashboard">
+      <h1 class="sr-only">Dashboard</h1>
+
+      <button id="openAlert" class="inline-flex items-center gap-2 rounded-md bg-alert px-4 py-2.5 text-sm font-medium text-white hover:brightness-110">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a1.5 1.5 0 0 1 1.5 1.5v.6A6 6 0 0 1 18 10v4l2 3H4l2-3v-4a6 6 0 0 1 4.5-5.9v-.6A1.5 1.5 0 0 1 12 2zM10 19h4a2 2 0 0 1-4 0z"/></svg>
+        Crea avvisi in evidenza
+      </button>
+
+      <div id="alerts" class="mt-4 space-y-3 lg:min-h-[170px]" aria-live="polite"></div>
+
+      <div class="mt-4 grid grid-cols-1 gap-x-[10px] gap-y-2 md:grid-cols-2 lg:grid-cols-3">
+        <div id="col1" class="space-y-2"></div>
+        <div id="col2" class="space-y-2"></div>
+      </div>
+
+      <section id="invite" class="dashed mt-5 scroll-mt-16 rounded-sm p-3 sm:p-3.5">
+        <p class="text-[15px] leading-snug text-ink">Invita i tuoi ospiti a scaricare l'APP per vivere la migliore esperienza di soggiorno nella tua struttura. Come?</p>
+
+        <p class="mt-5 text-[11.5px] text-ink">1) copiando il link di seguito da inviare per email, whatsapp, social, ecc.</p>
+        <div class="mt-3 flex flex-wrap items-center gap-2">
+          <span id="appUrl" class="field break-all rounded-sm px-2.5 py-1.5 text-[11.5px] text-muted">https://evolutiontrip.it/api/app_preview.php?structureID=156&amp;originID=2</span>
+          <button id="btnPreview" class="btn-y inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-[11.5px] font-semibold">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 5C6 5 2 12 2 12s4 7 10 7 10-7 10-7-4-7-10-7zm0 11.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/><circle cx="12" cy="12" r="2.2"/></svg>Anteprima
+          </button>
+          <button id="btnCopy" class="btn-y inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-[11.5px] font-semibold">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9 3h6v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h3V3zm1.5 1.5v2h3v-2h-3z"/></svg>Copia
+          </button>
+          <a id="btnWa" href="#" target="_blank" rel="noopener" class="btn-g inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-[11.5px] font-semibold">
+            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.3z"/></svg>Invia con Whatsapp
+          </a>
+        </div>
+
+        <p class="mt-4 text-[11.5px] font-semibold text-ink">Seleziona il colore della tua APP</p>
+        <label class="field mt-1.5 inline-flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-[11.5px] text-muted">
+          <span id="swatch" class="h-3.5 w-3.5 rounded-sm" style="background:#ff1c52"></span>
+          <span id="hex">#FF1C52</span>
+          <input id="colorInput" type="color" value="#ff1c52" class="sr-only" aria-label="Scegli il colore dell'APP">
+        </label>
+
+        <p class="mt-8 text-[11.5px] text-ink">2) scaricando il volantino con il QRCode che potrai stampare ed esporre in struttura</p>
+        <div class="mt-3 flex flex-col gap-3 sm:flex-row">
+          <div id="flyerBox" class="grid w-full place-items-center rounded-sm border border-line bg-card px-4 py-6 sm:w-[348px] sm:shrink-0 sm:px-[63px] sm:py-[42px]" style="--app:#ff1c52"></div>
+          <div class="text-[11.5px] leading-5 sm:pt-3">
+            <a href="#" data-dl class="dl-link inline-flex items-center gap-1"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>Scarica volantino</a><br>
+            <a href="#" data-dl class="dl-link inline-flex items-center gap-1"><svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>Scarica solo il QR Code</a>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Sezioni del menu (generate da JS) -->
+    <section id="view-section" class="hidden"></section>
+  </main>
+</div>
+
+<!-- MODALE AVVISO -->
+<div id="alertModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-labelledby="alertTitle">
+  <div class="w-full max-w-md rounded-xl border border-line bg-card p-6 shadow-xl">
+    <div class="flex items-start justify-between gap-4">
+      <h2 id="alertTitle" class="text-lg font-semibold text-ink">Crea un avviso in evidenza</h2>
+      <button id="closeAlert" class="rounded-md p-1 text-muted hover:bg-tile" aria-label="Chiudi">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <p class="mt-1 text-sm text-muted">L'avviso comparirà in alto nell'app dei tuoi ospiti.</p>
+    <form id="alertForm" class="mt-5 space-y-4">
+      <label class="block text-sm font-medium text-ink">Titolo
+        <input id="alertInput" required maxlength="60" class="mt-1.5 w-full rounded-lg border border-line bg-page px-3 py-2.5 text-sm text-ink placeholder:text-muted" placeholder="Es. Piscina chiusa per manutenzione">
+      </label>
+      <label class="block text-sm font-medium text-ink">Messaggio
+        <textarea id="alertText" rows="3" maxlength="240" class="mt-1.5 w-full resize-none rounded-lg border border-line bg-page px-3 py-2.5 text-sm text-ink placeholder:text-muted" placeholder="Aggiungi i dettagli per gli ospiti"></textarea>
+      </label>
+      <div class="flex justify-end gap-3 pt-1">
+        <button type="button" id="cancelAlert" class="rounded-lg border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:bg-tile">Annulla</button>
+        <button type="submit" class="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:brightness-105">Pubblica avviso</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- CHAT DI ASSISTENZA -->
+<div id="chat" class="fixed right-4 z-40 hidden w-[360px] max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-2xl border border-line bg-card shadow-2xl sm:right-6"
+     style="bottom:calc(5.75rem + env(safe-area-inset-bottom,0px));max-height:min(70vh,520px)" role="dialog" aria-label="Chat di assistenza EvolutionTrip">
+  <div class="flex items-center gap-3 bg-sidebar px-4 py-3 text-white">
+    <span class="grid h-9 w-9 place-items-center rounded-full bg-accent">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></svg>
+    </span>
+    <div class="flex-1">
+      <p class="text-sm font-semibold leading-tight">Assistenza EvolutionTrip</p>
+      <p class="text-xs text-white/70">Risposte rapide</p>
+    </div>
+    <button id="closeChat" class="rounded-md p-1.5 text-white/80 hover:bg-white/10" aria-label="Chiudi chat">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div id="chatLog" class="flex-1 space-y-3 overflow-y-auto bg-page px-4 py-4 text-sm" aria-live="polite"></div>
+  <div id="chips" class="flex flex-wrap gap-2 border-t border-line bg-card px-4 py-3"></div>
+  <form id="chatForm" class="flex gap-2 border-t border-line bg-card p-3">
+    <input id="chatInput" class="min-w-0 flex-1 rounded-lg border border-line bg-page px-3 py-2.5 text-sm text-ink placeholder:text-muted" placeholder="Scrivi un messaggio" aria-label="Messaggio">
+    <button class="rounded-lg bg-accent px-4 text-sm font-semibold text-white hover:brightness-105" aria-label="Invia">Invia</button>
+  </form>
+</div>
+
+<!-- MESSAGGIO DI BENVENUTO CHAT -->
+<div id="teaser" class="fixed right-4 z-40 flex w-[210px] flex-col items-end gap-2 sm:right-6" style="bottom:calc(5.25rem + env(safe-area-inset-bottom,0px))">
+  <div class="w-full rounded-xl border border-line bg-card px-4 py-3 text-xs font-medium text-ink shadow-lg">👋 Ciao! Come posso aiutarti?</div>
+  <button class="pill" data-teaser="Ho una domanda">Ho una domanda</button>
+  <button class="pill" data-teaser="Dimmi di più">Dimmi di più</button>
+</div>
+
+<!-- FAB CHAT -->
+<button id="fab" class="fixed z-40 grid h-[52px] w-[52px] place-items-center rounded-full bg-accent text-white shadow-lg hover:brightness-105 right-4 sm:right-6"
+        style="bottom:calc(1.25rem + env(safe-area-inset-bottom,0px))" aria-label="Apri la chat di assistenza" aria-expanded="false">
+  <svg id="fabChat" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.9 3 3 6.500 3 10.800c0 2.300 1.100 4.300 2.900 5.700L5 21l4.300-2.200c.9.200 1.800.3 2.700.3 5.100 0 9-3.500 9-7.800S17.100 3 12 3z"/></svg>
+  <svg id="fabX" class="hidden h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  <span id="badge" class="absolute -right-0.5 -top-0.5 grid h-[18px] w-[18px] place-items-center rounded-full bg-[#e53935] text-[11px] font-bold leading-none text-white" aria-label="1 nuovo messaggio">1</span>
+</button>
+
+<!-- DIALOGO GENERICO -->
+<div id="dlg" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+  <form id="dlgForm" class="max-h-full w-full max-w-md overflow-y-auto rounded-xl border border-line bg-card p-6 shadow-xl">
+    <h2 id="dlgTitle" class="text-lg font-semibold text-ink"></h2>
+    <p id="dlgText" class="mt-1 text-sm leading-relaxed text-muted"></p>
+    <div id="dlgFields" class="mt-4 space-y-4"></div>
+    <div class="mt-5 flex justify-end gap-3">
+      <button type="button" id="dlgCancel" class="rounded-lg border border-line px-4 py-2.5 text-sm font-semibold text-ink hover:bg-tile">Annulla</button>
+      <button id="dlgOk" class="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:brightness-105"></button>
+    </div>
+  </form>
+</div>
+
+<!-- TOAST -->
+<div id="toast" role="status" class="pointer-events-none fixed left-1/2 z-[60] hidden -translate-x-1/2 rounded-lg bg-sidebar px-4 py-2.5 text-sm font-medium text-white shadow-lg"
+     style="bottom:calc(6rem + env(safe-area-inset-bottom,0px))"></div>
+
+<script>
+/* ---------- Icone ---------- */
+const I = {
+  dash:  '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+  bulb:  '<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  cal:   '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  msg:   '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/>',
+  mail:  '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  card:  '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/>',
+  bag:   '<path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/>',
+  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  help:  '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/>',
+  qr:    '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/>',
+  pyr:   '<path d="M12 3 3 20h18L12 3z"/><path d="M7.5 13.5h9"/>',
+  plane: '<path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>',
+  rocket:'<path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9s-2.1-.8-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-4 12 12 0 0 1 11-6c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1 5 0 5 0M12 15v5s3-.6 4-2c1-1.6 0-5 0-5"/>',
+  info:  '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+  bell:  '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+  chev:  '<path d="m9 6 6 6-6 6"/>',
+  x:     '<path d="M6 6l12 12M18 6 6 18"/>'
+};
+const svg = (n, cls = 'h-5 w-5') =>
+  `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]}</svg>`;
+
+/* ---------- Illustrazioni colorate (stile piatto) ---------- */
+const ART = {
+  a_dash: '<path d="M4 19A12 12 0 0 1 6.81 11.29L11.4 15.14A6 6 0 0 0 10 19Z" fill="#f1f1f1"/><path d="M6.81 11.29A12 12 0 0 1 13.92 7.18L14.96 13.09A6 6 0 0 0 11.4 15.14Z" fill="#fcd16a"/><path d="M13.92 7.18A12 12 0 0 1 22 8.61L19 13.8A6 6 0 0 0 14.96 13.09Z" fill="#f7a941"/><path d="M22 8.61A12 12 0 0 1 25.19 11.29L20.6 15.14A6 6 0 0 0 19 13.8Z" fill="#f0766a"/><path d="M25.19 11.29A12 12 0 0 1 28 19L22 19A6 6 0 0 0 20.6 15.14Z" fill="#1fc7cc"/><circle cx="16" cy="19" r="3.4" fill="#2b3a4d"/><circle cx="16" cy="19" r="1.1" fill="#5c6f86"/><rect x="8" y="24" width="16" height="1.6" rx=".8" fill="#2b3a4d"/><rect x="12" y="27.3" width="8" height="1.6" rx=".8" fill="#2b3a4d"/>',
+  a_bulb: '<g stroke="#f9c94b" stroke-width="1.7" stroke-linecap="round"><path d="M5.5 13H3M8.6 5.6 6.8 3.8M23.4 5.6l1.8-1.8M26.5 13H29M8.6 20.4l-1.8 1.8M23.4 20.4l1.8 1.8"/></g><circle cx="16" cy="13" r="7.6" fill="#f5b53c"/><circle cx="14" cy="10.6" r="4.6" fill="#f9cb5a"/><rect x="12" y="17" width="8" height="3.6" fill="#f5b53c"/><rect x="13" y="9.6" width="6" height="1.9" rx=".6" fill="#c0522f"/><rect x="15.05" y="9.6" width="1.9" height="6.2" rx=".6" fill="#c0522f"/><rect x="11.5" y="20.2" width="9" height="1.7" rx=".8" fill="#f1f3f8"/><rect x="11.5" y="22.4" width="9" height="1.7" rx=".8" fill="#a9bde6"/><rect x="12" y="24.6" width="8" height="1.7" rx=".8" fill="#f1f3f8"/><path d="M13.6 26.8h4.8a2.4 1.6 0 0 1-4.8 0z" fill="#3a3a4a"/>',
+  a_bars: '<rect x="5" y="14" width="6" height="13" rx="1" fill="#6fa8a3"/><rect x="13" y="9" width="6" height="18" rx="1" fill="#e9b84f"/><rect x="21" y="4" width="6" height="23" rx="1" fill="#c76162"/><rect x="3" y="27.4" width="26" height="1.7" rx=".8" fill="#4c5a3a"/>',
+  a_docs: '<rect x="11" y="3" width="14" height="20" rx="1.6" fill="#d3ccb9"/><path d="M6 7.5A1.5 1.5 0 0 1 7.5 6H17l5 5v15.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 6 26.5z" fill="#e8e3d5"/><path d="M17 6v4a1 1 0 0 0 1 1h4z" fill="#cf6b6b"/><rect x="9" y="12.5" width="5" height="1.5" rx=".7" fill="#d06463"/><rect x="9" y="16" width="10" height="1.5" rx=".7" fill="#d06463"/><rect x="9" y="19.5" width="10" height="1.5" rx=".7" fill="#d06463"/><rect x="9" y="23" width="8" height="1.5" rx=".7" fill="#d06463"/>',
+  a_mail: '<path d="M4 14.5 16 3.5l12 11V26a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="#ece6d6"/><path d="M8 10h16v10H8z" fill="#ffffff"/><g fill="#d45a5f"><rect x="8" y="11.3" width="16" height="1.6"/><rect x="8" y="14.3" width="16" height="1.6"/><rect x="8" y="17.3" width="16" height="1.6"/></g><path d="M4 14.5 16 23.5l12-9V26a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" fill="#e2dccb"/><path d="M4.5 15 16 23.3 27.5 15" fill="none" stroke="#a696c4" stroke-width="1"/>',
+  a_rocket: '<g transform="rotate(45 16 16)"><path d="M14 21Q16 29 18 21z" fill="#f28c3a"/><path d="M15 21Q16 25.5 17 21z" fill="#f9d15c"/><path d="M12 14 7 19.5 7.5 24 12 20.5z" fill="#f2b93b"/><path d="M20 14l5 5.5-.5 4.5-4.5-3.5z" fill="#e9a72c"/><path d="M16 3C21 7 21.5 14 20 19H12C10.5 14 11 7 16 3z" fill="#ece8dc"/><path d="M16 3c1.6 1.4 2.9 3 3.6 4.8h-7.2C13.1 6 14.4 4.4 16 3z" fill="#d9645f"/><circle cx="16" cy="11.6" r="2.7" fill="#3a3d44"/><circle cx="16" cy="11.6" r="1" fill="#6b7078"/><rect x="13" y="19" width="6" height="2" rx=".8" fill="#c9c3b5"/></g>',
+  a_fuel: '<rect x="9" y="3" width="7" height="2.6" rx=".8" fill="#c9a44e"/><rect x="6" y="5" width="13" height="22" rx="2.5" fill="#d1694d"/><rect x="8.5" y="8" width="8" height="5" rx="1" fill="#b85a44"/><circle cx="12.5" cy="19.5" r="2.4" fill="#a94f3b"/><rect x="4" y="26" width="17" height="2.4" rx="1" fill="#b55840"/><path d="M19 12h2.5a2.5 2.5 0 0 1 2.5 2.5v8a1.6 1.6 0 0 0 3.2 0V15" fill="none" stroke="#d1694d" stroke-width="1.6" stroke-linecap="round"/><path d="M27.2 15c-2.7-.5-2.7-4 .3-5 1 2 1.1 4-.3 5z" fill="#4f9fb0"/>',
+  a_cart: '<path d="M8.2 9H28.5L26 19H10.5z" fill="#4a4a4d"/><g fill="#dcdcdc"><rect x="10" y="10.4" width="4.4" height="3" rx=".5"/><rect x="15.2" y="10.4" width="4.4" height="3" rx=".5"/><rect x="20.4" y="10.4" width="4.4" height="3" rx=".5"/><rect x="11" y="14.4" width="4.4" height="3" rx=".5"/><rect x="16.2" y="14.4" width="4.4" height="3" rx=".5"/><rect x="21.4" y="14.4" width="3.4" height="3" rx=".5"/></g><path d="M2 5.5h3.8L10.5 19H26" fill="none" stroke="#4a4a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="25" r="2.2" fill="#4a4a4d"/><circle cx="22" cy="25" r="2.2" fill="#4a4a4d"/>',
+  a_gear: '<g fill="#6fa8a3"><circle cx="16" cy="16" r="10.2"/><rect x="13" y="2.5" width="6" height="6" rx="1.2"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(45 16 16)"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(90 16 16)"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(135 16 16)"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(180 16 16)"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(225 16 16)"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(270 16 16)"/><rect x="13" y="2.5" width="6" height="6" rx="1.2" transform="rotate(315 16 16)"/></g><path d="M16 3.5v5M16 23.5v5" stroke="#9cc4c0" stroke-width=".9"/><circle cx="16" cy="16" r="5.2" fill="#ffffff"/>',
+  a_head: '<path d="M6.5 17a9.5 9.5 0 0 1 19 0" fill="none" stroke="#10202f" stroke-width="4"/><path d="M6.5 17a9.5 9.5 0 0 1 19 0" fill="none" stroke="#1fb5d0" stroke-width="2"/><rect x="4" y="15" width="4.6" height="8.4" rx="2.2" fill="#29b1cf" stroke="#10202f" stroke-width="1.2"/><rect x="23.4" y="15" width="4.6" height="8.4" rx="2.2" fill="#29b1cf" stroke="#10202f" stroke-width="1.2"/><circle cx="16" cy="16.6" r="5.6" fill="#ee5b5b" stroke="#10202f" stroke-width="1"/><circle cx="16" cy="14.6" r="1.6" fill="#f6e9d9"/><path d="M13.3 20.4a2.7 2.7 0 0 1 5.4 0z" fill="#f6e9d9"/><path d="M7 23.4Q8 28.4 15 28" fill="none" stroke="#10202f" stroke-width="1.2" stroke-linecap="round"/><circle cx="16.6" cy="28" r="1.4" fill="#10202f"/>',
+  a_qr: '<rect x="4" y="4" width="10" height="10" rx="2.2" fill="#5314b3"/><rect x="7" y="7" width="4" height="4" rx=".8" fill="#ffffff"/><rect x="18" y="4" width="10" height="10" rx="2.2" fill="#db5c70"/><rect x="21" y="7" width="4" height="4" rx=".8" fill="#ffffff"/><rect x="4" y="18" width="10" height="10" rx="2.2" fill="#e9b84f"/><rect x="7" y="21" width="4" height="4" rx=".8" fill="#ffffff"/><g fill="#1fb5c0"><rect x="18" y="18" width="4.4" height="4.4" rx=".8"/><rect x="23.6" y="18" width="4.4" height="4.4" rx=".8"/><rect x="18" y="23.6" width="10" height="4.4" rx=".8"/></g>',
+  a_pyr: '<path d="M16 4 21.5 12h-11z" fill="#db5c70"/><path d="M9.6 14h12.8l3 6H6.6z" fill="#e9b84f"/><path d="M5.6 22h20.8l3 6.4H2.6z" fill="#6fa8a3"/>',
+  a_plane: '<path d="M28 4 3 14.5l8.5 3z" fill="#7ac6e6"/><path d="M28 4 11.5 17.5 13.5 27z" fill="#3f9ac4"/><path d="M11.5 17.5 13.5 27 17 21z" fill="#2b7fa8"/>',
+  a_info: '<circle cx="16" cy="16" r="12" fill="#4a9fd8"/><circle cx="16" cy="10.4" r="1.8" fill="#ffffff"/><rect x="14.4" y="14" width="3.2" height="9" rx="1.6" fill="#ffffff"/>'
+};
+const art = (n, cls = 'h-7 w-7') =>
+  `<svg class="${cls}" viewBox="0 0 32 32" aria-hidden="true">${ART[n]}</svg>`;
+
+/* ---------- Icone piene (schede) ---------- */
+const SOLID = {
+  s_bulb:  '<path d="M12 2a7 7 0 0 0-4 12.74V17h8v-2.26A7 7 0 0 0 12 2z"/><path d="M9 18.5h6V20a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/>',
+  s_qr:    '<rect x="3" y="3" width="7.5" height="7.5" rx="1"/><rect x="5.2" y="5.2" width="3.1" height="3.1" fill="var(--card)"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1"/><rect x="15.7" y="5.2" width="3.1" height="3.1" fill="var(--card)"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1"/><rect x="5.2" y="15.7" width="3.1" height="3.1" fill="var(--card)"/><rect x="13.5" y="13.5" width="3.4" height="3.4"/><rect x="18.2" y="13.5" width="2.8" height="3.4"/><rect x="13.5" y="18.2" width="7.5" height="2.8"/>',
+  s_bell:  '<rect x="10" y="4" width="4" height="2.2" rx="1"/><rect x="11" y="6" width="2" height="3"/><path d="M3.5 17a8.5 8.5 0 0 1 17 0z"/><rect x="2" y="18.5" width="20" height="2.8" rx="1.2"/>',
+  s_plane: '<path d="M21.5 2.5 2.7 10.2a.8.8 0 0 0 0 1.5l6.6 2.4 2.5 6.6a.8.8 0 0 0 1.5 0L21.5 2.5z"/><path d="m9.3 14 12.2-11.5" stroke="var(--card)" stroke-width="1.2" fill="none"/>',
+  s_rocket:'<g transform="rotate(45 12 12)"><path d="M12 1.5c3 2.2 4.6 5.6 4.6 9.500v5H7.400v-5c0-3.900 1.600-7.300 4.600-9.500z"/><path d="M7.400 12.500 4.500 16v3.500l2.900-1.500zM16.600 12.500l2.900 3.500v3.500l-2.900-1.500z"/><path d="M9.500 17.500h5L12 22.500z"/><circle cx="12" cy="9.500" r="1.800" fill="var(--card)"/></g>',
+  s_info:  '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="7.600" r="1.500" fill="var(--card)"/><rect x="10.800" y="10.600" width="2.400" height="7" rx="1" fill="var(--card)"/>'
+};
+const ico = (n, cls = 'h-4 w-4') =>
+  `<svg class="${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${SOLID[n]}</svg>`;
+
+/* ---------- Dati ---------- */
+const MENU = [
+  { id: 'dashboard',   label: 'Dashboard',               icon: 'a_dash' },
+  { id: 'consigli',    label: 'Consigli',                icon: 'a_bulb' },
+  { id: 'stats',       label: 'Statistiche sui consigli',icon: 'a_bars' },
+  { id: 'prenotazioni',label: 'Prenotazioni',            icon: 'a_docs' },
+  { id: 'messaggi',    label: 'Messaggi',                icon: 'a_mail' },
+  { id: 'email',       label: 'Email automatiche',       icon: 'a_rocket', sep: true },
+  { id: 'abbonamento', label: 'Abbonamento',             icon: 'a_fuel' },
+  { id: 'ordini',      label: 'Ordini',                  icon: 'a_cart',  sep: true },
+  { id: 'impostazioni',label: 'Impostazioni',            icon: 'a_gear' },
+  { id: 'assistenza',  label: 'Assistenza',              icon: 'a_head' }
+];
+const CARDS = [
+  { col: 1, view: 'consigli', icon: 's_bulb',   label: 'Consigli inseriti',           value: '30' },
+  { col: 2, view: 'app',      icon: 's_qr',     label: 'App (Link e Volantino)' },
+  { col: 1, view: 'servizi',  icon: 's_bell',   label: 'Servizi inseriti',            value: '7' },
+  { col: 2, view: 'invito',   icon: 's_plane',  label: 'Email di invito',             value: 'attiva', ok: true },
+  { col: 1, view: 'email',    icon: 's_rocket', label: 'Email automatiche inserite',  value: '3' },
+  { col: 1, view: 'info',     icon: 's_info',   label: 'Informazioni utili inserite', value: '7' }
+];
+const TITLES = {
+  consigli: 'Consigli', stats: 'Statistiche sui consigli', prenotazioni: 'Prenotazioni', messaggi: 'Messaggi',
+  email: 'Email automatiche', abbonamento: 'Abbonamento', ordini: 'Ordini', impostazioni: 'Impostazioni',
+  app: 'App (Link e Volantino)', servizi: 'Servizi', invito: 'Email di invito',
+  info: 'Informazioni utili', guida: 'Guida alla configurazione di EvolutionTrip'
+};
+
+const $ = (s) => document.querySelector(s);
+const sidebar = $('#sidebar'), overlay = $('#overlay');
+
+/* ---------- Menu ---------- */
+const BASE = 'flex w-full items-center gap-2.5 rounded-lg px-3.5 py-2.5 text-left text-[14.5px] font-medium transition-colors ';
+const IDLE = 'text-white/90 hover:bg-white/10';
+const ACTIVE = 'bg-accent font-semibold text-white';
+
+function renderMenu(active) {
+  $('#menu').innerHTML = MENU.map(m => `
+    <button data-nav="${m.id}" class="${BASE}${m.id === active ? ACTIVE : IDLE}" ${m.id === active ? 'aria-current="page"' : ''}>
+      ${art(m.icon, 'h-7 w-7 shrink-0')}<span>${m.label}</span>${m.id === 'messaggi' && unread() > 0 ? `<span class="ml-auto rounded-full bg-white px-1.5 text-[11px] font-bold" style="color:var(--sidebar)" aria-label="${unread()} da leggere">${unread()}</span>` : ''}
+    </button>
+    ${m.sep ? '<hr class="-mx-3 my-3 border-white/30">' : ''}`).join('');
+}
+
+/* ---------- Schede ---------- */
+const cardHTML = (c) => {
+  const v = cardVal(c), off = c.view === 'invito' && !state.invite.on;
+  return `
+  <button data-go="${c.view}" class="card-btn flex w-full items-stretch overflow-hidden rounded-[3px] border border-line bg-card text-left">
+    <span class="flex min-w-0 flex-1 items-center gap-3.5 px-3.5 py-[11px]">
+      <span class="shrink-0 text-ink">${ico(c.icon, 'h-4 w-4')}</span>
+      <span class="flex-1 text-sm text-ink">${c.label}</span>
+      ${v !== undefined ? `<span class="text-sm font-bold ${off ? 'text-muted' : c.ok ? 'text-ok' : 'text-ink'}">${v}</span>` : ''}
+    </span>
+    <span class="chev grid w-[52px] shrink-0 place-items-center">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+    </span>
+  </button>`;
+};
+function renderCards() {
+  $('#col1').innerHTML = CARDS.filter(c => c.col === 1).map(cardHTML).join('');
+  $('#col2').innerHTML = CARDS.filter(c => c.col === 2).map(cardHTML).join('');
+}
+
+/* ---------- Navigazione ---------- */
+function showDashboard() {
+  cur = 'dashboard';
+  $('#view-section').classList.add('hidden');
+  $('#view-dashboard').classList.remove('hidden');
+  renderCards();
+}
+function go(id) {
+  if (id === 'assistenza') { openChat(); closeSidebar(); return; }
+  if (id === 'dashboard' || id === 'app') {
+    showDashboard(); renderMenu('dashboard'); closeSidebar();
+    if (id === 'app') {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      $('#invite').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    } else window.scrollTo({ top: 0 });
+    return;
+  }
+  if (id === 'messaggi') state.ui.mobileOpen = false;
+  $('#view-dashboard').classList.add('hidden');
+  $('#view-section').classList.remove('hidden');
+  renderSection(id, true);
+  syncMenu();
+  window.scrollTo({ top: 0 });
+  closeSidebar();
+}
+document.addEventListener('click', (e) => {
+  const nav = e.target.closest('[data-nav]');
+  if (nav) return go(nav.dataset.nav);
+  const g = e.target.closest('[data-go]');
+  if (g) return go(g.dataset.go);
+  const noop = e.target.closest('[data-noop]');
+  if (noop) e.preventDefault();
+});
+$('#logo').addEventListener('click', (e) => { e.preventDefault(); go('dashboard'); });
+
+/* ---------- Sidebar mobile ---------- */
+const mq = window.matchMedia('(max-width: 1023px)');
+function syncInert() { sidebar.inert = mq.matches && sidebar.classList.contains('-translate-x-full'); }
+function openSidebar() { sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); syncInert(); }
+function closeSidebar() { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); syncInert(); }
+$('#openSidebar').addEventListener('click', openSidebar);
+$('#closeSidebar').addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
+mq.addEventListener('change', syncInert);
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.remove('hidden');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+
+/* ---------- Modale avvisi ---------- */
+const modal = $('#alertModal');
+function openAlert() { modal.classList.remove('hidden'); modal.classList.add('flex'); $('#alertInput').focus(); }
+function closeAlert() { modal.classList.add('hidden'); modal.classList.remove('flex'); $('#alertForm').reset(); $('#openAlert').focus(); }
+$('#openAlert').addEventListener('click', openAlert);
+$('#closeAlert').addEventListener('click', closeAlert);
+$('#cancelAlert').addEventListener('click', closeAlert);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeAlert(); });
+
+$('#alertForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const title = $('#alertInput').value.trim();
+  const text = $('#alertText').value.trim();
+  if (!title) return;
+  const el = document.createElement('div');
+  el.className = 'flex items-start gap-3 rounded-xl border border-line bg-card p-4';
+  el.innerHTML = `<span class="mt-0.5" style="color:var(--alert)">${svg('bell')}</span>
+    <div class="min-w-0 flex-1"><p class="a-title break-words text-sm font-semibold text-ink"></p><p class="a-text mt-0.5 break-words text-sm text-muted"></p></div>
+    <button class="rounded-md p-1 text-muted hover:bg-tile" aria-label="Rimuovi avviso">${svg('x', 'h-4 w-4')}</button>`;
+  el.querySelector('.a-title').textContent = title;
+  el.querySelector('.a-text').textContent = text;
+  if (!text) el.querySelector('.a-text').remove();
+  el.querySelector('button').addEventListener('click', () => el.remove());
+  $('#alerts').prepend(el);
+  closeAlert();
+  toast('Avviso pubblicato');
+});
+
+/* ---------- Chat ---------- */
+const chat = $('#chat'), fab = $('#fab');
+const CHIPS = ['Come aggiungo un consiglio?', 'Come funzionano le email automatiche?', 'Parlare con un operatore'];
+function addMsg(text, who) {
+  const row = document.createElement('div');
+  row.className = 'flex ' + (who === 'me' ? 'justify-end' : 'justify-start');
+  const b = document.createElement('div');
+  b.className = 'max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed ' +
+    (who === 'me' ? 'bg-accent text-white' : 'border border-line bg-card text-ink');
+  b.textContent = text;
+  row.appendChild(b);
+  $('#chatLog').appendChild(row);
+  $('#chatLog').scrollTop = 1e6;
+}
+function reply(q) {
+  const t = q.toLowerCase();
+  if (t.includes('consigl')) return "Apri Consigli dal menu e scegli di aggiungerne uno nuovo: inserisci titolo, descrizione e foto, poi salva.";
+  if (t.includes('email')) return "Nella sezione Email automatiche puoi creare i messaggi e scegliere quando inviarli rispetto al soggiorno.";
+  if (t.includes('operator')) return "In questa anteprima la chat non è collegata a un servizio reale, quindi non posso metterti in contatto con un operatore.";
+  return "Grazie per il messaggio. In questa anteprima le risposte sono di esempio: prova una delle domande suggerite.";
+}
+function ask(q) {
+  addMsg(q, 'me');
+  setTimeout(() => addMsg(reply(q), 'bot'), 450);
+}
+function openChat() {
+  chat.classList.remove('hidden'); chat.classList.add('flex');
+  $('#teaser').classList.add('hidden'); $('#badge').classList.add('hidden');
+  $('#fabChat').classList.add('hidden'); $('#fabX').classList.remove('hidden');
+  fab.setAttribute('aria-expanded', 'true'); fab.setAttribute('aria-label', 'Chiudi la chat di assistenza');
+  $('#chatInput').focus();
+}
+function closeChat() {
+  chat.classList.add('hidden'); chat.classList.remove('flex');
+  $('#fabChat').classList.remove('hidden'); $('#fabX').classList.add('hidden');
+  fab.setAttribute('aria-expanded', 'false'); fab.setAttribute('aria-label', 'Apri la chat di assistenza');
+}
+addMsg('Ciao! Sono l\'assistente di EvolutionTrip. Come posso aiutarti?', 'bot');
+$('#chips').innerHTML = CHIPS.map(c =>
+  `<button type="button" class="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink hover:border-accent">${c}</button>`).join('');
+$('#chips').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) ask(b.textContent); });
+$('#chatForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const v = $('#chatInput').value.trim();
+  if (!v) return;
+  $('#chatInput').value = '';
+  ask(v);
+});
+fab.addEventListener('click', () => chat.classList.contains('hidden') ? openChat() : closeChat());
+$('#closeChat').addEventListener('click', closeChat);
+document.querySelectorAll('[data-teaser]').forEach(b => b.addEventListener('click', () => { openChat(); ask(b.dataset.teaser); }));
+
+/* ---------- Tastiera ---------- */
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (!$('#dlg').classList.contains('hidden')) closeDlg();
+  else if (!modal.classList.contains('hidden')) closeAlert();
+  else if (!chat.classList.contains('hidden')) closeChat();
+  else closeSidebar();
+});
+
+/* ---------- Volantino, QR, link e colore ---------- */
+function qrPath(n = 25) {
+  let seed = 156;
+  const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+  const inFinder = (x, y) => (x < 8 && y < 8) || (x >= n - 8 && y < 8) || (x < 8 && y >= n - 8);
+  let d = '';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    if (inFinder(x, y)) continue;
+    const on = (y === 6 || x === 6) ? (x + y) % 2 === 0 : rnd() > 0.5;
+    if (on) d += `M${x} ${y}h1v1h-1z`;
+  }
+  const finder = (ox, oy) =>
+    `<rect x="${ox}" y="${oy}" width="7" height="7" fill="#111"/><rect x="${ox + 1}" y="${oy + 1}" width="5" height="5" fill="#fff"/><rect x="${ox + 2}" y="${oy + 2}" width="3" height="3" fill="#111"/>`;
+  return `<path d="${d}" fill="#111"/>${finder(0, 0)}${finder(n - 7, 0)}${finder(0, n - 7)}`;
+}
+function flyerSVG() {
+  return `<svg viewBox="0 0 222 314" class="block w-[222px] max-w-full shadow-sm" role="img" aria-label="Anteprima del volantino con QR code">
+  <defs><filter id="blur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="14"/></filter></defs>
+  <rect width="222" height="314" fill="#ffffff"/>
+  <g filter="url(#blur)" opacity=".85"><circle cx="30" cy="80" r="32" fill="#f7c5d3"/><circle cx="62" cy="122" r="28" fill="#bfe8d4"/><circle cx="172" cy="62" r="34" fill="#d7c9f5"/><circle cx="190" cy="128" r="28" fill="#fbe3a7"/></g>
+  <g>
+    <rect x="20" y="10" width="36" height="34" fill="none" stroke="#b8975a" stroke-width=".8"/>
+    <rect x="23" y="13" width="30" height="28" fill="none" stroke="#b8975a" stroke-width=".5"/>
+    <text x="38" y="34" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="19" font-weight="600" fill="#b8975a">HC</text>
+  </g>
+  <g transform="translate(22 52)"><rect x="-3" y="-3" width="68" height="68" rx="2" fill="#ffffff"/><g transform="scale(2.48)" shape-rendering="crispEdges">${qrPath()}</g></g>
+  <g transform="translate(100 10)">
+    <rect x="86" y="26" width="3" height="100" fill="#a67c52"/>
+    <path d="M62 34h26l5 4-5 4H62z" fill="#e5c48d"/><path d="M89 46h24l-5 4 5 4H89z" fill="#d9a86b"/><path d="M64 58h24l5 4-5 4H64z" fill="#efd3a0"/>
+    <g fill="#7a5a35"><rect x="66" y="37" width="14" height="1.4"/><rect x="93" y="49" width="12" height="1.4"/><rect x="68" y="61" width="14" height="1.4"/></g>
+    <rect x="27" y="76" width="11" height="40" rx="3" fill="#efe8d8"/><rect x="42" y="76" width="11" height="40" rx="3" fill="#efe8d8"/>
+    <ellipse cx="32" cy="118" rx="9" ry="3.5" fill="#4b4b52"/><ellipse cx="48" cy="118" rx="9" ry="3.5" fill="#4b4b52"/>
+    <path d="M27 34h26l3 42H24z" fill="#8fd6b8"/><rect x="37" y="34" width="6" height="40" fill="#d9f3e6"/>
+    <path d="M27 38 16 26M53 38l9 24" stroke="#8fd6b8" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <circle cx="63" cy="65" r="3.4" fill="#f1c9a5"/><circle cx="14" cy="23" r="3.4" fill="#f1c9a5"/>
+    <rect x="8" y="8" width="8" height="14" rx="1.6" fill="#2f3542" transform="rotate(-15 12 15)"/>
+    <circle cx="40" cy="24" r="8" fill="#f1c9a5"/>
+    <ellipse cx="40" cy="18" rx="13" ry="3" fill="#c9772f"/><path d="M31 18a9 9 0 0 1 18 0z" fill="#d98a3a"/><rect x="31" y="15.500" width="18" height="2.400" fill="#5a3a1e"/>
+    <rect x="2" y="92" width="20" height="26" rx="3" fill="#f08a3c"/><rect x="2" y="101" width="20" height="3" fill="#d96f22"/>
+    <path d="M8 92v-6h8v6" stroke="#a34a12" stroke-width="2" fill="none"/><circle cx="7" cy="120" r="2" fill="#333"/><circle cx="17" cy="120" r="2" fill="#333"/>
+  </g>
+  <text x="111" y="188" text-anchor="middle" font-family="Montserrat, system-ui, sans-serif" font-size="19" font-weight="700" style="fill:var(--app)">Scarica l'APP</text>
+  <text x="111" y="208" text-anchor="middle" font-family="Montserrat, system-ui, sans-serif" font-size="9.500" fill="#444">e vivi al meglio</text>
+  <text x="111" y="221" text-anchor="middle" font-family="Montserrat, system-ui, sans-serif" font-size="9.500" fill="#444">il tuo soggiorno</text>
+  <rect x="36" y="252" width="150" height="26" rx="13" style="fill:var(--app)"/>
+  <text x="111" y="269" text-anchor="middle" font-family="Montserrat, system-ui, sans-serif" font-size="10" font-weight="600" fill="#ffffff">Inquadra il QR Code</text>
+  <text x="111" y="301" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-size="9" fill="#999">EvolutionTrip</text>
+</svg>`;
+}
+$('#flyerBox').innerHTML = flyerSVG();
+
+const appUrl = $('#appUrl').textContent.trim();
+$('#btnWa').href = 'https://wa.me/?text=' + encodeURIComponent(appUrl);
+$('#btnPreview').addEventListener('click', () => toast('Anteprima di esempio: nessuna app collegata'));
+$('#btnCopy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(appUrl); toast('Link copiato'); }
+  catch (err) {
+    try {
+      const r = document.createRange(); r.selectNodeContents($('#appUrl'));
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      toast(document.execCommand('copy') ? 'Link copiato' : 'Link selezionato: premi Ctrl+C per copiarlo');
+    } catch (e2) { toast('Seleziona il link e copialo manualmente'); }
+  }
+});
+document.querySelectorAll('[data-dl]').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); toast('Download non attivo in questa anteprima'); }));
+$('#colorInput').addEventListener('input', (e) => {
+  const c = e.target.value;
+  $('#swatch').style.background = c;
+  $('#hex').textContent = c.toUpperCase();
+  $('#flyerBox').style.setProperty('--app', c);
+});
+
+/* ================= SEZIONI DEL MENU ================= */
+const esc = (t) => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const byId = (arr, id) => arr.find(x => String(x.id) === String(id));
+const nid = (() => { let n = 1000; return () => ++n; })();
+const addDays = (n) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + n); return d; };
+const fmtD = (d) => d.toLocaleDateString('it-IT', { day: '2-digit', month: 'short' });
+const fmtDL = (d) => d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+const nowT = () => new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+const initials = (n) => n.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+const appColor = () => $('#colorInput').value;
+
+const TIP_CATS = ['Ristoranti', 'Da vedere', 'Trasporti', 'Shopping', 'Benessere', 'Escursioni'];
+const TIP_SRC = {
+  Ristoranti: ['Trattoria del Borgo', 'Pizzeria Vesuvio', 'Osteria della Piazza', 'Sushi Kaito', 'Il Forno di Anna', 'Gelateria Nuvola', 'Enoteca Le Botti', 'Brunch Bakery'],
+  'Da vedere': ['Centro storico', 'Museo civico', 'Cattedrale', 'Parco cittadino', 'Belvedere al tramonto', 'Mercato coperto', 'Galleria d\'arte moderna'],
+  Trasporti: ['Fermata metro più vicina', 'Taxi e NCC', 'Noleggio bici', 'Collegamento aeroporto'],
+  Shopping: ['Via dello shopping', 'Mercatino dell\'antiquariato', 'Outlet della zona', 'Boutique artigianali'],
+  Benessere: ['Spa Aurora', 'Yoga al parco', 'Palestra convenzionata', 'Centro massaggi'],
+  Escursioni: ['Gita sul lago', 'Tour in e-bike', 'Visita alle cantine']
+};
+const TIMINGS = ['Alla prenotazione', '3 giorni prima del check-in', 'Il giorno del check-in', 'Il giorno dopo il check-in', 'Il giorno del check-out', '1 giorno dopo il check-out'];
+const ORDER_ST = ['Nuovo', 'In lavorazione', 'Completato'];
+const LANGS = ['Italiano', 'English', 'Deutsch', 'Français', 'Español'];
+const PLANS = [
+  { id: 'base', name: 'Essenziale', tips: 20, feat: ['Fino a 20 consigli', 'APP per gli ospiti', 'Email di invito'] },
+  { id: 'plus', name: 'Plus', tips: 50, feat: ['Fino a 50 consigli', 'Email automatiche', 'Statistiche sui consigli'] },
+  { id: 'premium', name: 'Premium', tips: Infinity, feat: ['Consigli illimitati', 'Messaggi e ordini', 'Assistenza prioritaria'] }
+];
+
+const state = {
+  tips: (() => { const a = []; let n = 0; for (const c of TIP_CATS) for (const t of TIP_SRC[c]) { n++; a.push({ id: n, title: t, cat: c, desc: '', on: true, views: 40 + ((n * 37) % 160) }); } return a; })(),
+  services: [
+    { id: 1, name: 'Colazione', desc: 'Buffet dolce e salato, con opzioni senza glutine.', hours: '7:00 - 10:30', on: true },
+    { id: 2, name: 'Spa e benessere', desc: 'Sauna, bagno turco e area relax su prenotazione.', hours: '10:00 - 20:00', on: true },
+    { id: 3, name: 'Parcheggio', desc: 'Posti auto riservati agli ospiti, fino a esaurimento.', hours: 'Sempre disponibile', on: true },
+    { id: 4, name: 'Navetta aeroporto', desc: 'Trasferimento su richiesta, da prenotare 24 ore prima.', hours: '6:00 - 22:00', on: true },
+    { id: 5, name: 'Late check-out', desc: 'Camera disponibile fino alle 15:00, secondo disponibilità.', hours: 'Fino alle 15:00', on: true },
+    { id: 6, name: 'Noleggio bici', desc: 'Biciclette e e-bike ritirabili alla reception.', hours: '8:00 - 19:00', on: true },
+    { id: 7, name: 'Lavanderia', desc: 'Lavaggio e stiratura con consegna in giornata.', hours: '8:00 - 17:00', on: false }
+  ],
+  infos: [
+    { id: 1, title: 'Wi-Fi', body: 'Rete: HotelCriss-Ospiti. La password è indicata sulla chiave della camera.' },
+    { id: 2, title: 'Orari colazione', body: 'Tutti i giorni dalle 7:00 alle 10:30 nella sala al piano terra.' },
+    { id: 3, title: 'Check-in e check-out', body: 'Check-in dalle 14:00, check-out entro le 11:00. Il deposito bagagli è gratuito.' },
+    { id: 4, title: 'Numeri utili', body: 'Reception: interno 9. Emergenze: 112.' },
+    { id: 5, title: 'Parcheggio', body: 'Parcheggio riservato dietro l\'edificio. Chiedi il codice di accesso alla reception.' },
+    { id: 6, title: 'Raccolta differenziata', body: 'Nelle camere trovi i contenitori per carta, plastica e indifferenziato.' },
+    { id: 7, title: 'Regole della struttura', body: 'Silenzio dalle 23:00 alle 7:00. Non è consentito fumare nelle camere.' }
+  ],
+  emails: [
+    { id: 1, name: 'Benvenuto', timing: '3 giorni prima del check-in', subject: 'Il tuo soggiorno sta per iniziare', body: 'Non vediamo l\'ora di ospitarti. Scarica l\'APP per scoprire consigli, servizi e informazioni utili.', on: true },
+    { id: 2, name: 'Durante il soggiorno', timing: 'Il giorno dopo il check-in', subject: 'Come sta andando il soggiorno?', body: 'Hai bisogno di un consiglio per la serata? Scrivici direttamente dall\'APP.', on: true },
+    { id: 3, name: 'Grazie e recensione', timing: '1 giorno dopo il check-out', subject: 'Grazie per averci scelto', body: 'Ci farebbe piacere sapere come ti sei trovato. La tua opinione ci aiuta a migliorare.', on: true }
+  ],
+  invite: { on: true, timing: 'Alla prenotazione', subject: 'Scarica l\'APP per il tuo soggiorno', body: 'Ciao {nome}, abbiamo preparato per te consigli e informazioni sul soggiorno. Scarica l\'APP dal link qui sotto.' },
+  bookings: [
+    { id: 1, guest: 'Marco Bianchi', a: -2, d: 3, n: 2, room: '101', app: true },
+    { id: 2, guest: 'Sophie Laurent', a: 0, d: 4, n: 2, room: '204', app: true },
+    { id: 3, guest: 'Hans Müller', a: 1, d: 5, n: 3, room: '305', app: false },
+    { id: 4, guest: 'Elena Rossi', a: 3, d: 6, n: 1, room: '102', app: false },
+    { id: 5, guest: 'James Carter', a: -1, d: 2, n: 2, room: '210', app: true },
+    { id: 6, guest: 'Lucía García', a: -6, d: -2, n: 2, room: '108', app: true },
+    { id: 7, guest: 'Giulia Ferri', a: 8, d: 10, n: 4, room: '301', app: false },
+    { id: 8, guest: 'Paul Dubois', a: -9, d: -6, n: 2, room: '203', app: true },
+    { id: 9, guest: 'Anna Kowalska', a: 12, d: 15, n: 2, room: '207', app: false }
+  ],
+  threads: [
+    { id: 1, name: 'Sophie Laurent', room: '204', unread: 1, msgs: [{ f: 'g', t: 'Buongiorno, a che ora finisce la colazione?', w: '09:12' }] },
+    { id: 2, name: 'Marco Bianchi', room: '101', unread: 1, msgs: [{ f: 'g', t: 'Grazie per il consiglio sulla trattoria, ottimo!', w: '18:40' }, { f: 'me', t: 'Ci fa piacere! Se vuole prenotiamo un tavolo anche per domani sera.', w: '18:52' }, { f: 'g', t: 'Sì volentieri, alle 20:30 per due.', w: '19:03' }] },
+    { id: 3, name: 'Hans Müller', room: '305', unread: 1, msgs: [{ f: 'g', t: 'Is it possible to arrive a bit earlier tomorrow?', w: '08:05' }] },
+    { id: 4, name: 'James Carter', room: '210', unread: 0, msgs: [{ f: 'g', t: 'Do you have a bike rental nearby?', w: 'Ieri' }, { f: 'me', t: 'Yes, bikes are available at the front desk. Would you like to reserve one?', w: 'Ieri' }] }
+  ],
+  orders: [
+    { id: 1, guest: 'Sophie Laurent', room: '204', item: 'Colazione in camera', qty: 2, total: 24, status: 'Nuovo' },
+    { id: 2, guest: 'Marco Bianchi', room: '101', item: 'Navetta aeroporto', qty: 1, total: 35, status: 'In lavorazione' },
+    { id: 3, guest: 'Hans Müller', room: '305', item: 'Noleggio bici', qty: 2, total: 30, status: 'Nuovo' },
+    { id: 4, guest: 'James Carter', room: '210', item: 'Late check-out', qty: 1, total: 20, status: 'Completato' },
+    { id: 5, guest: 'Lucía García', room: '108', item: 'Lavanderia', qty: 1, total: 18, status: 'Completato' }
+  ],
+  settings: { name: 'Hotel Criss', email: 'info@hotelcriss.net', phone: '', address: '', langs: ['Italiano', 'English'], notif: { booking: true, message: true, weekly: false } },
+  plan: 'plus',
+  shared: false,
+  ui: { tipQ: '', tipCat: 'Tutte', range: 30, bookF: 'Tutte', bookQ: '', orderF: 'Tutti', thread: 1, mobileOpen: false }
+};
+const unread = () => state.threads.reduce((s, t) => s + t.unread, 0);
+
+/* ---------- Componenti ---------- */
+const box = 'rounded-[3px] border border-line bg-card';
+const BTN = { primary: 'bg-accent text-white hover:brightness-105', violet: 'bg-alert text-white hover:brightness-110', ghost: 'border border-line text-ink hover:bg-tile' };
+const B = (label, attrs = '', kind = 'primary', extra = '') =>
+  `<button type="button" ${attrs} class="inline-flex items-center justify-center gap-1.5 rounded-md px-3.5 py-2 text-[13px] font-semibold ${BTN[kind]} ${extra}">${label}</button>`;
+const SM = '!px-2.5 !py-1.5 !text-xs';
+const SW = (on, act, id, c, label) =>
+  `<button type="button" role="switch" aria-checked="${!!on}" aria-label="${esc(label || 'Attivo')}" data-act="${act}" data-id="${id ?? ''}" ${c ? `data-c="${c}"` : ''} class="sw shrink-0"></button>`;
+const BD = (t, tone = 'muted') => `<span class="badge b-${tone}">${t}</span>`;
+const head = (title, sub, actions = '') =>
+  `<div class="mb-4 flex flex-wrap items-end justify-between gap-3"><div><h2 id="sec-title" tabindex="-1" class="text-lg font-semibold text-ink">${title}</h2>${sub ? `<p class="mt-0.5 max-w-2xl text-xs leading-relaxed text-muted">${sub}</p>` : ''}</div><div class="flex flex-wrap gap-2">${actions}</div></div>`;
+const td = (c, cls = '') => `<td class="px-4 py-3 text-sm ${cls}">${c}</td>`;
+const emptyBox = (t) => `<div class="${box} px-6 py-10 text-center text-sm text-muted">${t}</div>`;
+const TBL = (heads, rows, empty) => rows
+  ? `<div class="${box} overflow-x-auto"><table class="w-full min-w-[560px] text-left"><thead><tr>${heads.map(h => `<th scope="col" class="px-4 py-2.5 text-xs font-semibold text-muted">${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`
+  : emptyBox(empty);
+const chips = (key, opts, curV) =>
+  `<div class="flex flex-wrap gap-2" role="group">${opts.map(o => `<button type="button" data-act="chip" data-k="${key}" data-v="${esc(o)}" aria-pressed="${o === curV}" class="rounded-full px-3.5 py-1.5 text-xs font-semibold ${o === curV ? 'bg-alert text-white' : 'border border-line text-ink hover:bg-tile'}">${o}</button>`).join('')}</div>`;
+const lab = (t, ctl) => `<label class="block text-sm font-medium text-ink">${t}${ctl}</label>`;
+const inp = (name, v, extra = '') => `<input name="${name}" value="${esc(v)}" class="inp mt-1.5" ${extra}>`;
+const sel = (name, opts, v) => `<select name="${name}" class="inp mt-1.5">${opts.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
+const kpi = (label, val, note = '') => `<div class="${box} p-4"><p class="text-xs text-muted">${label}</p><p class="mt-1 text-2xl font-bold text-ink">${val}</p>${note ? `<p class="mt-0.5 text-xs text-muted">${note}</p>` : ''}</div>`;
+const barRow = (label, v, max, color = 'var(--accent)') =>
+  `<div class="mb-3"><div class="mb-1 flex justify-between gap-3 text-xs"><span class="truncate text-ink">${esc(label)}</span><span class="font-semibold text-ink">${v.toLocaleString('it-IT')}</span></div><div class="h-2 rounded-full bg-tile"><div class="h-2 rounded-full" style="width:${max ? Math.max(2, v / max * 100) : 0}%;background:${color}"></div></div></div>`;
+const saveBtn = `<button class="rounded-md bg-accent px-4 py-2 text-[13px] font-semibold text-white hover:brightness-105">Salva modifiche</button>`;
+
+/* ---------- Dialogo generico ---------- */
+let dlgCb = null, dlgOpener = null;
+function openDlg({ title, text = '', fields = [], ok = 'Salva', onOk }) {
+  $('#dlgTitle').textContent = title;
+  $('#dlgText').textContent = text;
+  $('#dlgText').classList.toggle('hidden', !text);
+  $('#dlgFields').classList.toggle('hidden', !fields.length);
+  $('#dlgFields').innerHTML = fields.map(f => {
+    const id = 'f_' + f.name, v = f.value ?? '';
+    let ctl;
+    if (f.type === 'textarea') ctl = `<textarea id="${id}" name="${f.name}" rows="3" class="inp mt-1.5 resize-none">${esc(v)}</textarea>`;
+    else if (f.type === 'select') ctl = `<select id="${id}" name="${f.name}" class="inp mt-1.5">${f.options.map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
+    else ctl = `<input id="${id}" name="${f.name}" value="${esc(v)}" class="inp mt-1.5" ${f.required ? 'required' : ''} ${f.placeholder ? `placeholder="${esc(f.placeholder)}"` : ''}>`;
+    return `<label class="block text-sm font-medium text-ink">${f.label}${ctl}</label>`;
+  }).join('');
+  $('#dlgOk').textContent = ok;
+  dlgCb = onOk; dlgOpener = document.activeElement;
+  const d = $('#dlg'); d.classList.remove('hidden'); d.classList.add('flex');
+  ($('#dlgFields input, #dlgFields textarea, #dlgFields select') || $('#dlgOk')).focus();
+}
+function closeDlg() {
+  const d = $('#dlg'); d.classList.add('hidden'); d.classList.remove('flex');
+  if (dlgOpener && document.contains(dlgOpener) && dlgOpener.focus) dlgOpener.focus();
+}
+$('#dlgForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const v = Object.fromEntries(new FormData(e.target));
+  const cb = dlgCb; closeDlg(); if (cb) cb(v);
+});
+$('#dlgCancel').addEventListener('click', closeDlg);
+$('#dlg').addEventListener('click', (e) => { if (e.target.id === 'dlg') closeDlg(); });
+
+/* ---------- Raccolte modificabili (consigli, servizi, informazioni, email) ---------- */
+const COL = {
+  tips: {
+    noun: 'consiglio', newT: 'Nuovo consiglio', newOk: 'Aggiungi consiglio', added: 'Consiglio aggiunto', def: { on: true, views: 0 },
+    fields: o => [{ name: 'title', label: 'Titolo', value: o.title, required: true, placeholder: 'Es. Trattoria del Borgo' }, { name: 'cat', label: 'Categoria', type: 'select', options: TIP_CATS, value: o.cat }, { name: 'desc', label: 'Descrizione', type: 'textarea', value: o.desc }],
+    make: v => ({ title: v.title.trim(), cat: v.cat, desc: (v.desc || '').trim() }), ttl: o => o.title
+  },
+  services: {
+    noun: 'servizio', newT: 'Nuovo servizio', newOk: 'Aggiungi servizio', added: 'Servizio aggiunto', def: { on: true },
+    fields: o => [{ name: 'name', label: 'Nome del servizio', value: o.name, required: true, placeholder: 'Es. Colazione' }, { name: 'hours', label: 'Orari', value: o.hours, placeholder: 'Es. 7:00 - 10:30' }, { name: 'desc', label: 'Descrizione', type: 'textarea', value: o.desc }],
+    make: v => ({ name: v.name.trim(), hours: (v.hours || '').trim(), desc: (v.desc || '').trim() }), ttl: o => o.name
+  },
+  infos: {
+    noun: 'informazione', newT: 'Nuova informazione', newOk: 'Aggiungi informazione', added: 'Informazione aggiunta', def: {},
+    fields: o => [{ name: 'title', label: 'Titolo', value: o.title, required: true, placeholder: 'Es. Wi-Fi' }, { name: 'body', label: 'Testo', type: 'textarea', value: o.body }],
+    make: v => ({ title: v.title.trim(), body: (v.body || '').trim() }), ttl: o => o.title
+  },
+  emails: {
+    noun: 'email automatica', newT: 'Nuova email automatica', newOk: 'Aggiungi email', added: 'Email aggiunta', def: { on: true },
+    fields: o => [{ name: 'name', label: 'Nome interno', value: o.name, required: true, placeholder: 'Es. Benvenuto' }, { name: 'timing', label: 'Quando inviarla', type: 'select', options: TIMINGS, value: o.timing || TIMINGS[1] }, { name: 'subject', label: 'Oggetto', value: o.subject, required: true }, { name: 'body', label: 'Messaggio', type: 'textarea', value: o.body }],
+    make: v => ({ name: v.name.trim(), timing: v.timing, subject: v.subject.trim(), body: (v.body || '').trim() }), ttl: o => o.name
+  }
+};
+
+/* ---------- Viste ---------- */
+function vTips() {
+  const u = state.ui, q = u.tipQ.trim().toLowerCase();
+  const list = state.tips.filter(t => (u.tipCat === 'Tutte' || t.cat === u.tipCat) && (!q || t.title.toLowerCase().includes(q)));
+  const rows = list.map(t => `<tr class="border-t border-line">
+    ${td(`<span class="font-medium text-ink">${esc(t.title)}</span>`)}
+    ${td(t.cat, 'text-muted')}
+    ${td(SW(t.on, 'tog', t.id, 'tips', `Mostra «${t.title}» agli ospiti`))}
+    ${td(`${B('Modifica', `data-act="edit" data-c="tips" data-id="${t.id}"`, 'ghost', SM)} ${B('Elimina', `data-act="del" data-c="tips" data-id="${t.id}"`, 'ghost', SM)}`, 'text-right whitespace-nowrap')}</tr>`).join('');
+  return head('Consigli', `${state.tips.length} consigli inseriti. Gli ospiti vedono solo quelli attivi. Dati di esempio.`, B('Nuovo consiglio', 'data-act="new" data-c="tips"'))
+    + `<div class="mb-3 flex flex-wrap gap-2"><input id="tipQ" data-bind="tipQ" type="search" value="${esc(u.tipQ)}" placeholder="Cerca un consiglio" aria-label="Cerca un consiglio" class="inp !w-full sm:!w-64"><select id="tipCat" data-bind="tipCat" aria-label="Categoria" class="inp !w-auto">${['Tutte', ...TIP_CATS].map(c => `<option ${c === u.tipCat ? 'selected' : ''}>${c}</option>`).join('')}</select></div>`
+    + TBL(['Titolo', 'Categoria', 'Visibile', '<span class="sr-only">Azioni</span>'], rows, 'Nessun consiglio corrisponde alla ricerca. Cambia filtro o aggiungi un nuovo consiglio.');
+}
+
+function vStats() {
+  const r = state.ui.range, k = r / 30;
+  const rows = state.tips.filter(t => t.on).map(t => ({ t, v: Math.round(t.views * k) })).sort((a, b) => b.v - a.v);
+  const total = rows.reduce((s, x) => s + x.v, 0);
+  const max = rows.length ? rows[0].v : 0;
+  const byCat = TIP_CATS.map(c => ({ c, v: rows.filter(x => x.t.cat === c).reduce((s, x) => s + x.v, 0) })).sort((a, b) => b.v - a.v);
+  const N = r === 7 ? 7 : r === 30 ? 10 : 12;
+  const vals = Array.from({ length: N }, (_, i) => Math.max(1, Math.round(total / N * (0.65 + 0.7 * Math.abs(Math.sin(i * 1.9 + r / 7))))));
+  const mx = Math.max(...vals);
+  return head('Statistiche sui consigli', 'Come gli ospiti usano i tuoi consigli nell\'APP. Dati di esempio.', `<div class="flex gap-2" role="group" aria-label="Periodo">${[7, 30, 90].map(n => `<button type="button" data-act="range" data-v="${n}" aria-pressed="${n === r}" class="rounded-full px-3.5 py-1.5 text-xs font-semibold ${n === r ? 'bg-alert text-white' : 'border border-line text-ink hover:bg-tile'}">${n} giorni</button>`).join('')}</div>`)
+    + `<div class="grid gap-3 sm:grid-cols-3">${kpi('Visualizzazioni', total.toLocaleString('it-IT'), `Ultimi ${r} giorni`)}${kpi('Ospiti unici', Math.round(total * 0.31).toLocaleString('it-IT'), 'Ospiti che hanno aperto l\'APP')}${kpi('Interazioni', Math.round(total * 0.18).toLocaleString('it-IT'), 'Aperture di mappe e link')}</div>`
+    + `<div class="mt-4 grid gap-4 lg:grid-cols-2">
+        <div class="${box} p-4"><h3 class="mb-3 text-sm font-semibold text-ink">Andamento delle visualizzazioni</h3><div class="flex h-36 items-end gap-1.5" role="img" aria-label="Andamento delle visualizzazioni negli ultimi ${r} giorni">${vals.map(v => `<div class="flex-1 rounded-t" style="height:${v / mx * 100}%;background:var(--alert)" title="${v} visualizzazioni"></div>`).join('')}</div></div>
+        <div class="${box} p-4"><h3 class="mb-3 text-sm font-semibold text-ink">Per categoria</h3>${byCat.map(x => barRow(x.c, x.v, byCat[0].v, 'var(--alert)')).join('')}</div>
+        <div class="${box} p-4 lg:col-span-2"><h3 class="mb-3 text-sm font-semibold text-ink">Consigli più visti</h3>${rows.length ? rows.slice(0, 8).map(x => barRow(x.t.title, x.v, max)).join('') : '<p class="text-sm text-muted">Nessun consiglio attivo. Attiva almeno un consiglio per vedere le statistiche.</p>'}</div>
+      </div>`;
+}
+
+function vBook() {
+  const u = state.ui, q = u.bookQ.trim().toLowerCase();
+  const all = state.bookings.map(b => ({ ...b, A: addDays(b.a), D: addDays(b.d), st: b.d < 0 ? 'Conclusa' : b.a > 0 ? 'In arrivo' : 'In corso' }));
+  const list = all.filter(b => (u.bookF === 'Tutte' || u.bookF === b.st) && (!q || b.guest.toLowerCase().includes(q)));
+  const tone = { 'In arrivo': 'info', 'In corso': 'ok', Conclusa: 'muted' };
+  const rows = list.map(b => `<tr class="border-t border-line">
+    ${td(`<span class="font-medium text-ink">${esc(b.guest)}</span><span class="block text-xs text-muted">Camera ${b.room}</span>`)}
+    ${td(fmtD(b.A), 'text-ink')}${td(fmtD(b.D), 'text-ink')}${td(b.n, 'text-ink')}
+    ${td(BD(b.st, tone[b.st]))}
+    ${td(b.app === true ? BD('APP attiva', 'ok') : b.app === 'sent' ? BD('Invito inviato', 'info') : BD('Da invitare', 'warn'))}
+    ${td(b.app === false && b.st !== 'Conclusa' ? B('Invia invito', `data-act="inv-send" data-id="${b.id}"`, 'ghost', SM) : '', 'text-right whitespace-nowrap')}</tr>`).join('');
+  const withApp = all.filter(b => b.app === true).length;
+  return head('Prenotazioni', `${withApp} ospiti su ${all.length} usano già l'APP. Dati di esempio.`)
+    + `<div class="mb-3 flex flex-wrap items-center gap-3"><input id="bookQ" data-bind="bookQ" type="search" value="${esc(u.bookQ)}" placeholder="Cerca un ospite" aria-label="Cerca un ospite" class="inp !w-full sm:!w-64">${chips('bookF', ['Tutte', 'In arrivo', 'In corso', 'Conclusa'], u.bookF)}</div>`
+    + TBL(['Ospite', 'Arrivo', 'Partenza', 'Ospiti', 'Stato', 'APP', '<span class="sr-only">Azioni</span>'], rows, 'Nessuna prenotazione corrisponde ai filtri.');
+}
+
+function vMsg() {
+  const u = state.ui, th = byId(state.threads, u.thread) || state.threads[0];
+  const list = state.threads.map(t => {
+    const last = t.msgs[t.msgs.length - 1], on = t.id === th.id;
+    return `<button type="button" data-act="thread" data-id="${t.id}" ${on ? 'aria-current="true"' : ''} class="flex w-full items-start gap-3 border-b border-line px-4 py-3 text-left hover:bg-tile ${on ? 'bg-tile' : ''}"><span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-tile text-xs font-bold" style="color:var(--sidebar)">${initials(t.name)}</span><span class="min-w-0 flex-1"><span class="flex items-center justify-between gap-2"><span class="truncate text-sm font-semibold text-ink">${esc(t.name)}</span>${t.unread ? `<span class="rounded-full bg-accent px-1.5 text-[11px] font-bold text-white">${t.unread}</span>` : ''}</span><span class="block truncate text-xs text-muted">${esc(last.t)}</span></span></button>`;
+  }).join('');
+  const bubbles = th.msgs.map(m => `<div class="flex ${m.f === 'me' ? 'justify-end' : 'justify-start'}"><div class="max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${m.f === 'me' ? 'bg-accent text-white' : 'border border-line bg-card text-ink'}">${esc(m.t)}<div class="mt-1 text-[10px] opacity-70">${m.w}</div></div></div>`).join('');
+  return head('Messaggi', `${unread()} messaggi da leggere. Le conversazioni sono di esempio.`)
+    + `<div class="${box} grid overflow-hidden lg:grid-cols-[300px_1fr]" style="min-height:460px">
+        <div class="${u.mobileOpen ? 'hidden lg:block' : 'block'} overflow-y-auto border-line lg:border-r" style="max-height:560px">${list}</div>
+        <div class="${u.mobileOpen ? 'flex' : 'hidden lg:flex'} flex-col">
+          <div class="flex items-center gap-2 border-b border-line px-4 py-3"><button type="button" data-act="back" class="rounded-md p-1 text-ink hover:bg-tile lg:hidden" aria-label="Torna alle conversazioni"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button><div><p class="text-sm font-semibold text-ink">${esc(th.name)}</p><p class="text-xs text-muted">Camera ${th.room}</p></div></div>
+          <div id="thread" class="flex-1 space-y-3 overflow-y-auto bg-page p-4" style="max-height:400px">${bubbles}</div>
+          <form data-form="reply" class="flex gap-2 border-t border-line p-3"><input id="replyInput" name="t" autocomplete="off" class="inp" placeholder="Scrivi una risposta" aria-label="Risposta"><button class="rounded-md bg-accent px-4 text-[13px] font-semibold text-white hover:brightness-105">Invia</button></form>
+        </div></div>`;
+}
+
+function vEmails() {
+  const cards = state.emails.map(e => `<article class="${box} flex flex-col p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><h3 class="text-sm font-semibold text-ink">${esc(e.name)}</h3><p class="mt-0.5 text-xs text-muted">Invio: ${esc(e.timing)}</p></div>${SW(e.on, 'tog', e.id, 'emails', `Attiva l'email «${e.name}»`)}</div><p class="mt-3 text-sm font-medium text-ink">${esc(e.subject)}</p><p class="mt-1 flex-1 text-sm leading-relaxed text-muted">${esc(e.body)}</p><div class="mt-3 flex gap-2">${B('Modifica', `data-act="edit" data-c="emails" data-id="${e.id}"`, 'ghost', SM)}${B('Elimina', `data-act="del" data-c="emails" data-id="${e.id}"`, 'ghost', SM)}</div></article>`).join('');
+  return head('Email automatiche', `${state.emails.length} email inserite, ${state.emails.filter(e => e.on).length} attive. Dati di esempio.`, B('Nuova email automatica', 'data-act="new" data-c="emails"'))
+    + (cards ? `<div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">${cards}</div>` : emptyBox('Non hai ancora email automatiche. Creane una per accompagnare gli ospiti prima, durante e dopo il soggiorno.'));
+}
+
+function vSub() {
+  const p = PLANS.find(x => x.id === state.plan), used = state.tips.length, lim = p.tips;
+  const pct = isFinite(lim) ? Math.min(100, used / lim * 100) : 8;
+  const plans = PLANS.map(x => `<article class="${box} flex flex-col p-4 ${x.id === state.plan ? '!border-accent' : ''}"><h3 class="text-sm font-semibold text-ink">${x.name}</h3><ul class="mt-3 flex-1 space-y-1.5 text-sm text-ink">${x.feat.map(f => `<li class="flex gap-2"><span class="text-ok" aria-hidden="true">✓</span>${f}</li>`).join('')}</ul><div class="mt-4">${x.id === state.plan ? BD('Piano attuale', 'ok') : B(`Passa a ${x.name}`, `data-act="plan" data-id="${x.id}"`, 'ghost', 'w-full')}</div></article>`).join('');
+  return head('Abbonamento', 'Il tuo piano e i limiti inclusi. Dati di esempio.')
+    + `<div class="${box} p-4"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-xs text-muted">Piano attuale</p><p class="text-lg font-semibold text-ink">${p.name} ${BD('Attivo', 'ok')}</p></div><div class="w-full max-w-sm"><div class="mb-1 flex justify-between text-xs"><span class="text-ink">Consigli utilizzati</span><span class="font-semibold text-ink">${used} su ${isFinite(lim) ? lim : 'illimitati'}</span></div><div class="h-2 rounded-full bg-tile" role="progressbar" aria-label="Consigli utilizzati" aria-valuemin="0" aria-valuemax="${isFinite(lim) ? lim : used}" aria-valuenow="${used}"><div class="h-2 rounded-full" style="width:${pct}%;background:var(--alert)"></div></div></div></div></div>`
+    + `<h3 class="mb-2 mt-6 text-sm font-semibold text-ink">Cambia piano</h3><div class="grid gap-3 md:grid-cols-3">${plans}</div>`;
+}
+
+function vOrders() {
+  const u = state.ui, list = state.orders.filter(o => u.orderF === 'Tutti' || o.status === u.orderF);
+  const rows = list.map(o => `<tr class="border-t border-line">
+    ${td(`<span class="font-medium text-ink">${esc(o.guest)}</span><span class="block text-xs text-muted">Camera ${o.room}</span>`)}
+    ${td(esc(o.item), 'text-ink')}${td(o.qty, 'text-ink')}${td(`${o.total},00 €`, 'text-ink')}
+    ${td(`<select data-chg="ostatus" data-id="${o.id}" aria-label="Stato dell'ordine di ${esc(o.guest)}" class="inp !w-auto !py-1.5 !text-xs">${ORDER_ST.map(s => `<option ${s === o.status ? 'selected' : ''}>${s}</option>`).join('')}</select>`)}</tr>`).join('');
+  const n = (s) => state.orders.filter(o => o.status === s).length;
+  return head('Ordini', 'Richieste di servizi e extra fatte dagli ospiti dall\'APP. Dati di esempio.')
+    + `<div class="mb-4 grid gap-3 sm:grid-cols-3">${kpi('Nuovi', n('Nuovo'), 'Da prendere in carico')}${kpi('In lavorazione', n('In lavorazione'))}${kpi('Totale ordini', state.orders.reduce((s, o) => s + o.total, 0) + ' €')}</div>`
+    + `<div class="mb-3">${chips('orderF', ['Tutti', ...ORDER_ST], u.orderF)}</div>`
+    + TBL(['Ospite', 'Ordine', 'Q.tà', 'Importo', 'Stato'], rows, 'Nessun ordine in questo stato.');
+}
+
+function vSet() {
+  const s = state.settings, n = s.notif;
+  const nrow = (k, t) => `<div class="flex items-center justify-between gap-3 py-2"><span class="text-sm text-ink">${t}</span>${SW(n[k], 'notif', k, null, t)}</div>`;
+  return head('Impostazioni', 'Dati della struttura e preferenze dell\'account. Dati di esempio.')
+    + `<form data-form="settings" class="grid gap-4 lg:grid-cols-2">
+        <div class="${box} space-y-4 p-4"><h3 class="text-sm font-semibold text-ink">Dati della struttura</h3>
+          ${lab('Nome della struttura', inp('name', s.name, 'required'))}${lab('Email di contatto', inp('email', s.email, 'type="email" required'))}${lab('Telefono', inp('phone', s.phone, 'type="tel" placeholder="Es. +39 02 0000000"'))}${lab('Indirizzo', inp('address', s.address, 'placeholder="Via e numero civico, città"'))}</div>
+        <div class="space-y-4">
+          <div class="${box} p-4"><h3 class="text-sm font-semibold text-ink">Lingue dell'APP</h3><div class="mt-3 grid grid-cols-2 gap-2">${LANGS.map(l => `<label class="flex items-center gap-2 text-sm text-ink"><input type="checkbox" name="lang" value="${l}" ${s.langs.includes(l) ? 'checked' : ''} class="h-4 w-4 accent-[var(--alert)]">${l}</label>`).join('')}</div></div>
+          <div class="${box} p-4"><h3 class="text-sm font-semibold text-ink">Notifiche via email</h3><div class="mt-1 divide-y divide-[color:var(--border)]">${nrow('booking', 'Nuova prenotazione')}${nrow('message', 'Nuovo messaggio da un ospite')}${nrow('weekly', 'Riepilogo settimanale delle statistiche')}</div></div>
+        </div>
+        <div class="flex justify-end lg:col-span-2">${saveBtn.replace('Salva modifiche', 'Salva impostazioni')}</div></form>`;
+}
+
+function vServ() {
+  const cards = state.services.map(x => `<article class="${box} flex flex-col p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><h3 class="text-sm font-semibold text-ink">${esc(x.name)}</h3><p class="mt-0.5 text-xs text-muted">${esc(x.hours || 'Orari non indicati')}</p></div>${SW(x.on, 'tog', x.id, 'services', `Mostra «${x.name}» agli ospiti`)}</div><p class="mt-3 flex-1 text-sm leading-relaxed text-muted">${esc(x.desc)}</p><div class="mt-3 flex gap-2">${B('Modifica', `data-act="edit" data-c="services" data-id="${x.id}"`, 'ghost', SM)}${B('Elimina', `data-act="del" data-c="services" data-id="${x.id}"`, 'ghost', SM)}</div></article>`).join('');
+  return head('Servizi', `${state.services.length} servizi inseriti, ${state.services.filter(x => x.on).length} visibili agli ospiti. Dati di esempio.`, B('Nuovo servizio', 'data-act="new" data-c="services"'))
+    + (cards ? `<div class="grid gap-3 md:grid-cols-2">${cards}</div>` : emptyBox('Non hai ancora inserito servizi. Aggiungi colazione, parcheggio o navetta per farli trovare agli ospiti.'));
+}
+
+function vInfo() {
+  const items = state.infos.map(x => `<article class="${box} flex flex-wrap items-start justify-between gap-3 p-4"><div class="min-w-0 flex-1"><h3 class="text-sm font-semibold text-ink">${esc(x.title)}</h3><p class="mt-1 text-sm leading-relaxed text-muted">${esc(x.body)}</p></div><div class="flex gap-2">${B('Modifica', `data-act="edit" data-c="infos" data-id="${x.id}"`, 'ghost', SM)}${B('Elimina', `data-act="del" data-c="infos" data-id="${x.id}"`, 'ghost', SM)}</div></article>`).join('');
+  return head('Informazioni utili', `${state.infos.length} informazioni inserite. Dati di esempio.`, B('Nuova informazione', 'data-act="new" data-c="infos"'))
+    + (items ? `<div class="space-y-2">${items}</div>` : emptyBox('Non hai ancora informazioni utili. Aggiungi Wi-Fi, orari e regole della struttura.'));
+}
+
+function vInvite() {
+  const i = state.invite;
+  return head('Email di invito', 'Il messaggio che invita l\'ospite a scaricare l\'APP. Dati di esempio.')
+    + `<div class="grid gap-4 lg:grid-cols-2">
+        <form data-form="invite" class="${box} space-y-4 p-4">
+          <div class="flex items-center justify-between gap-3"><div><h3 class="text-sm font-semibold text-ink">Invio automatico</h3><p class="text-xs text-muted">${i.on ? 'Gli ospiti ricevono l\'invito in automatico.' : 'L\'invito non viene inviato agli ospiti.'}</p></div>${SW(i.on, 'invite-on', '', null, 'Invio automatico dell\'invito')}</div>
+          ${lab('Quando inviarlo', sel('timing', TIMINGS, i.timing))}${lab('Oggetto', inp('subject', i.subject, 'required'))}
+          ${lab('Messaggio', `<textarea name="body" rows="5" class="inp mt-1.5 resize-none">${esc(i.body)}</textarea>`)}
+          <p class="text-xs text-muted">Scrivi {nome} per inserire il nome dell'ospite.</p><div class="flex justify-end">${saveBtn}</div></form>
+        <div class="${box} p-4"><p class="text-xs font-semibold text-muted">Anteprima</p><div class="mt-3 rounded-md border border-line bg-page p-4"><p class="text-xs text-muted">Oggetto</p><p class="text-sm font-semibold text-ink">${esc(i.subject)}</p><hr class="my-3 border-line"><p class="whitespace-pre-line text-sm leading-relaxed text-ink">${esc(i.body.split('{nome}').join('Marco'))}</p><span class="mt-4 inline-block rounded-md px-4 py-2 text-sm font-semibold text-white" style="background:${appColor()}">Scarica l'APP</span></div></div></div>`;
+}
+
+function vGuide() {
+  const steps = [
+    { t: 'Aggiungi i consigli per i tuoi ospiti', d: 'Ristoranti, luoghi da visitare, trasporti: bastano 10 consigli per iniziare.', done: state.tips.length >= 10, go: 'consigli', cta: 'Vai ai consigli' },
+    { t: 'Inserisci i servizi della struttura', d: 'Colazione, parcheggio, navetta: gli ospiti li trovano nell\'APP.', done: state.services.length > 0, go: 'servizi', cta: 'Vai ai servizi' },
+    { t: 'Aggiungi le informazioni utili', d: 'Wi-Fi, orari e regole della struttura.', done: state.infos.length > 0, go: 'info', cta: 'Vai alle informazioni' },
+    { t: 'Attiva le email automatiche', d: 'Accompagna gli ospiti prima, durante e dopo il soggiorno.', done: state.emails.some(e => e.on), go: 'email', cta: 'Vai alle email' },
+    { t: 'Attiva l\'email di invito', d: 'Invita gli ospiti a scaricare l\'APP subito dopo la prenotazione.', done: state.invite.on, go: 'invito', cta: 'Vai all\'invito' },
+    { t: 'Condividi l\'APP con gli ospiti', d: 'Copia il link o scarica il volantino con il QR code.', done: state.shared, go: 'app', cta: 'Condividi l\'APP' }
+  ];
+  const n = steps.filter(s => s.done).length;
+  const check = '<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
+  return head('Guida alla configurazione di EvolutionTrip', 'Sei passaggi per mettere online la tua APP. I passaggi si completano da soli man mano che lavori.')
+    + `<div class="${box} mb-4 p-4"><div class="mb-1 flex justify-between text-xs"><span class="text-ink">${n} passaggi completati su ${steps.length}</span><span class="font-semibold text-ink">${Math.round(n / steps.length * 100)}%</span></div><div class="h-2 rounded-full bg-tile" role="progressbar" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${n}"><div class="h-2 rounded-full" style="width:${n / steps.length * 100}%;background:var(--ok)"></div></div></div>`
+    + `<ol class="space-y-2">${steps.map(s => `<li class="${box} flex flex-wrap items-center gap-3 p-4"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full ${s.done ? 'text-white' : 'border border-line text-transparent'}" style="${s.done ? 'background:var(--ok)' : ''}">${check}</span><div class="min-w-0 flex-1"><p class="text-sm font-semibold text-ink">${s.t}${s.done ? `<span class="sr-only"> (completato)</span>` : ''}</p><p class="text-xs text-muted">${s.d}</p></div>${B(s.cta, `data-go="${s.go}"`, s.done ? 'ghost' : 'primary', SM)}</li>`).join('')}</ol>`;
+}
+
+const VIEWS = { consigli: vTips, stats: vStats, prenotazioni: vBook, messaggi: vMsg, email: vEmails, abbonamento: vSub, ordini: vOrders, impostazioni: vSet, servizi: vServ, info: vInfo, invito: vInvite, guida: vGuide };
+let cur = null;
+const syncMenu = () => renderMenu(MENU.some(m => m.id === cur) ? cur : (cur === null ? 'dashboard' : null));
+function renderSection(id, focusTitle) {
+  cur = id;
+  const box_ = $('#view-section'), a = document.activeElement;
+  const inSec = a && box_.contains(a);
+  const aid = inSec && a.id ? a.id : null, pos = aid && a.selectionStart != null ? a.selectionStart : null;
+  const akey = inSec && !aid && a.dataset && a.dataset.act ? `[data-act="${a.dataset.act}"][data-id="${a.dataset.id || ''}"]${a.dataset.c ? `[data-c="${a.dataset.c}"]` : ''}` : null;
+  box_.innerHTML = (VIEWS[id] || vGuide)();
+  if (focusTitle) { const t = $('#sec-title'); if (t) t.focus({ preventScroll: true }); }
+  else if (aid) { const n = document.getElementById(aid); if (n) { n.focus(); if (pos != null) { try { n.setSelectionRange(pos, pos); } catch (e) { /* campo non testuale */ } } } }
+  else if (akey) { const n = box_.querySelector(akey); if (n) n.focus(); }
+  const th = $('#thread'); if (th) th.scrollTop = th.scrollHeight;
+}
+const refresh = () => { renderSection(cur); syncMenu(); };
+
+/* ---------- Azioni ---------- */
+const A = {
+  new(el) { const key = el.dataset.c, c = COL[key]; openDlg({ title: c.newT, fields: c.fields({}), ok: c.newOk, onOk: v => { state[key].unshift({ id: nid(), ...c.def, ...c.make(v) }); toast(c.added); refresh(); } }); },
+  edit(el) { const key = el.dataset.c, c = COL[key], o = byId(state[key], el.dataset.id); openDlg({ title: `Modifica ${c.noun}`, fields: c.fields(o), ok: 'Salva modifiche', onOk: v => { Object.assign(o, c.make(v)); toast('Modifiche salvate'); refresh(); } }); },
+  del(el) { const key = el.dataset.c, c = COL[key], o = byId(state[key], el.dataset.id); openDlg({ title: `Eliminare ${c.noun === 'informazione' ? 'l\'' : 'il '}${c.noun}?`, text: `«${c.ttl(o)}» verrà rimosso e l'azione non si può annullare.`, ok: 'Elimina', onOk: () => { state[key].splice(state[key].indexOf(o), 1); toast('Eliminato'); refresh(); } }); },
+  tog(el) { const o = byId(state[el.dataset.c], el.dataset.id); o.on = !o.on; refresh(); },
+  chip(el) { state.ui[el.dataset.k] = el.dataset.v; refresh(); },
+  range(el) { state.ui.range = +el.dataset.v; refresh(); },
+  thread(el) { const t = byId(state.threads, el.dataset.id); t.unread = 0; state.ui.thread = t.id; state.ui.mobileOpen = true; refresh(); },
+  back() { state.ui.mobileOpen = false; refresh(); },
+  'inv-send'(el) { const b = byId(state.bookings, el.dataset.id); b.app = 'sent'; toast(`Invito inviato a ${b.guest}`); refresh(); },
+  'invite-on'() { state.invite.on = !state.invite.on; refresh(); },
+  notif(el) { const n = state.settings.notif; n[el.dataset.id] = !n[el.dataset.id]; refresh(); },
+  plan(el) {
+    const x = PLANS.find(p => p.id === el.dataset.id);
+    if (state.tips.length > x.tips) { toast(`Hai ${state.tips.length} consigli: il piano ${x.name} ne consente ${x.tips}`); return; }
+    openDlg({ title: `Passare al piano ${x.name}?`, text: `Il piano ${x.name} include: ${x.feat.join(', ').toLowerCase()}. In questa anteprima la modifica non ha effetti sulla fatturazione.`, ok: 'Conferma il cambio', onOk: () => { state.plan = x.id; toast(`Piano ${x.name} attivo`); refresh(); } });
+  }
+};
+const FORMS = {
+  reply(f) { const i = f.querySelector('input'), v = i.value.trim(); if (!v) return; byId(state.threads, state.ui.thread).msgs.push({ f: 'me', t: v, w: nowT() }); refresh(); },
+  settings(f) {
+    const fd = new FormData(f), langs = fd.getAll('lang');
+    if (!langs.length) { toast('Scegli almeno una lingua per l\'APP'); return; }
+    Object.assign(state.settings, { name: fd.get('name').trim(), email: fd.get('email').trim(), phone: fd.get('phone').trim(), address: fd.get('address').trim(), langs });
+    toast('Impostazioni salvate');
+  },
+  invite(f) { const fd = new FormData(f); Object.assign(state.invite, { timing: fd.get('timing'), subject: fd.get('subject').trim(), body: fd.get('body').trim() }); toast('Email di invito salvata'); refresh(); }
+};
+const CHG = { ostatus(s) { byId(state.orders, s.dataset.id).status = s.value; toast('Stato aggiornato'); refresh(); } };
+
+const sec = $('#view-section');
+sec.addEventListener('click', (e) => { const el = e.target.closest('[data-act]'); if (el && A[el.dataset.act]) A[el.dataset.act](el); });
+sec.addEventListener('input', (e) => { const el = e.target.closest('[data-bind]'); if (el && el.tagName !== 'SELECT') { state.ui[el.dataset.bind] = el.value; refresh(); } });
+sec.addEventListener('change', (e) => {
+  const el = e.target.closest('[data-bind]');
+  if (el && el.tagName === 'SELECT') { state.ui[el.dataset.bind] = el.value; refresh(); return; }
+  const c = e.target.closest('[data-chg]'); if (c && CHG[c.dataset.chg]) CHG[c.dataset.chg](c);
+});
+sec.addEventListener('submit', (e) => { e.preventDefault(); const f = e.target.closest('[data-form]'); if (f && FORMS[f.dataset.form]) FORMS[f.dataset.form](f); });
+$('#btnCopy').addEventListener('click', () => { state.shared = true; });
+$('#btnWa').addEventListener('click', () => { state.shared = true; });
+
+/* ---------- Dashboard: contatori dinamici ---------- */
+const cardVal = (c) => ({ consigli: state.tips.length, servizi: state.services.length, email: state.emails.length, info: state.infos.length, invito: state.invite.on ? 'attiva' : 'disattiva' }[c.view]);
+
+/* ---------- Avvio ---------- */
+renderMenu('dashboard');
+renderCards();
+syncInert();
+</script>
+</body>
+</html>

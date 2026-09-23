@@ -172,22 +172,15 @@ function Sidebar({ active, setActive }) {
   return (
     <div className="w-56 shrink-0 flex flex-col" style={{ backgroundColor: AZURE }}>
       <div className="px-5 pt-6 pb-5 flex items-center gap-2.5" style={{ borderBottom: `1px solid ${AZURE_DARK}` }}>
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center border-2 shrink-0"
-          style={{ borderColor: BRASS, borderStyle: "dashed" }}
-        >
-          <svg width="17" height="17" viewBox="0 0 26 26" fill="none">
-            <path d="M3 20 C 7 20, 6 13, 11 13 C 16 13, 15 6, 21 6" stroke={BRASS} strokeWidth="2.4" strokeLinecap="round" fill="none" />
-            <circle cx="3" cy="20" r="2.4" fill={BRASS} />
-            <path d="M17.5 3 L21 6 L17.5 9" stroke={BRASS} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          </svg>
+        <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 overflow-hidden" style={{ backgroundColor: "#fff" }}>
+          <img src="/logo-icon.png" alt="" className="w-7 h-7 object-contain" />
         </div>
         <div>
           <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "8.5px", letterSpacing: "0.1em", color: BRASS }}>
             HOST DASHBOARD
           </p>
-          <p className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "18px", color: PARCHMENT }}>
-            EvolutionTrip
+          <p style={{ fontFamily: "'Baloo 2', sans-serif", fontWeight: 800, fontSize: "19px", lineHeight: 1, letterSpacing: "-0.01em" }}>
+            <span style={{ color: PARCHMENT }}>Evolution</span><span style={{ color: BRASS }}>Trip</span>
           </p>
         </div>
       </div>
@@ -4135,7 +4128,7 @@ function HostDashboardShell({ active, setActive }) {
   return (
     <div className="w-full min-h-screen flex" style={{ backgroundColor: "#EDE7D8" }}>
       <style>{`
-        @import url(https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap);
+        @import url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap);
       `}</style>
       <Sidebar active={active} setActive={setActive} />
       <div className="flex-1 flex flex-col">

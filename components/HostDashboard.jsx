@@ -13,15 +13,15 @@ import {
   Settings, ToggleRight, RotateCcw, CreditCard, Zap, Crown, Hourglass, Check, Lock, Unlock, AlertTriangle, LogOut, Ticket,
 } from "lucide-react";
 
-const INK = "#1B2A41";
-const PARCHMENT = "#F6F1E4";
-const BRASS = "#D0AC80";
-const TEAL = "#2F5D62";
-const CLAY = "#C2542E";
-const AZURE = "#2F7FB0";
-const AZURE_DARK = "#1F5C82";
-const PAPER = "#FFFDF8";
-const LINE = "#E4DAC4";
+const INK = "#2E2E2E";
+const PARCHMENT = "#FFFFFF";
+const BRASS = "#DC6E8B";
+const TEAL = "#3E9A45";
+const CLAY = "#46149F";
+const AZURE = "#44109B";
+const AZURE_DARK = "rgba(255,255,255,0.35)";
+const PAPER = "#FFFFFF";
+const LINE = "#D8D8D8";
 
 const NAV = [
   { id: "overview", label: "Panoramica", Icon: LayoutGrid },
@@ -129,12 +129,12 @@ function PropertyProvider({ children }) {
 function Field({ label, children, hint }) {
   return (
     <div>
-      <label style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
+      <label style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
         {label}
       </label>
       <div className="mt-1.5">{children}</div>
       {hint && (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "4px" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "4px" }}>
           {hint}
         </p>
       )}
@@ -144,7 +144,7 @@ function Field({ label, children, hint }) {
 
 function inputStyle() {
   return {
-    fontFamily: "'Work Sans', sans-serif",
+    fontFamily: "'Montserrat', sans-serif",
     fontSize: "13px",
     color: INK,
     backgroundColor: PAPER,
@@ -155,10 +155,10 @@ function inputStyle() {
 function Section({ title, eyebrow, children }) {
   return (
     <div className="rounded-2xl p-6 mb-5" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
-      <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", letterSpacing: "0.08em", color: BRASS, marginBottom: "3px" }}>
+      <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", letterSpacing: "0.08em", color: BRASS, marginBottom: "3px" }}>
         {eyebrow}
       </p>
-      <h2 className="italic mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>
+      <h2 className="mb-5" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>
         {title}
       </h2>
       {children}
@@ -176,7 +176,7 @@ function Sidebar({ active, setActive }) {
           <img src="/logo-icon.png" alt="" className="w-7 h-7 object-contain" />
         </div>
         <div>
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "8.5px", letterSpacing: "0.1em", color: BRASS }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "8.5px", letterSpacing: "0.1em", color: BRASS }}>
             HOST DASHBOARD
           </p>
           <p style={{ fontFamily: "'Baloo 2', sans-serif", fontWeight: 800, fontSize: "19px", lineHeight: 1, letterSpacing: "-0.01em" }}>
@@ -185,12 +185,12 @@ function Sidebar({ active, setActive }) {
         </div>
       </div>
 
-      <button className="flex items-center justify-between mx-4 mt-4 px-3 py-2.5 rounded-xl" style={{ backgroundColor: AZURE_DARK }}>
+      <button className="flex items-center justify-between mx-4 mt-4 px-3 py-2.5 rounded-xl" style={{ backgroundColor: BRASS }}>
         <div className="text-left">
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "8.5px", color: "#9C9483" }}>STRUTTURA ATTIVA</p>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{structureName || "La tua Reception on line"}</p>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "8.5px", color: "rgba(255,255,255,0.75)" }}>STRUTTURA ATTIVA</p>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{structureName || "La tua Reception on line"}</p>
         </div>
-        <ChevronDown size={14} color="#9C9483" />
+        <ChevronDown size={14} color="rgba(255,255,255,0.75)" />
       </button>
 
       <nav className="flex-1 px-3 mt-5 space-y-1">
@@ -201,15 +201,15 @@ function Sidebar({ active, setActive }) {
               key={id}
               onClick={() => setActive(id)}
               className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left"
-              style={{ backgroundColor: isActive ? AZURE_DARK : "transparent" }}
+              style={{ backgroundColor: isActive ? BRASS : "transparent" }}
             >
-              <Icon size={16} color={isActive ? BRASS : "#BFDCEC"} />
+              <Icon size={16} color={isActive ? PARCHMENT : "rgba(255,255,255,0.65)"} />
               <span
                 style={{
-                  fontFamily: "'Work Sans', sans-serif",
+                  fontFamily: "'Montserrat', sans-serif",
                   fontSize: "13px",
                   fontWeight: isActive ? 600 : 400,
-                  color: isActive ? PARCHMENT : "#BFDCEC",
+                  color: isActive ? PARCHMENT : "rgba(255,255,255,0.65)",
                 }}
               >
                 {label}
@@ -222,13 +222,13 @@ function Sidebar({ active, setActive }) {
       <div className="px-4 pb-5 pt-3" style={{ borderTop: `1px solid ${AZURE_DARK}` }}>
         <div className="flex items-center gap-2.5 px-2 mb-3">
           <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BRASS }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>
               {(structureName || "Host").split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
             </span>
           </div>
           <div>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: PARCHMENT }}>{structureName || "Host"}</p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#BFDCEC" }}>Host</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: PARCHMENT }}>{structureName || "Host"}</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "rgba(255,255,255,0.65)" }}>Host</p>
           </div>
         </div>
         <button
@@ -240,8 +240,8 @@ function Sidebar({ active, setActive }) {
           className="w-full flex items-center gap-2 px-2 py-2 rounded-lg"
           style={{ backgroundColor: "transparent" }}
         >
-          <LogOut size={14} color="#BFDCEC" />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: "#BFDCEC" }}>Esci</span>
+          <LogOut size={14} color="rgba(255,255,255,0.65)" />
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: "rgba(255,255,255,0.65)" }}>Esci</span>
         </button>
       </div>
     </div>
@@ -256,8 +256,8 @@ function TopBar({ title, subtitle }) {
   return (
     <div className="flex items-center justify-between px-8 py-5" style={{ borderBottom: `1px solid ${LINE}` }}>
       <div>
-        <h1 style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "18px", fontWeight: 600, color: INK }}>{title}</h1>
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371", marginTop: "2px" }}>{subtitle}</p>
+        <h1 style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "18px", fontWeight: 600, color: INK }}>{title}</h1>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E", marginTop: "2px" }}>{subtitle}</p>
       </div>
     </div>
   );
@@ -299,18 +299,18 @@ function ImageUploadBox({ imageUrl, onUploaded, onRemove, folder = "generico", h
   };
 
   return (
-    <div className={`relative ${height} rounded-xl overflow-hidden`} style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F1EAD9" }}>
+    <div className={`relative ${height} rounded-xl overflow-hidden`} style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F0EDF7" }}>
       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleChange} className="hidden" />
       {uploading ? (
         <div className="w-full h-full flex items-center justify-center">
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371" }}>Caricamento...</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>Caricamento...</span>
         </div>
       ) : imageUrl ? (
         <>
           <img src={imageUrl} alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 flex items-end justify-end p-2 gap-1.5" style={{ background: "linear-gradient(transparent 50%, rgba(27,42,65,0.35))" }}>
             <button onClick={() => fileInputRef.current.click()} className="px-2 py-1 rounded-full" style={{ backgroundColor: PAPER }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10px", fontWeight: 600, color: INK }}>Sostituisci</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10px", fontWeight: 600, color: INK }}>Sostituisci</span>
             </button>
             <button onClick={onRemove} className="p-1.5 rounded-full" style={{ backgroundColor: PAPER }}>
               <X size={11} color={INK} />
@@ -319,13 +319,13 @@ function ImageUploadBox({ imageUrl, onUploaded, onRemove, folder = "generico", h
         </>
       ) : (
         <button onClick={() => fileInputRef.current.click()} className="w-full h-full flex flex-col items-center justify-center gap-1.5">
-          <Upload size={16} color="#8A8371" />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371" }}>Carica immagine</span>
+          <Upload size={16} color="#6E6E6E" />
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>Carica immagine</span>
         </button>
       )}
       {uploadError && (
         <div className="absolute bottom-0 left-0 right-0 px-2 py-1" style={{ backgroundColor: "rgba(194,84,46,0.9)" }}>
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "9.5px", color: PARCHMENT }}>{uploadError}</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", color: PARCHMENT }}>{uploadError}</span>
         </div>
       )}
     </div>
@@ -367,7 +367,7 @@ function RoomPhotoSlider({ photos, onAdd, onRemove }) {
   };
 
   return (
-    <div className="relative h-24" style={{ backgroundColor: "#F1EAD9" }}>
+    <div className="relative h-24" style={{ backgroundColor: "#F0EDF7" }}>
       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
       {photos.length > 0 ? (
         <>
@@ -406,8 +406,8 @@ function RoomPhotoSlider({ photos, onAdd, onRemove }) {
         </>
       ) : (
         <button onClick={() => fileInputRef.current.click()} disabled={uploading} className="w-full h-full flex flex-col items-center justify-center gap-1">
-          <Upload size={14} color="#8A8371" />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10px", color: "#8A8371" }}>{uploading ? "Caricamento..." : "Carica foto"}</span>
+          <Upload size={14} color="#6E6E6E" />
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10px", color: "#6E6E6E" }}>{uploading ? "Caricamento..." : "Carica foto"}</span>
         </button>
       )}
     </div>
@@ -614,11 +614,11 @@ function PropertySettings() {
   if (propertyError) {
     return (
       <div className="max-w-3xl">
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: CLAY }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: CLAY }}>
           Non riesco a caricare la struttura: {propertyError}
         </p>
         <button onClick={reload} className="mt-3 px-4 py-2 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Riprova</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Riprova</span>
         </button>
       </div>
     );
@@ -627,16 +627,16 @@ function PropertySettings() {
   if (propertyLoading || !form) {
     return (
       <div className="max-w-3xl">
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento dati struttura...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento dati struttura...</p>
       </div>
     );
   }
 
   return (
     <div className="max-w-3xl">
-      <div className="flex items-center justify-between mb-6 sticky top-0 z-10 -mx-1 px-1 py-2" style={{ backgroundColor: "#EDE7D8" }}>
+      <div className="flex items-center justify-between mb-6 sticky top-0 z-10 -mx-1 px-1 py-2" style={{ backgroundColor: "#F5F3FA" }}>
         <div>
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", color: "#8A8371" }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10px", color: "#6E6E6E" }}>
             {saveState === "error" ? saveError : "Le modifiche vengono scritte sul database quando premete Salva."}
           </p>
         </div>
@@ -647,20 +647,20 @@ function PropertySettings() {
           style={{ backgroundColor: saveState === "saved" ? TEAL : saveState === "error" ? "#B33A2E" : CLAY, opacity: saveState === "saving" ? 0.7 : 1 }}
         >
           {saveState === "saved" ? <Check size={14} color={PARCHMENT} /> : <Save size={14} color={PARCHMENT} />}
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
             {saveState === "saving" ? "Salvataggio..." : saveState === "saved" ? "Salvato ✓" : saveState === "error" ? "Riprova" : "Salva modifiche"}
           </span>
         </button>
       </div>
 
       <Section eyebrow="ACCESSO OSPITI" title="Link della vostra struttura">
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginBottom: "12px", lineHeight: 1.5 }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginBottom: "12px", lineHeight: 1.5 }}>
           Ogni struttura ha un link unico e permanente: apritelo o condividetelo per vedere esattamente cosa vedrà l'ospite (la Home, i consigli, gli orari...). Lo stesso link lo trovate già pronto per QR code, email e WhatsApp.
         </p>
         <div className="flex items-center gap-2 mb-3">
           <span
             className="flex-1 px-3 py-2.5 rounded-xl"
-            style={{ backgroundColor: "#F1EAD9", border: `1px solid ${LINE}`, fontFamily: "'IBM Plex Mono', monospace", fontSize: "11.5px", color: "#6B6455", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+            style={{ backgroundColor: "#F0EDF7", border: `1px solid ${LINE}`, fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6B6455", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
           >
             {guestLink}
           </span>
@@ -669,7 +669,7 @@ function PropertySettings() {
             className="px-3.5 py-2.5 rounded-xl shrink-0"
             style={{ backgroundColor: linkCopied ? TEAL : CLAY }}
           >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: PARCHMENT }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: PARCHMENT }}>
               {linkCopied ? "Copiato ✓" : "Copia link"}
             </span>
           </button>
@@ -683,7 +683,7 @@ function PropertySettings() {
             style={{ border: `1px solid ${LINE}`, opacity: guestLink ? 1 : 0.5, pointerEvents: guestLink ? "auto" : "none" }}
           >
             <ExternalLink size={12} color={INK} />
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Apri come ospite</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Apri come ospite</span>
           </a>
           <button
             onClick={() => setQrOpen(true)}
@@ -692,11 +692,11 @@ function PropertySettings() {
             style={{ border: `1px solid ${LINE}`, opacity: guestLink ? 1 : 0.5 }}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" stroke={INK} strokeWidth="2" /><rect x="14" y="3" width="7" height="7" stroke={INK} strokeWidth="2" /><rect x="3" y="14" width="7" height="7" stroke={INK} strokeWidth="2" /><rect x="14" y="14" width="3" height="3" fill={INK} /><rect x="18" y="18" width="3" height="3" fill={INK} /></svg>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Genera QR code</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Genera QR code</span>
           </button>
         </div>
         {qrOpen && guestLink && (
-          <div className="mt-4 flex items-center gap-4 p-4 rounded-xl" style={{ backgroundColor: "#F1EAD9", border: `1px solid ${LINE}` }}>
+          <div className="mt-4 flex items-center gap-4 p-4 rounded-xl" style={{ backgroundColor: "#F0EDF7", border: `1px solid ${LINE}` }}>
             <img
               src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(guestLink)}`}
               alt="QR code del link struttura"
@@ -706,11 +706,11 @@ function PropertySettings() {
               style={{ backgroundColor: "#fff" }}
             />
             <div>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371", lineHeight: 1.5, marginBottom: "8px" }}>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E", lineHeight: 1.5, marginBottom: "8px" }}>
                 Inquadrando questo QR code si apre direttamente la Home dell'app per gli ospiti di questa struttura. Potete stamparlo o inserirlo in una locandina.
               </p>
               <button onClick={() => setQrOpen(false)} className="px-3 py-1.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>Chiudi</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>Chiudi</span>
               </button>
             </div>
           </div>
@@ -738,7 +738,7 @@ function PropertySettings() {
       </Section>
 
       <Section eyebrow="POSIZIONE" title="Dove si trova la struttura">
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginBottom: "12px", lineHeight: 1.5 }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginBottom: "12px", lineHeight: 1.5 }}>
           Obbligatoria per ogni struttura: serve a calcolare le distanze dei consigli e a mostrare la posizione nell'app ospite.
         </p>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -748,7 +748,7 @@ function PropertySettings() {
               onChange={(e) => set("latitude", e.target.value)}
               placeholder="Es. 44.1069"
               className="w-full px-3 py-2.5 rounded-xl outline-none"
-              style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }}
+              style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }}
             />
           </Field>
           <Field label="Longitudine">
@@ -757,7 +757,7 @@ function PropertySettings() {
               onChange={(e) => set("longitude", e.target.value)}
               placeholder="Es. 9.7307"
               className="w-full px-3 py-2.5 rounded-xl outline-none"
-              style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }}
+              style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }}
             />
           </Field>
         </div>
@@ -768,17 +768,17 @@ function PropertySettings() {
           style={{ border: `1px solid ${LINE}`, opacity: geoStatus === "loading" ? 0.7 : 1 }}
         >
           <MapPin size={13} color={TEAL} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>
             {geoStatus === "loading" ? "Rilevamento in corso..." : "Rileva la mia posizione attuale"}
           </span>
         </button>
         {geoStatus === "done" && (
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: TEAL, marginBottom: "12px" }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: TEAL, marginBottom: "12px" }}>
             ✓ Posizione rilevata dal browser (ricordate di premere "Salva modifiche")
           </p>
         )}
         {geoStatus === "error" && (
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: CLAY, marginBottom: "12px", lineHeight: 1.5 }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: CLAY, marginBottom: "12px", lineHeight: 1.5 }}>
             {geoErrorMsg || "Non riesco ad accedere alla posizione: inserite le coordinate a mano."}
           </p>
         )}
@@ -793,7 +793,7 @@ function PropertySettings() {
                 className="relative rounded-xl h-40 overflow-hidden flex items-center justify-center"
                 style={{ backgroundColor: "#EFE7D3", border: `1px dashed ${LINE}` }}
               >
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371" }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E" }}>
                   Inserite coordinate valide per vedere l'anteprima della mappa.
                 </span>
               </div>
@@ -813,10 +813,10 @@ function PropertySettings() {
                 loading="lazy"
               />
               <div className="flex items-center justify-between px-3 py-2" style={{ backgroundColor: PAPER }}>
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", color: "#8A8371" }}>{lat.toFixed(5)}, {lng.toFixed(5)}</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10px", color: "#6E6E6E" }}>{lat.toFixed(5)}, {lng.toFixed(5)}</span>
                 <a href={gmapsHref} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
                   <ExternalLink size={11} color={TEAL} />
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: TEAL }}>Apri in Google Maps</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: TEAL }}>Apri in Google Maps</span>
                 </a>
               </div>
             </div>
@@ -828,13 +828,13 @@ function PropertySettings() {
         <div className="grid grid-cols-2 gap-4 mb-4">
           <Field label="Orario check-in">
             <div className="relative">
-              <Clock size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Clock size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.check_in_time} onChange={(e) => set("check_in_time", e.target.value)} className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
           <Field label="Orario check-out">
             <div className="relative">
-              <Clock size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Clock size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.check_out_time} onChange={(e) => set("check_out_time", e.target.value)} className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
@@ -843,7 +843,7 @@ function PropertySettings() {
           </Field>
           <Field label="Telefono">
             <div className="relative">
-              <Phone size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Phone size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.contact_phone} onChange={(e) => set("contact_phone", e.target.value)} className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
@@ -854,7 +854,7 @@ function PropertySettings() {
         <div className="grid grid-cols-2 gap-4 mb-4">
           <Field label="Nome rete (SSID)">
             <div className="relative">
-              <Wifi size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Wifi size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.wifi_ssid} onChange={(e) => set("wifi_ssid", e.target.value)} className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
@@ -891,22 +891,22 @@ function PropertySettings() {
                 onChange={(e) => updateEmergency(i, "number", e.target.value)}
                 placeholder="Numero"
                 className="flex-1 px-3 py-2 rounded-xl outline-none"
-                style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }}
+                style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }}
               />
-              <button onClick={() => removeEmergency(i)} className="p-2 rounded-lg" style={{ backgroundColor: "#F1EAD9" }}>
-                <Trash2 size={14} color="#8A8371" />
+              <button onClick={() => removeEmergency(i)} className="p-2 rounded-lg" style={{ backgroundColor: "#F0EDF7" }}>
+                <Trash2 size={14} color="#6E6E6E" />
               </button>
             </div>
           ))}
           <button onClick={addEmergency} className="flex items-center gap-1.5 mt-1 px-3 py-2 rounded-xl" style={{ border: `1px dashed ${LINE}` }}>
             <Plus size={13} color={TEAL} />
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: TEAL, fontWeight: 600 }}>Aggiungi numero</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: TEAL, fontWeight: 600 }}>Aggiungi numero</span>
           </button>
         </div>
       </Section>
 
       <Section eyebrow="COMUNICAZIONI" title="Avviso in evidenza">
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginBottom: "12px", lineHeight: 1.5 }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginBottom: "12px", lineHeight: 1.5 }}>
           Un messaggio ben visibile in cima alla Home dell'app ospite — utile per manutenzioni, chiusure temporanee di servizi o avvisi importanti.
         </p>
         <div className="flex items-center gap-2 mb-4">
@@ -915,7 +915,7 @@ function PropertySettings() {
               <div className="w-4 h-4 rounded-full bg-white" />
             </div>
           </button>
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
             {form.notice_active ? "Avviso visibile agli ospiti" : "Avviso nascosto"}
           </span>
         </div>
@@ -945,7 +945,7 @@ function PropertySettings() {
             <ImageUploadBox imageUrl={form.logo_url} onUploaded={(url) => set("logo_url", url)} onRemove={() => set("logo_url", null)} folder="logo" />
           </Field>
         </div>
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371", marginBottom: "12px" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "#6E6E6E", marginBottom: "12px" }}>
           Le foto vengono caricate subito su Supabase Storage; per collegarle alla struttura ricordate comunque di premere "Salva modifiche" qui sopra.
         </p>
         <Field label="Colore del brand" hint="Usato per pulsanti e accenti nell'app ospite.">
@@ -964,7 +964,7 @@ function PropertySettings() {
 
       <Section eyebrow="CAMERE" title="Camere">
         {roomsLoading ? (
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371" }}>Caricamento camere...</p>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E" }}>Caricamento camere...</p>
         ) : (
           <div className="grid grid-cols-3 gap-3">
             {rooms.map((room) => (
@@ -981,9 +981,9 @@ function PropertySettings() {
                         key={t.id}
                         onClick={() => updateRoomType(room.id, t.id)}
                         className="px-1.5 py-0.5 rounded-full"
-                        style={{ backgroundColor: room.room_type === t.id ? INK : "#F1EAD9", border: `1px solid ${room.room_type === t.id ? INK : LINE}` }}
+                        style={{ backgroundColor: room.room_type === t.id ? INK : "#F0EDF7", border: `1px solid ${room.room_type === t.id ? INK : LINE}` }}
                       >
-                        <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "8.5px", fontWeight: 600, color: room.room_type === t.id ? PARCHMENT : INK }}>
+                        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "8.5px", fontWeight: 600, color: room.room_type === t.id ? PARCHMENT : INK }}>
                           {t.label}
                         </span>
                       </button>
@@ -995,10 +995,10 @@ function PropertySettings() {
                       onChange={(e) => renameRoom(room.id, e.target.value)}
                       placeholder="Nome camera (facoltativo)"
                       className="flex-1 min-w-0 outline-none"
-                      style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK, backgroundColor: "transparent" }}
+                      style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK, backgroundColor: "transparent" }}
                     />
-                    <button onClick={() => removeRoom(room.id)} className="p-1 rounded-full shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
-                      <X size={10} color="#8A8371" />
+                    <button onClick={() => removeRoom(room.id)} className="p-1 rounded-full shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
+                      <X size={10} color="#6E6E6E" />
                     </button>
                   </div>
                 </div>
@@ -1006,11 +1006,11 @@ function PropertySettings() {
             ))}
             <button onClick={addRoom} className="rounded-xl flex flex-col items-center justify-center gap-1.5 h-full min-h-[92px]" style={{ border: `1px dashed ${LINE}` }}>
               <Plus size={16} color={TEAL} />
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: TEAL, fontWeight: 600 }}>Aggiungi camera</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: TEAL, fontWeight: 600 }}>Aggiungi camera</span>
             </button>
           </div>
         )}
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371", marginTop: "8px" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "#6E6E6E", marginTop: "8px" }}>
           Nome, foto, aggiunta e rimozione camere si salvano subito, in automatico (non serve premere "Salva modifiche" qui sopra).
         </p>
       </Section>
@@ -1019,25 +1019,25 @@ function PropertySettings() {
         <div className="grid grid-cols-2 gap-4">
           <Field label="Instagram">
             <div className="relative">
-              <Instagram size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Instagram size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.instagram_url} onChange={(e) => set("instagram_url", e.target.value)} placeholder="https://instagram.com/..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
           <Field label="Facebook">
             <div className="relative">
-              <Facebook size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Facebook size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.facebook_url} onChange={(e) => set("facebook_url", e.target.value)} placeholder="https://facebook.com/..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
           <Field label="TikTok">
             <div className="relative">
-              <Music2 size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <Music2 size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.tiktok_url} onChange={(e) => set("tiktok_url", e.target.value)} placeholder="https://tiktok.com/@..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
           <Field label="Sito web">
             <div className="relative">
-              <LinkIcon size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <LinkIcon size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.website_url} onChange={(e) => set("website_url", e.target.value)} placeholder="https://..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
@@ -1086,9 +1086,9 @@ function CategoryBadge({ category }) {
   const meta = CATEGORIES.find((c) => c.id === category);
   if (!meta) return null;
   return (
-    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full w-fit" style={{ backgroundColor: "#F1EAD9" }}>
+    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full w-fit" style={{ backgroundColor: "#F0EDF7" }}>
       <meta.Icon size={11} color={TEAL} />
-      <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>{meta.label}</span>
+      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>{meta.label}</span>
     </div>
   );
 }
@@ -1102,10 +1102,10 @@ function PlaceEditor({ place, onClose, onSave, saving }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-lg rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER, maxHeight: "88vh", overflowY: "auto" }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>
             {place ? "Modifica luogo" : "Nuovo luogo"}
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
@@ -1119,12 +1119,12 @@ function PlaceEditor({ place, onClose, onSave, saving }) {
                   onClick={() => setForm({ ...form, category: id })}
                   className="flex items-center gap-1.5 px-3 py-2 rounded-full"
                   style={{
-                    backgroundColor: form.category === id ? INK : "#F1EAD9",
+                    backgroundColor: form.category === id ? INK : "#F0EDF7",
                     border: `1px solid ${form.category === id ? INK : LINE}`,
                   }}
                 >
                   <Icon size={13} color={form.category === id ? BRASS : TEAL} />
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: form.category === id ? PARCHMENT : INK }}>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: form.category === id ? PARCHMENT : INK }}>
                     {label}
                   </span>
                 </button>
@@ -1154,7 +1154,7 @@ function PlaceEditor({ place, onClose, onSave, saving }) {
 
           <Field label="Link ufficiale" hint="Sito, menù online o pagina social del luogo (facoltativo).">
             <div className="relative">
-              <LinkIcon size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <LinkIcon size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.officialUrl || ""} onChange={(e) => setForm({ ...form, officialUrl: e.target.value })} placeholder="https://..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
@@ -1171,20 +1171,20 @@ function PlaceEditor({ place, onClose, onSave, saving }) {
               <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.published ? TEAL : "#D8CDB2", justifyContent: form.published ? "flex-end" : "flex-start" }}>
                 <div className="w-4 h-4 rounded-full bg-white" />
               </div>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Pubblicato</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Pubblicato</span>
             </button>
             <button onClick={() => setForm({ ...form, seasonal: !form.seasonal })} className="flex items-center gap-2">
               <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.seasonal ? TEAL : "#D8CDB2", justifyContent: form.seasonal ? "flex-end" : "flex-start" }}>
                 <div className="w-4 h-4 rounded-full bg-white" />
               </div>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Calendarizzato stagionalmente</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Calendarizzato stagionalmente</span>
             </button>
           </div>
         </div>
 
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button
             onClick={() => onSave(form)}
@@ -1192,7 +1192,7 @@ function PlaceEditor({ place, onClose, onSave, saving }) {
             className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform"
             style={{ backgroundColor: CLAY, opacity: saving ? 0.7 : 1 }}
           >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
               {saving ? "Salvataggio..." : "Salva luogo"}
             </span>
           </button>
@@ -1277,7 +1277,7 @@ function PlacesManager() {
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="flex items-center justify-between mb-5">
         <div className="flex gap-2 flex-wrap">
           <button
@@ -1285,7 +1285,7 @@ function PlacesManager() {
             className="px-3.5 py-2 rounded-full"
             style={{ backgroundColor: filter === "tutti" ? INK : PAPER, border: `1px solid ${filter === "tutti" ? INK : LINE}` }}
           >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: filter === "tutti" ? PARCHMENT : INK }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: filter === "tutti" ? PARCHMENT : INK }}>
               Tutti ({places.length})
             </span>
           </button>
@@ -1300,7 +1300,7 @@ function PlacesManager() {
                 style={{ backgroundColor: active ? INK : PAPER, border: `1px solid ${active ? INK : LINE}` }}
               >
                 <Icon size={12} color={active ? BRASS : TEAL} />
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: active ? PARCHMENT : INK }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: active ? PARCHMENT : INK }}>
                   {label} ({count})
                 </span>
               </button>
@@ -1313,12 +1313,12 @@ function PlacesManager() {
           style={{ backgroundColor: CLAY }}
         >
           <Plus size={14} color={PARCHMENT} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuovo luogo</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuovo luogo</span>
         </button>
       </div>
 
       {loading ? (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento luoghi...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento luoghi...</p>
       ) : (
         <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
           {filtered.map((p, i) => (
@@ -1329,41 +1329,41 @@ function PlacesManager() {
             >
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1.5">
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{p.name}</p>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{p.name}</p>
                   {p.discount && (
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
                       <Tag size={9} color={CLAY} />
-                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", color: CLAY }}>{p.discount}</span>
+                      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", color: CLAY }}>{p.discount}</span>
                     </span>
                   )}
                   {p.seasonal && (
-                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+                    <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
                       <CalendarRange size={9} color={TEAL} />
-                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", color: TEAL }}>stagionale</span>
+                      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", color: TEAL }}>stagionale</span>
                     </span>
                   )}
                 </div>
                 <div className="flex items-center gap-3">
                   <CategoryBadge category={p.category} />
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371" }}>{p.address}</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E" }}>{p.address}</span>
                 </div>
               </div>
 
               <button onClick={() => togglePublished(p.id)} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg shrink-0">
                 {p.published ? <Eye size={14} color={TEAL} /> : <EyeOff size={14} color="#B4AC97" />}
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: p.published ? TEAL : "#B4AC97" }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: p.published ? TEAL : "#B4AC97" }}>
                   {p.published ? "Pubblicato" : "Bozza"}
                 </span>
               </button>
 
-              <button onClick={() => setEditing(p)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+              <button onClick={() => setEditing(p)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                 <Pencil size={13} color={INK} />
               </button>
             </div>
           ))}
           {filtered.length === 0 && (
             <div className="py-10 text-center" style={{ backgroundColor: PAPER }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun luogo in questa categoria.</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun luogo in questa categoria.</span>
             </div>
           )}
         </div>
@@ -1401,10 +1401,10 @@ function ServiceEditor({ service, onClose, onSave, saving }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-lg rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER, maxHeight: "88vh", overflowY: "auto" }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>
             {service ? "Modifica servizio" : "Nuovo servizio"}
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
@@ -1417,7 +1417,7 @@ function ServiceEditor({ service, onClose, onSave, saving }) {
           </Field>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Prezzo (€)">
-              <input value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="25" className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }} />
+              <input value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="25" className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }} />
             </Field>
             <Field label="Durata">
               <input value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="Es. 2 ore" className="w-full px-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
@@ -1433,15 +1433,15 @@ function ServiceEditor({ service, onClose, onSave, saving }) {
             <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.active ? TEAL : "#D8CDB2", justifyContent: form.active ? "flex-end" : "flex-start" }}>
               <div className="w-4 h-4 rounded-full bg-white" />
             </div>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Attivo e visibile agli ospiti</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Attivo e visibile agli ospiti</span>
           </button>
         </div>
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button onClick={() => onSave(form)} disabled={saving} className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY, opacity: saving ? 0.7 : 1 }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva servizio"}</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva servizio"}</span>
           </button>
         </div>
       </div>
@@ -1507,34 +1507,34 @@ function ServicesManager() {
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="flex justify-end mb-5">
         <button onClick={() => setCreating(true)} className="flex items-center gap-1.5 px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
           <Plus size={14} color={PARCHMENT} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuovo servizio</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuovo servizio</span>
         </button>
       </div>
       {loading ? (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento servizi...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento servizi...</p>
       ) : (
         <div className="grid grid-cols-2 gap-4">
           {services.map((s) => (
             <div key={s.id} className="rounded-2xl p-5" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
               <div className="flex items-start justify-between mb-2">
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "19px", color: INK }}>{s.name}</p>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "17px", color: INK }}>{s.name}</p>
                 <span
                   className="px-2 py-0.5 rounded-full shrink-0"
-                  style={{ backgroundColor: s.active ? "#E4EEE9" : "#F1EAD9" }}
+                  style={{ backgroundColor: s.active ? "#E4EEE9" : "#F0EDF7" }}
                 >
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: s.active ? TEAL : "#8A8371" }}>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: s.active ? TEAL : "#6E6E6E" }}>
                     {s.active ? "ATTIVO" : "DISATTIVO"}
                   </span>
                 </span>
               </div>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371", lineHeight: 1.5, marginBottom: "12px" }}>{s.desc}</p>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E", lineHeight: 1.5, marginBottom: "12px" }}>{s.desc}</p>
               <div className="flex items-center justify-between">
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "11px", color: CLAY }}>{s.price} € · {s.duration}</span>
-                <button onClick={() => setEditing(s)} className="p-2 rounded-lg" style={{ backgroundColor: "#F1EAD9" }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: CLAY }}>{s.price} € · {s.duration}</span>
+                <button onClick={() => setEditing(s)} className="p-2 rounded-lg" style={{ backgroundColor: "#F0EDF7" }}>
                   <Pencil size={13} color={INK} />
                 </button>
               </div>
@@ -1542,7 +1542,7 @@ function ServicesManager() {
           ))}
           {services.length === 0 && (
             <div className="col-span-2 py-10 text-center rounded-2xl" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun servizio configurato.</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun servizio configurato.</span>
             </div>
           )}
         </div>
@@ -1556,7 +1556,7 @@ function ServicesManager() {
 
 
 const STATUS_META = {
-  pending: { label: "In attesa", bg: "#F1EAD9", text: BRASS },
+  pending: { label: "In attesa", bg: "#F0EDF7", text: BRASS },
   confirmed: { label: "Confermata", bg: "#E4EEE9", text: TEAL },
   declined: { label: "Rifiutata", bg: "#F7E3DB", text: CLAY },
   cancelled: { label: "Annullata", bg: "#F7E3DB", text: CLAY },
@@ -1610,30 +1610,30 @@ function BookingsManager() {
   };
 
   if (loading) {
-    return <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento prenotazioni...</p>;
+    return <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento prenotazioni...</p>;
   }
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
         {bookings.map((b, i) => {
           const meta = STATUS_META[b.status] || STATUS_META.pending;
           return (
             <div key={b.id} className="flex items-center gap-4 px-5 py-4" style={{ backgroundColor: PAPER, borderTop: i === 0 ? "none" : `1px solid ${LINE}` }}>
               <div className="flex-1 min-w-0">
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{b.services?.name || "Servizio"}</p>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginTop: "2px" }}>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{b.services?.name || "Servizio"}</p>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginTop: "2px" }}>
                   {b.guest_name}{b.guest_contact ? ` (${b.guest_contact})` : ""} · {formatBookingWhen(b.requested_datetime)}
                 </p>
                 {b.notes && (
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontStyle: "italic", fontSize: "11px", color: "#6B6455", marginTop: "3px" }}>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontStyle: "italic", fontSize: "11px", color: "#6B6455", marginTop: "3px" }}>
                     “{b.notes}”
                   </p>
                 )}
               </div>
               <span className="px-2.5 py-1 rounded-full shrink-0" style={{ backgroundColor: meta.bg }}>
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", color: meta.text }}>{meta.label.toUpperCase()}</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", color: meta.text }}>{meta.label.toUpperCase()}</span>
               </span>
               <button className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#E7F7EC" }} title="Contatta su WhatsApp">
                 <MessageCircle size={14} color="#25D366" />
@@ -1641,10 +1641,10 @@ function BookingsManager() {
               {b.status === "pending" && (
                 <div className="flex items-center gap-2 shrink-0">
                   <button onClick={() => setStatus(b.id, "confirmed")} className="px-3 py-1.5 rounded-full" style={{ backgroundColor: TEAL }}>
-                    <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: PARCHMENT }}>Conferma</span>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: PARCHMENT }}>Conferma</span>
                   </button>
                   <button onClick={() => setStatus(b.id, "declined")} className="px-3 py-1.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-                    <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Rifiuta</span>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Rifiuta</span>
                   </button>
                 </div>
               )}
@@ -1653,7 +1653,7 @@ function BookingsManager() {
         })}
         {bookings.length === 0 && (
           <div className="py-10 text-center" style={{ backgroundColor: PAPER }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessuna prenotazione ricevuta finora.</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessuna prenotazione ricevuta finora.</span>
           </div>
         )}
       </div>
@@ -1692,10 +1692,10 @@ function EmailEditor({ template, onClose, onSave, saving }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-lg rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER, maxHeight: "88vh", overflowY: "auto" }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>
             {template ? "Modifica modello email" : "Nuovo modello email"}
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
@@ -1717,22 +1717,22 @@ function EmailEditor({ template, onClose, onSave, saving }) {
               value={form.offsetHours}
               onChange={(e) => setForm({ ...form, offsetHours: e.target.value })}
               className="w-full px-3 py-2.5 rounded-xl outline-none"
-              style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }}
+              style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }}
             />
           </Field>
           <button onClick={() => setForm({ ...form, active: !form.active })} className="flex items-center gap-2">
             <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.active ? TEAL : "#D8CDB2", justifyContent: form.active ? "flex-end" : "flex-start" }}>
               <div className="w-4 h-4 rounded-full bg-white" />
             </div>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Attivo</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Attivo</span>
           </button>
         </div>
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button onClick={() => onSave(form)} disabled={saving || !form.subject.trim() || !form.body_html.trim()} className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY, opacity: saving ? 0.7 : 1 }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva modello"}</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva modello"}</span>
           </button>
         </div>
       </div>
@@ -1806,38 +1806,38 @@ function EmailsManager() {
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       {loading ? (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento modelli email...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento modelli email...</p>
       ) : (
         <div className="space-y-3">
           {templates.map((t) => (
             <div key={t.id} className="flex items-center gap-4 rounded-2xl px-5 py-4" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                 <Mail size={16} color={TEAL} />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{TRIGGER_META[t.trigger_type]?.label || t.trigger_type}</p>
-                  <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: BRASS }}>{offsetLabel(t.offsetHours).toUpperCase()}</span>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{TRIGGER_META[t.trigger_type]?.label || t.trigger_type}</p>
+                  <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: BRASS }}>{offsetLabel(t.offsetHours).toUpperCase()}</span>
                   </span>
                 </div>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371", marginTop: "2px" }}>{t.subject}</p>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E", marginTop: "2px" }}>{t.subject}</p>
               </div>
               <button onClick={() => toggle(t.id)} className="flex items-center gap-2 shrink-0">
                 <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: t.active ? TEAL : "#D8CDB2", justifyContent: t.active ? "flex-end" : "flex-start" }}>
                   <div className="w-4 h-4 rounded-full bg-white" />
                 </div>
               </button>
-              <button onClick={() => setEditing(t)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+              <button onClick={() => setEditing(t)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                 <Pencil size={13} color={INK} />
               </button>
             </div>
           ))}
           <button onClick={() => setCreating(true)} className="w-full flex items-center justify-center gap-1.5 py-3 rounded-2xl" style={{ border: `1px dashed ${LINE}` }}>
             <Plus size={14} color={TEAL} />
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: TEAL }}>Nuovo modello email</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: TEAL }}>Nuovo modello email</span>
           </button>
         </div>
       )}
@@ -1852,18 +1852,18 @@ const PURPOSE_META = {
   fiera_lavoro: { label: "Fiera / Lavoro", bg: "#DCEAFB", text: "#1A5FB4", Icon: Briefcase },
   famiglia: { label: "Famiglia", bg: "#E4EEE9", text: TEAL, Icon: Users },
   coppia: { label: "Coppia", bg: "#FDE3E9", text: "#C4265E", Icon: Star },
-  gruppo_amici: { label: "Gruppo amici", bg: "#F1EAD9", text: BRASS, Icon: PartyPopper },
-  sport: { label: "Sport", bg: "#F1EAD9", text: "#8A8371", Icon: TrendingUp },
-  altro: { label: "Altro", bg: "#F1EAD9", text: "#8A8371", Icon: Star },
+  gruppo_amici: { label: "Gruppo amici", bg: "#F0EDF7", text: BRASS, Icon: PartyPopper },
+  sport: { label: "Sport", bg: "#F0EDF7", text: "#6E6E6E", Icon: TrendingUp },
+  altro: { label: "Altro", bg: "#F0EDF7", text: "#6E6E6E", Icon: Star },
 };
 
 const CHANNEL_META = {
   booking_com: { label: "Booking.com", bg: "#DCEAFB", text: "#1A5FB4" },
   airbnb: { label: "Airbnb", bg: "#FDE3E9", text: "#C4265E" },
   website: { label: "Sito web", bg: "#E4EEE9", text: TEAL },
-  direct: { label: "Diretta", bg: "#F1EAD9", text: BRASS },
-  other_ota: { label: "Altro portale", bg: "#F1EAD9", text: "#8A8371" },
-  phone_email: { label: "Telefono/Email", bg: "#F1EAD9", text: "#8A8371" },
+  direct: { label: "Diretta", bg: "#F0EDF7", text: BRASS },
+  other_ota: { label: "Altro portale", bg: "#F0EDF7", text: "#6E6E6E" },
+  phone_email: { label: "Telefono/Email", bg: "#F0EDF7", text: "#6E6E6E" },
 };
 
 function fmtGuestDate(d) {
@@ -1884,8 +1884,8 @@ function GuestEditor({ onClose, onSave, saving }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-lg rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER, maxHeight: "88vh", overflowY: "auto" }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>Nuovo ospite</h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>Nuovo ospite</h2>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
@@ -1907,7 +1907,7 @@ function GuestEditor({ onClose, onSave, saving }) {
             <Field label="Check-out"><input type="date" value={form.check_out_date} onChange={(e) => setForm({ ...form, check_out_date: e.target.value })} className="w-full px-3 py-2.5 rounded-xl outline-none" style={inputStyle()} /></Field>
           </div>
           <Field label="Numero di prenotazione" hint="Usato dall'ospite per accedere anche con cognome + numero.">
-            <input value={form.booking_number} onChange={(e) => setForm({ ...form, booking_number: e.target.value })} className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }} />
+            <input value={form.booking_number} onChange={(e) => setForm({ ...form, booking_number: e.target.value })} className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }} />
           </Field>
           <div className="grid grid-cols-2 gap-4">
             <Field label="Provenienza">
@@ -1924,10 +1924,10 @@ function GuestEditor({ onClose, onSave, saving }) {
         </div>
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button onClick={() => onSave(form)} disabled={saving || !form.guest_name.trim()} className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY, opacity: saving ? 0.7 : 1 }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Crea ospite"}</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Crea ospite"}</span>
           </button>
         </div>
       </div>
@@ -2002,36 +2002,36 @@ function GuestsManager() {
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="flex justify-end mb-5">
         <button onClick={() => setCreating(true)} className="flex items-center gap-1.5 px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
           <Plus size={14} color={PARCHMENT} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Invita ospite</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Invita ospite</span>
         </button>
       </div>
       {loading ? (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento ospiti...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento ospiti...</p>
       ) : (
         <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
           {guests.map((g, i) => (
             <div key={g.id} className="flex items-center gap-4 px-5 py-4" style={{ backgroundColor: PAPER, borderTop: i === 0 ? "none" : `1px solid ${LINE}` }}>
               <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BRASS }}>
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: INK }}>
                   {(g.guest_name || "?").split(" ").map((n) => n[0]).join("").slice(0, 2)}
                 </span>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{g.guest_name}</p>
-                  <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: CHANNEL_META[g.channel]?.bg || "#F1EAD9" }}>
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: CHANNEL_META[g.channel]?.text || "#8A8371" }}>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{g.guest_name}</p>
+                  <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: CHANNEL_META[g.channel]?.bg || "#F0EDF7" }}>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: CHANNEL_META[g.channel]?.text || "#6E6E6E" }}>
                       {(CHANNEL_META[g.channel]?.label || g.channel || "").toUpperCase()}
                     </span>
                   </span>
                   {g.stay_purpose && PURPOSE_META[g.stay_purpose] && (
                     <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: PURPOSE_META[g.stay_purpose].bg }}>
                       {React.createElement(PURPOSE_META[g.stay_purpose].Icon, { size: 9, color: PURPOSE_META[g.stay_purpose].text })}
-                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: PURPOSE_META[g.stay_purpose].text }}>
+                      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: PURPOSE_META[g.stay_purpose].text }}>
                         {PURPOSE_META[g.stay_purpose].label.toUpperCase()}
                       </span>
                     </span>
@@ -2039,16 +2039,16 @@ function GuestsManager() {
                   {g.returning && (
                     <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#FBEFD9" }}>
                       <Repeat size={9} color={CLAY} />
-                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: CLAY }}>CLIENTE FEDELE</span>
+                      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: CLAY }}>CLIENTE FEDELE</span>
                     </span>
                   )}
                 </div>
-                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10.5px", color: "#8A8371", marginTop: "2px" }}>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "#6E6E6E", marginTop: "2px" }}>
                   {g.booking_number || "—"} · {fmtGuestDate(g.check_in_date)} → {fmtGuestDate(g.check_out_date)}
                 </p>
               </div>
               <button onClick={() => copyLink(g)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full shrink-0" style={{ border: `1px solid ${LINE}` }}>
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>
                   {copiedId === g.id ? "Copiato ✓" : "Copia link"}
                 </span>
               </button>
@@ -2056,7 +2056,7 @@ function GuestsManager() {
           ))}
           {guests.length === 0 && (
             <div className="py-10 text-center" style={{ backgroundColor: PAPER }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun ospite ancora registrato.</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun ospite ancora registrato.</span>
             </div>
           )}
         </div>
@@ -2158,41 +2158,41 @@ function MessagesManager() {
   };
 
   if (loading) {
-    return <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento messaggi...</p>;
+    return <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento messaggi...</p>;
   }
 
   if (threads.length === 0) {
     return (
       <div className="max-w-4xl rounded-2xl p-10 text-center" style={{ border: `1px solid ${LINE}`, backgroundColor: PAPER }}>
-        <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun messaggio ricevuto finora.</span>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun messaggio ricevuto finora.</span>
       </div>
     );
   }
 
   return (
     <div className="max-w-4xl flex rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}`, height: "520px" }}>
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, position: "absolute" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, position: "absolute" }}>{error}</p>}
       <div className="w-64 shrink-0 overflow-y-auto" style={{ backgroundColor: PAPER, borderRight: `1px solid ${LINE}` }}>
         {threads.map((t) => (
           <button
             key={t.id}
             onClick={() => openThread(t.id)}
             className="w-full text-left px-4 py-3.5"
-            style={{ backgroundColor: t.id === activeId ? "#F1EAD9" : "transparent", borderBottom: `1px solid ${LINE}` }}
+            style={{ backgroundColor: t.id === activeId ? "#F0EDF7" : "transparent", borderBottom: `1px solid ${LINE}` }}
           >
             <div className="flex items-center justify-between">
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: INK }}>{t.guest}</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", fontWeight: 600, color: INK }}>{t.guest}</span>
               {t.unread && <span className="w-2 h-2 rounded-full" style={{ backgroundColor: CLAY }} />}
             </div>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "2px" }}>{t.context}</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "2px" }}>{t.context}</p>
           </button>
         ))}
       </div>
       {thread && (
         <div className="flex-1 flex flex-col" style={{ backgroundColor: PARCHMENT }}>
           <div className="px-5 py-3.5" style={{ borderBottom: `1px solid ${LINE}`, backgroundColor: PAPER }}>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{thread.guest}</p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371" }}>{thread.context}</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{thread.guest}</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>{thread.context}</p>
           </div>
           <div className="flex-1 overflow-y-auto p-4 space-y-2.5">
             {thread.messages.map((m) => (
@@ -2201,8 +2201,8 @@ function MessagesManager() {
                   className="max-w-[70%] px-3.5 py-2 rounded-2xl"
                   style={{ backgroundColor: m.sender === "host" ? INK : PAPER, border: m.sender === "host" ? "none" : `1px solid ${LINE}` }}
                 >
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: m.sender === "host" ? PARCHMENT : INK }}>{m.body}</p>
-                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: m.sender === "host" ? "#9C9483" : "#B4AC97", marginTop: "3px" }}>{fmtMsgTime(m.created_at)}</p>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: m.sender === "host" ? PARCHMENT : INK }}>{m.body}</p>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: m.sender === "host" ? "#9C9483" : "#B4AC97", marginTop: "3px" }}>{fmtMsgTime(m.created_at)}</p>
                 </div>
               </div>
             ))}
@@ -2229,12 +2229,14 @@ function MessagesManager() {
 
 function StatCard({ label, value, Icon }) {
   return (
-    <div className="rounded-2xl p-5 flex flex-col items-center text-center gap-2" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
-      <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
-        <Icon size={18} color={TEAL} />
+    <div className="rounded flex items-center gap-3 px-4 py-3" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
+      <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
+        <Icon size={16} color={CLAY} />
       </div>
-      <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "26px", color: INK }}>{value}</p>
-      <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", textAlign: "center" }}>{label}</p>
+      <div className="min-w-0">
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 800, fontSize: "20px", color: INK, lineHeight: 1.15 }}>{value}</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>{label}</p>
+      </div>
     </div>
   );
 }
@@ -2283,15 +2285,15 @@ function ChannelConnectModal({ channelId, onClose, onConnect }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-md rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "21px", color: INK }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "19px", color: INK }}>
             Collega {info.label}
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
         <div className="p-6 space-y-4">
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371", lineHeight: 1.5 }}>{info.note}</p>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E", lineHeight: 1.5 }}>{info.note}</p>
           {info.fields.map((f) => (
             <Field key={f.key} label={f.label}>
               <input
@@ -2301,17 +2303,17 @@ function ChannelConnectModal({ channelId, onClose, onConnect }) {
                 placeholder={f.placeholder}
                 onFocus={(e) => f.readOnly && e.target.select()}
                 className="w-full px-3 py-2.5 rounded-xl outline-none"
-                style={{ ...inputStyle(), fontFamily: f.readOnly ? "'IBM Plex Mono', monospace" : "'Work Sans', sans-serif", fontSize: f.readOnly ? "11.5px" : "13px" }}
+                style={{ ...inputStyle(), fontFamily: f.readOnly ? "'Montserrat', sans-serif" : "'Montserrat', sans-serif", fontSize: f.readOnly ? "11.5px" : "13px" }}
               />
             </Field>
           ))}
         </div>
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button onClick={() => { onConnect(channelId); onClose(); }} className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
               {channelId === "website" ? "Fatto" : "Salva e collega"}
             </span>
           </button>
@@ -2335,23 +2337,23 @@ function ChannelsSection() {
               key={id}
               onClick={() => setOpen(id)}
               className="text-left rounded-xl p-3.5 active:scale-[0.98] transition-transform"
-              style={{ backgroundColor: "#F1EAD9", border: `1px solid ${LINE}` }}
+              style={{ backgroundColor: "#F0EDF7", border: `1px solid ${LINE}` }}
             >
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{info.label}</p>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{info.label}</p>
               <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: connected ? TEAL : "#B4AC97" }} />
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", color: connected ? TEAL : "#8A8371" }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", color: connected ? TEAL : "#6E6E6E" }}>
                   {connected ? "CONNESSO" : "NON COLLEGATO"}
                 </span>
               </div>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: CLAY, marginTop: "4px", display: "block" }}>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: CLAY, marginTop: "4px", display: "block" }}>
                 {connected ? "Gestisci →" : "Collega →"}
               </span>
             </button>
           );
         })}
       </div>
-      <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "10px" }}>
+      <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "10px" }}>
         Toccate una sorgente per collegarla: Booking.com e Airbnb richiedono un channel manager, il sito diretto usa un webhook già pronto.
       </p>
       {open && (
@@ -2417,16 +2419,16 @@ function AppSettingsManager() {
   };
 
   if (propertyError) {
-    return <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: CLAY }}>Non riesco a caricare le impostazioni: {propertyError}</p>;
+    return <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: CLAY }}>Non riesco a caricare le impostazioni: {propertyError}</p>;
   }
   if (propertyLoading) {
-    return <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento impostazioni...</p>;
+    return <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento impostazioni...</p>;
   }
 
   return (
     <div className="max-w-3xl">
-      <div className="flex items-center justify-between mb-6 sticky top-0 z-10 -mx-1 px-1 py-2" style={{ backgroundColor: "#EDE7D8" }}>
-        <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10px", color: saveState === "error" ? CLAY : "#8A8371" }}>
+      <div className="flex items-center justify-between mb-6 sticky top-0 z-10 -mx-1 px-1 py-2" style={{ backgroundColor: "#F5F3FA" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10px", color: saveState === "error" ? CLAY : "#6E6E6E" }}>
           {saveState === "error" ? saveError : "Nome struttura e logo si gestiscono in \"Dati struttura\"."}
         </p>
         <button
@@ -2436,7 +2438,7 @@ function AppSettingsManager() {
           style={{ backgroundColor: saveState === "saved" ? TEAL : saveState === "error" ? "#B33A2E" : CLAY, opacity: saveState === "saving" ? 0.7 : 1 }}
         >
           {saveState === "saved" ? <Check size={14} color={PARCHMENT} /> : <Save size={14} color={PARCHMENT} />}
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>
             {saveState === "saving" ? "Salvataggio..." : saveState === "saved" ? "Salvato ✓" : saveState === "error" ? "Riprova" : "Salva modifiche"}
           </span>
         </button>
@@ -2464,8 +2466,8 @@ function AppSettingsManager() {
       <Section eyebrow="STRUTTURA APP" title="Sezioni visibili agli ospiti">
         <div className="space-y-2.5">
           {Object.entries(SECTION_LABELS).map(([key, label]) => (
-            <div key={key} className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ backgroundColor: "#F1EAD9" }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{label}</span>
+            <div key={key} className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ backgroundColor: "#F0EDF7" }}>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{label}</span>
               <button onClick={() => toggleSection(key)} className="flex items-center gap-2">
                 <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: sections[key] ? TEAL : "#D8CDB2", justifyContent: sections[key] ? "flex-end" : "flex-start" }}>
                   <div className="w-4 h-4 rounded-full bg-white" />
@@ -2474,14 +2476,14 @@ function AppSettingsManager() {
             </div>
           ))}
         </div>
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "10px" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "10px" }}>
           Disattivando una sezione, la relativa voce sparisce dalla Home e dalla barra di navigazione dell'app ospite — i contenuti restano salvati, potete riattivarla quando volete. Ricordate di premere "Salva modifiche" qui sopra.
         </p>
       </Section>
 
       <button onClick={resetDefaults} className="flex items-center gap-2 px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
         <RotateCcw size={13} color={INK} />
-        <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Ripristina impostazioni predefinite</span>
+        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Ripristina impostazioni predefinite</span>
       </button>
     </div>
   );
@@ -2516,13 +2518,13 @@ function PaymentHistorySection() {
           return (
             <div key={p.id} className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: PAPER, borderTop: i === 0 ? "none" : `1px solid ${LINE}` }}>
               <div>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{p.period}</p>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "1px" }}>{p.date}</p>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{p.period}</p>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "1px" }}>{p.date}</p>
               </div>
               <div className="flex items-center gap-2.5">
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "11.5px", color: INK }}>{p.amount} €</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: INK }}>{p.amount} €</span>
                 <span className="px-2.5 py-1 rounded-full" style={{ backgroundColor: meta.bg }}>
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: meta.text }}>{meta.label.toUpperCase()}</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: meta.text }}>{meta.label.toUpperCase()}</span>
                 </span>
               </div>
             </div>
@@ -2565,26 +2567,26 @@ function LockSection({ isMultiProperty }) {
 
   return (
     <Section eyebrow="SICUREZZA ABBONAMENTO" title="Blocco per mancato rinnovo">
-      <div className="flex items-start gap-2.5 p-3.5 rounded-xl mb-3" style={{ backgroundColor: "#F1EAD9" }}>
-        <AlertTriangle size={14} color="#8A8371" className="shrink-0 mt-0.5" />
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", lineHeight: 1.5 }}>
+      <div className="flex items-start gap-2.5 p-3.5 rounded-xl mb-3" style={{ backgroundColor: "#F0EDF7" }}>
+        <AlertTriangle size={14} color="#6E6E6E" className="shrink-0 mt-0.5" />
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", lineHeight: 1.5 }}>
           Il blocco automatico dopo mancato pagamento è gestito da un processo lato server (non da un interruttore qui) e richiede l'integrazione reale dei pagamenti (Stripe), non ancora collegata. Qui sotto potete comunque bloccare/sbloccare manualmente la struttura in qualsiasi momento — questo interruttore scrive davvero sul database.
         </p>
       </div>
 
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
 
       {isMultiProperty ? (
         <div className="rounded-xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
-          <div className="px-4 py-2.5" style={{ backgroundColor: "#F1EAD9", borderBottom: `1px solid ${LINE}` }}>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371" }}>
+          <div className="px-4 py-2.5" style={{ backgroundColor: "#F0EDF7", borderBottom: `1px solid ${LINE}` }}>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>
               Il piano Multistruttura permetterebbe di bloccare/sbloccare ogni struttura singolarmente — questa dashboard però gestisce al momento una sola struttura per account, quindi qui sotto trovate solo quella collegata.
             </p>
           </div>
           <div className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: locked ? "#F7E3DB" : PAPER }}>
             <div>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{property?.name}</p>
-              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9.5px", color: locked ? CLAY : TEAL, marginTop: "1px" }}>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{property?.name}</p>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9.5px", color: locked ? CLAY : TEAL, marginTop: "1px" }}>
                 {locked ? "BLOCCATA" : "ATTIVA"}
               </p>
             </div>
@@ -2595,19 +2597,19 @@ function LockSection({ isMultiProperty }) {
               style={{ backgroundColor: locked ? TEAL : CLAY, opacity: saving ? 0.7 : 1 }}
             >
               {locked ? <Unlock size={12} color={PARCHMENT} /> : <Lock size={12} color={PARCHMENT} />}
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: PARCHMENT }}>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: PARCHMENT }}>
                 {locked ? "Sblocca" : "Blocca"}
               </span>
             </button>
           </div>
         </div>
       ) : (
-        <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: locked ? "#F7E3DB" : "#F1EAD9" }}>
+        <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: locked ? "#F7E3DB" : "#F0EDF7" }}>
           <div>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>
               Stato struttura: {locked ? "bloccata" : "attiva"}
             </p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "1px" }}>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "1px" }}>
               {locked ? "L'app ospite mostra un avviso al posto dei contenuti." : "Pulsante di emergenza, indipendente dal blocco automatico."}
             </p>
           </div>
@@ -2618,7 +2620,7 @@ function LockSection({ isMultiProperty }) {
             style={{ backgroundColor: locked ? TEAL : CLAY, opacity: saving ? 0.7 : 1 }}
           >
             {locked ? <Unlock size={13} color={PARCHMENT} /> : <Lock size={13} color={PARCHMENT} />}
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: PARCHMENT }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: PARCHMENT }}>
               {saving ? "Salvataggio..." : locked ? "Sblocca struttura" : "Blocca struttura"}
             </span>
           </button>
@@ -2645,14 +2647,14 @@ function SubscriptionManager() {
   return (
     <div className="max-w-3xl">
       <Section eyebrow="PROVA GRATUITA" title="Periodo di prova">
-        <div className="flex items-center justify-between p-4 rounded-xl mb-3" style={{ backgroundColor: "#F1EAD9" }}>
+        <div className="flex items-center justify-between p-4 rounded-xl mb-3" style={{ backgroundColor: "#F0EDF7" }}>
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: trialEnabled ? BRASS : "#D8CDB2" }}>
               <Hourglass size={16} color={INK} />
             </div>
             <div>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Prova gratuita attiva</p>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginTop: "1px" }}>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Prova gratuita attiva</p>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginTop: "1px" }}>
                 Se disattivata, i nuovi host passano direttamente alla scelta del piano a pagamento.
               </p>
             </div>
@@ -2664,8 +2666,8 @@ function SubscriptionManager() {
           </button>
         </div>
 
-        <div className="flex items-center justify-between p-4 rounded-xl mb-3" style={{ backgroundColor: "#F1EAD9" }}>
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Durata prova</span>
+        <div className="flex items-center justify-between p-4 rounded-xl mb-3" style={{ backgroundColor: "#F0EDF7" }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Durata prova</span>
           <div className="flex items-center gap-3">
             <button onClick={() => setTrialTotal(Math.max(1, trialTotal - 1))} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
               <span style={{ color: INK }}>−</span>
@@ -2674,23 +2676,23 @@ function SubscriptionManager() {
               value={trialTotal}
               onChange={(e) => setTrialTotal(Math.max(1, Number(e.target.value.replace(/\D/g, "")) || 1))}
               className="w-14 text-center py-1 rounded-lg outline-none"
-              style={{ backgroundColor: PAPER, border: `1px solid ${LINE}`, fontFamily: "'IBM Plex Mono', monospace", fontSize: "13px", color: INK }}
+              style={{ backgroundColor: PAPER, border: `1px solid ${LINE}`, fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: INK }}
             />
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371" }}>giorni</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E" }}>giorni</span>
             <button onClick={() => setTrialTotal(trialTotal + 1)} className="w-7 h-7 rounded-full flex items-center justify-center" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
               <span style={{ color: INK }}>+</span>
             </button>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl" style={{ backgroundColor: "#F1EAD9" }}>
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK, marginBottom: "8px" }}>
+        <div className="p-4 rounded-xl" style={{ backgroundColor: "#F0EDF7" }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK, marginBottom: "8px" }}>
             Link da inviare per iniziare la prova
           </p>
           <div className="flex items-center gap-2">
             <span
               className="flex-1 px-3 py-2 rounded-lg"
-              style={{ backgroundColor: PAPER, border: `1px solid ${LINE}`, fontFamily: "'IBM Plex Mono', monospace", fontSize: "11px", color: "#6B6455", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+              style={{ backgroundColor: PAPER, border: `1px solid ${LINE}`, fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6B6455", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
             >
               {trialLink}
             </span>
@@ -2699,7 +2701,7 @@ function SubscriptionManager() {
               className="px-3 py-2 rounded-lg shrink-0"
               style={{ backgroundColor: linkCopied ? TEAL : PAPER, border: `1px solid ${linkCopied ? TEAL : LINE}` }}
             >
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", fontWeight: 600, color: linkCopied ? PARCHMENT : INK }}>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", fontWeight: 600, color: linkCopied ? PARCHMENT : INK }}>
                 {linkCopied ? "Copiato ✓" : "Copia link"}
               </span>
             </button>
@@ -2708,15 +2710,15 @@ function SubscriptionManager() {
       </Section>
 
       {inTrial && (
-        <div className="rounded-2xl p-5 mb-5 flex items-center gap-4" style={{ backgroundColor: "#F1EAD9", border: `1px solid ${LINE}` }}>
+        <div className="rounded-2xl p-5 mb-5 flex items-center gap-4" style={{ backgroundColor: "#F0EDF7", border: `1px solid ${LINE}` }}>
           <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: BRASS }}>
             <Hourglass size={20} color={INK} />
           </div>
           <div className="flex-1">
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "14px", fontWeight: 600, color: INK }}>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "14px", fontWeight: 600, color: INK }}>
               Siete in prova gratuita — {trialDaysLeft} giorni rimasti su {trialTotal}
             </p>
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371", marginTop: "2px" }}>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E", marginTop: "2px" }}>
               Alla scadenza l'app resterà attiva in sola lettura finché non scegliete un piano.
             </p>
             <div className="w-full h-1.5 rounded-full mt-3" style={{ backgroundColor: "#E4DAC4" }}>
@@ -2727,7 +2729,7 @@ function SubscriptionManager() {
       )}
 
       <Section eyebrow="PIANI" title="Scegliete il vostro abbonamento">
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371", marginBottom: "10px" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E", marginBottom: "10px" }}>
           Toccate un prezzo per modificarlo.
         </p>
         <div className="grid grid-cols-3 gap-3">
@@ -2739,14 +2741,14 @@ function SubscriptionManager() {
                 onClick={() => setSelectedPlan(p.id)}
                 className="text-left rounded-2xl p-4 relative cursor-pointer"
                 style={{
-                  backgroundColor: selected ? INK : "#F1EAD9",
+                  backgroundColor: selected ? INK : "#F0EDF7",
                   border: `1px solid ${selected ? INK : LINE}`,
                   opacity: p.active ? 1 : 0.6,
                 }}
               >
                 {p.highlight && (
                   <span className="absolute -top-2 right-3 px-2 py-0.5 rounded-full" style={{ backgroundColor: CLAY }}>
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "8.5px", color: PARCHMENT }}>PIÙ SCELTO</span>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "8.5px", color: PARCHMENT }}>PIÙ SCELTO</span>
                   </span>
                 )}
                 <div className="flex items-center justify-between mb-1">
@@ -2758,9 +2760,9 @@ function SubscriptionManager() {
                       onChange={(e) => updatePlanName(p.id, e.target.value)}
                       className="outline-none"
                       style={{
-                        fontFamily: "'Cormorant Garamond', serif",
-                        fontStyle: "italic",
-                        fontSize: "18px",
+                        fontFamily: "'Montserrat', sans-serif",
+                        fontWeight: 700,
+                        fontSize: "16px",
                         color: selected ? PARCHMENT : INK,
                         backgroundColor: "transparent",
                         width: "100px",
@@ -2779,7 +2781,7 @@ function SubscriptionManager() {
                     style={{ backgroundColor: "#F7E3DB" }}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "8.5px", color: CLAY }}>NON IN VENDITA</span>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "8.5px", color: CLAY }}>NON IN VENDITA</span>
                   </span>
                 )}
                 <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
@@ -2790,20 +2792,20 @@ function SubscriptionManager() {
                     style={{
                       backgroundColor: selected ? "#24374F" : PAPER,
                       border: `1px solid ${selected ? "#33465D" : LINE}`,
-                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontFamily: "'Montserrat', sans-serif",
                       fontSize: "16px",
                       color: selected ? BRASS : CLAY,
                       textAlign: "center",
                     }}
                   />
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "16px", color: selected ? BRASS : CLAY }}>€</span>
-                  <span style={{ fontSize: "10px", color: selected ? "#9C9483" : "#8A8371" }}>/mese</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "16px", color: selected ? BRASS : CLAY }}>€</span>
+                  <span style={{ fontSize: "10px", color: selected ? "#9C9483" : "#6E6E6E" }}>/mese</span>
                 </div>
                 <div className="mt-3 space-y-1.5">
                   {p.features.map((f) => (
                     <div key={f} className="flex items-start gap-1.5">
                       <Check size={11} color={selected ? BRASS : TEAL} className="mt-0.5 shrink-0" />
-                      <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: selected ? "#C9C2AF" : "#6B6455" }}>{f}</span>
+                      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: selected ? "#C9C2AF" : "#6B6455" }}>{f}</span>
                     </div>
                   ))}
                 </div>
@@ -2817,21 +2819,21 @@ function SubscriptionManager() {
           style={{ backgroundColor: CLAY }}
         >
           <CreditCard size={14} color={PARCHMENT} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>
             {inTrial ? "Attiva l'abbonamento ora" : "Aggiorna metodo di pagamento"}
           </span>
         </button>
         {paymentClicked && (
-          <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: TEAL, marginTop: "8px" }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: TEAL, marginTop: "8px" }}>
             ✓ In produzione questo pulsante aprirebbe il checkout di pagamento su checkout.evolutiontrip.it
           </p>
         )}
-        <div className="flex items-center justify-between mt-3 px-4 py-2.5 rounded-xl" style={{ backgroundColor: "#F1EAD9" }}>
-          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "10.5px", color: "#8A8371", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+        <div className="flex items-center justify-between mt-3 px-4 py-2.5 rounded-xl" style={{ backgroundColor: "#F0EDF7" }}>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "#6E6E6E", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
             checkout.evolutiontrip.it/pay/{selectedPlan}
           </span>
           <button className="px-2.5 py-1 rounded-full shrink-0 ml-2" style={{ backgroundColor: PAPER, border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", fontWeight: 600, color: INK }}>Copia link</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", fontWeight: 600, color: INK }}>Copia link</span>
           </button>
         </div>
       </Section>
@@ -2840,17 +2842,17 @@ function SubscriptionManager() {
       <LockSection isMultiProperty={selectedPlan === "multi_struttura"} />
 
       <Section eyebrow="FATTURAZIONE" title="Metodo di pagamento">
-        <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: "#F1EAD9" }}>
+        <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: "#F0EDF7" }}>
           <div className="flex items-center gap-2.5">
-            <CreditCard size={16} color="#8A8371" />
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun metodo di pagamento salvato</span>
+            <CreditCard size={16} color="#6E6E6E" />
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun metodo di pagamento salvato</span>
           </div>
           <button
             onClick={() => setPaymentClicked(true)}
             className="px-3 py-1.5 rounded-full"
             style={{ border: `1px solid ${LINE}` }}
           >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Aggiungi carta</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Aggiungi carta</span>
           </button>
         </div>
       </Section>
@@ -2885,12 +2887,12 @@ function OverviewManager() {
   }, [property?.id]);
 
   if (loading) {
-    return <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento statistiche...</p>;
+    return <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento statistiche...</p>;
   }
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="grid grid-cols-4 gap-4 mb-6">
         <StatCard label="Luoghi pubblicati" value={String(stats?.places_published ?? 0)} Icon={Compass} />
         <StatCard label="Prenotazioni totali" value={String(stats?.bookings_total ?? 0)} Icon={CalendarCheck} />
@@ -2910,13 +2912,13 @@ function OverviewManager() {
                 ))}
               </div>
               <div>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{f.guest_name || "Ospite"}</p>
-                {f.comment && <p style={{ fontFamily: "'Work Sans', sans-serif", fontStyle: "italic", fontSize: "12px", color: "#6B6455", marginTop: "2px" }}>"{f.comment}"</p>}
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>{f.guest_name || "Ospite"}</p>
+                {f.comment && <p style={{ fontFamily: "'Montserrat', sans-serif", fontStyle: "italic", fontSize: "12px", color: "#6B6455", marginTop: "2px" }}>"{f.comment}"</p>}
               </div>
             </div>
           ))}
           {feedback.length === 0 && (
-            <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun feedback ricevuto finora.</p>
+            <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun feedback ricevuto finora.</p>
           )}
         </div>
       </Section>
@@ -2924,16 +2926,16 @@ function OverviewManager() {
       <Section eyebrow="CONTENUTI" title="Lingue disponibili">
         <div className="flex items-center gap-2 flex-wrap">
           {[{ code: "IT", full: true }, { code: "EN", full: true }, { code: "RU", full: true }, { code: "FR", full: false }, { code: "DE", full: false }].map((l) => (
-            <div key={l.code} className="flex items-center gap-2 px-3.5 py-2 rounded-full" style={{ backgroundColor: l.full ? "#E4EEE9" : "#F1EAD9" }}>
-              <Globe size={13} color={l.full ? TEAL : "#8A8371"} />
-              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "11px", color: l.full ? TEAL : "#8A8371" }}>{l.code}</span>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: l.full ? TEAL : "#8A8371" }}>
+            <div key={l.code} className="flex items-center gap-2 px-3.5 py-2 rounded-full" style={{ backgroundColor: l.full ? "#E4EEE9" : "#F0EDF7" }}>
+              <Globe size={13} color={l.full ? TEAL : "#6E6E6E"} />
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: l.full ? TEAL : "#6E6E6E" }}>{l.code}</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: l.full ? TEAL : "#6E6E6E" }}>
                 {l.full ? "completo" : "da tradurre"}
               </span>
             </div>
           ))}
         </div>
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371", marginTop: "10px" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "#6E6E6E", marginTop: "10px" }}>
           Nota: la traduzione automatica dei contenuti non è ancora collegata — è un prossimo passo del progetto.
         </p>
       </Section>
@@ -2989,12 +2991,12 @@ function PhotoAttachField({ photos, onAdd, onRemove, folder = "extra" }) {
       <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
       <div className="flex gap-2.5 flex-wrap">
         {photos.map((url, i) => (
-          <div key={i} className="relative w-16 h-16 rounded-xl overflow-hidden" style={{ backgroundColor: "#F1EAD9", border: `1px solid ${LINE}` }}>
+          <div key={i} className="relative w-16 h-16 rounded-xl overflow-hidden" style={{ backgroundColor: "#F0EDF7", border: `1px solid ${LINE}` }}>
             {url && url.startsWith("http") ? (
               <img src={url} alt="" className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <FileText size={14} color="#8A8371" />
+                <FileText size={14} color="#6E6E6E" />
               </div>
             )}
             <button onClick={() => onRemove(i)} className="absolute top-0.5 right-0.5 w-4 h-4 rounded-full flex items-center justify-center" style={{ backgroundColor: "rgba(27,42,65,0.7)" }}>
@@ -3002,12 +3004,12 @@ function PhotoAttachField({ photos, onAdd, onRemove, folder = "extra" }) {
             </button>
           </div>
         ))}
-        <button onClick={() => fileInputRef.current.click()} disabled={uploading} className="w-16 h-16 rounded-xl flex flex-col items-center justify-center gap-1" style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F1EAD9" }}>
-          <Upload size={14} color="#8A8371" />
-          <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "8px", color: "#8A8371" }}>{uploading ? "..." : "ADD"}</span>
+        <button onClick={() => fileInputRef.current.click()} disabled={uploading} className="w-16 h-16 rounded-xl flex flex-col items-center justify-center gap-1" style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F0EDF7" }}>
+          <Upload size={14} color="#6E6E6E" />
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "8px", color: "#6E6E6E" }}>{uploading ? "..." : "ADD"}</span>
         </button>
       </div>
-      {uploadError && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: CLAY, marginTop: "6px" }}>{uploadError}</p>}
+      {uploadError && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: CLAY, marginTop: "6px" }}>{uploadError}</p>}
     </Field>
   );
 }
@@ -3018,10 +3020,10 @@ function EventEditor({ event, onClose, onSave, saving }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-lg rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER, maxHeight: "88vh", overflowY: "auto" }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>
             {event ? "Modifica evento" : "Nuovo evento o fiera"}
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
@@ -3033,10 +3035,10 @@ function EventEditor({ event, onClose, onSave, saving }) {
                   key={id}
                   onClick={() => setForm({ ...form, category: id })}
                   className="flex items-center gap-1.5 px-3 py-2 rounded-full"
-                  style={{ backgroundColor: form.category === id ? INK : "#F1EAD9", border: `1px solid ${form.category === id ? INK : LINE}` }}
+                  style={{ backgroundColor: form.category === id ? INK : "#F0EDF7", border: `1px solid ${form.category === id ? INK : LINE}` }}
                 >
                   <Icon size={13} color={form.category === id ? BRASS : TEAL} />
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: form.category === id ? PARCHMENT : INK }}>{label}</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: form.category === id ? PARCHMENT : INK }}>{label}</span>
                 </button>
               ))}
             </div>
@@ -3049,7 +3051,7 @@ function EventEditor({ event, onClose, onSave, saving }) {
           </Field>
           <Field label="Link ufficiale">
             <div className="relative">
-              <LinkIcon size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <LinkIcon size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.officialUrl || ""} onChange={(e) => setForm({ ...form, officialUrl: e.target.value })} placeholder="https://..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
@@ -3071,15 +3073,15 @@ function EventEditor({ event, onClose, onSave, saving }) {
             <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.published ? TEAL : "#D8CDB2", justifyContent: form.published ? "flex-end" : "flex-start" }}>
               <div className="w-4 h-4 rounded-full bg-white" />
             </div>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Pubblicato agli ospiti</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Pubblicato agli ospiti</span>
           </button>
         </div>
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button onClick={() => onSave(form)} disabled={saving} className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY, opacity: saving ? 0.7 : 1 }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva evento"}</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva evento"}</span>
           </button>
         </div>
       </div>
@@ -3152,44 +3154,44 @@ function EventsManager() {
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="flex justify-end mb-5">
         <button onClick={() => setCreating(true)} className="flex items-center gap-1.5 px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
           <Plus size={14} color={PARCHMENT} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuovo evento</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuovo evento</span>
         </button>
       </div>
       {loading ? (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento eventi...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento eventi...</p>
       ) : (
         <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
           {events.map((e, i) => {
             const cat = EVENT_CATEGORIES.find((c) => c.id === e.category);
             return (
               <div key={e.id} className="flex items-center gap-4 px-5 py-4" style={{ backgroundColor: PAPER, borderTop: i === 0 ? "none" : `1px solid ${LINE}` }}>
-                <div className="w-11 h-11 rounded-xl flex flex-col items-center justify-center shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+                <div className="w-11 h-11 rounded-xl flex flex-col items-center justify-center shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                   <CalendarDays size={16} color={TEAL} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{e.name}</p>
+                    <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{e.name}</p>
                     {cat && (
-                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+                      <span className="flex items-center gap-1 px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
                         <cat.Icon size={9} color={TEAL} />
-                        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: TEAL }}>{cat.label.toUpperCase()}</span>
+                        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: TEAL }}>{cat.label.toUpperCase()}</span>
                       </span>
                     )}
                   </div>
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginTop: "2px" }}>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginTop: "2px" }}>
                     {e.venue} · {fmt(e.start)}{e.end && e.end !== e.start ? ` → ${fmt(e.end)}` : ""}
                   </p>
                 </div>
-                <span className="px-2.5 py-1 rounded-full shrink-0" style={{ backgroundColor: e.published ? "#E4EEE9" : "#F1EAD9" }}>
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: e.published ? TEAL : "#8A8371" }}>
+                <span className="px-2.5 py-1 rounded-full shrink-0" style={{ backgroundColor: e.published ? "#E4EEE9" : "#F0EDF7" }}>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: e.published ? TEAL : "#6E6E6E" }}>
                     {e.published ? "PUBBLICATO" : "BOZZA"}
                   </span>
                 </span>
-                <button onClick={() => setEditing(e)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+                <button onClick={() => setEditing(e)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                   <Pencil size={13} color={INK} />
                 </button>
               </div>
@@ -3197,7 +3199,7 @@ function EventsManager() {
           })}
           {events.length === 0 && (
             <div className="py-10 text-center" style={{ backgroundColor: PAPER }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessun evento in programma.</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessun evento in programma.</span>
             </div>
           )}
         </div>
@@ -3355,14 +3357,14 @@ function MenuManager() {
   };
 
   if (loading) {
-    return <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento menù...</p>;
+    return <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento menù...</p>;
   }
 
   const pdfFileName = current.pdf_url ? current.pdf_url.split("/").pop() : null;
 
   return (
     <div className="max-w-3xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="flex gap-2 mb-5 flex-wrap">
         {MEAL_TYPES.map((m) => (
           <button
@@ -3371,7 +3373,7 @@ function MenuManager() {
             className="px-3.5 py-2 rounded-full"
             style={{ backgroundColor: meal === m.id ? INK : PAPER, border: `1px solid ${meal === m.id ? INK : LINE}` }}
           >
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: meal === m.id ? PARCHMENT : INK }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: meal === m.id ? PARCHMENT : INK }}>
               {m.label}
             </span>
           </button>
@@ -3384,20 +3386,20 @@ function MenuManager() {
             <button
               onClick={() => setMode("pdf")}
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-full"
-              style={{ backgroundColor: current.mode === "pdf" ? BRASS : "#F1EAD9" }}
+              style={{ backgroundColor: current.mode === "pdf" ? BRASS : "#F0EDF7" }}
             >
-              <FileText size={13} color={current.mode === "pdf" ? INK : "#8A8371"} />
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: current.mode === "pdf" ? INK : "#8A8371" }}>
+              <FileText size={13} color={current.mode === "pdf" ? INK : "#6E6E6E"} />
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: current.mode === "pdf" ? INK : "#6E6E6E" }}>
                 Carica PDF
               </span>
             </button>
             <button
               onClick={() => setMode("builder")}
               className="flex items-center gap-1.5 px-3.5 py-2 rounded-full"
-              style={{ backgroundColor: current.mode === "builder" ? BRASS : "#F1EAD9" }}
+              style={{ backgroundColor: current.mode === "builder" ? BRASS : "#F0EDF7" }}
             >
-              <UtensilsCrossed size={13} color={current.mode === "builder" ? INK : "#8A8371"} />
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: current.mode === "builder" ? INK : "#8A8371" }}>
+              <UtensilsCrossed size={13} color={current.mode === "builder" ? INK : "#6E6E6E"} />
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: current.mode === "builder" ? INK : "#6E6E6E" }}>
                 Crea piatto per piatto
               </span>
             </button>
@@ -3406,7 +3408,7 @@ function MenuManager() {
             <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: current.active ? TEAL : "#D8CDB2", justifyContent: current.active ? "flex-end" : "flex-start" }}>
               <div className="w-4 h-4 rounded-full bg-white" />
             </div>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: INK }}>Attivo</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: INK }}>Attivo</span>
           </button>
         </div>
 
@@ -3415,7 +3417,7 @@ function MenuManager() {
             <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: !current.included ? BRASS : "#D8CDB2", justifyContent: !current.included ? "flex-end" : "flex-start" }}>
               <div className="w-4 h-4 rounded-full bg-white" />
             </div>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: INK }}>A pagamento (non incluso nel soggiorno)</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: INK }}>A pagamento (non incluso nel soggiorno)</span>
           </button>
           {!current.included && (
             <div className="flex items-center gap-1.5">
@@ -3425,9 +3427,9 @@ function MenuManager() {
                 onBlur={(e) => savePrice(e.target.value)}
                 placeholder="0"
                 className="w-20 px-2.5 py-1.5 rounded-lg outline-none"
-                style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }}
+                style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }}
               />
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: "#8A8371" }}>€ a persona</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: "#6E6E6E" }}>€ a persona</span>
             </div>
           )}
         </div>
@@ -3436,18 +3438,18 @@ function MenuManager() {
           <div>
             <input ref={pdfInputRef} type="file" accept="application/pdf" onChange={handlePdfChange} className="hidden" />
             {uploading ? (
-              <div className="h-28 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#F1EAD9" }}>
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371" }}>Caricamento...</span>
+              <div className="h-28 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#F0EDF7" }}>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>Caricamento...</span>
               </div>
             ) : pdfFileName ? (
-              <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: "#F1EAD9" }}>
+              <div className="flex items-center justify-between p-4 rounded-xl" style={{ backgroundColor: "#F0EDF7" }}>
                 <a href={current.pdf_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 min-w-0">
                   <FileText size={18} color={CLAY} className="shrink-0" />
-                  <span className="truncate" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: INK }}>{pdfFileName}</span>
+                  <span className="truncate" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", fontWeight: 600, color: INK }}>{pdfFileName}</span>
                 </a>
                 <div className="flex items-center gap-2 shrink-0">
                   <button onClick={() => pdfInputRef.current.click()} className="px-3 py-1.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-                    <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Sostituisci</span>
+                    <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", fontWeight: 600, color: INK }}>Sostituisci</span>
                   </button>
                   <button onClick={() => ensureMenuRow({ pdf_url: null })} className="p-2 rounded-full" style={{ backgroundColor: "#F7E3DB" }} title="Elimina PDF">
                     <Trash2 size={14} color={CLAY} />
@@ -3455,9 +3457,9 @@ function MenuManager() {
                 </div>
               </div>
             ) : (
-              <button onClick={() => pdfInputRef.current.click()} className="w-full h-28 rounded-xl flex flex-col items-center justify-center gap-1.5" style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F1EAD9" }}>
-                <Upload size={16} color="#8A8371" />
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11px", color: "#8A8371" }}>Carica il PDF del menù</span>
+              <button onClick={() => pdfInputRef.current.click()} className="w-full h-28 rounded-xl flex flex-col items-center justify-center gap-1.5" style={{ border: `1px dashed ${LINE}`, backgroundColor: "#F0EDF7" }}>
+                <Upload size={16} color="#6E6E6E" />
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11px", color: "#6E6E6E" }}>Carica il PDF del menù</span>
               </button>
             )}
           </div>
@@ -3485,19 +3487,19 @@ function MenuManager() {
                 <button
                   onClick={() => updateItem(it.id, "is_vegetarian", !it.is_vegetarian)}
                   className="p-2 rounded-lg shrink-0"
-                  style={{ backgroundColor: it.is_vegetarian ? "#E4EEE9" : "#F1EAD9" }}
+                  style={{ backgroundColor: it.is_vegetarian ? "#E4EEE9" : "#F0EDF7" }}
                   title="Vegetariano"
                 >
                   <Leaf size={14} color={it.is_vegetarian ? TEAL : "#B4AC97"} />
                 </button>
-                <button onClick={() => removeItem(it.id)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
-                  <Trash2 size={14} color="#8A8371" />
+                <button onClick={() => removeItem(it.id)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
+                  <Trash2 size={14} color="#6E6E6E" />
                 </button>
               </div>
             ))}
             <button onClick={addItem} className="flex items-center gap-1.5 mt-1 px-3 py-2 rounded-xl" style={{ border: `1px dashed ${LINE}` }}>
               <Plus size={13} color={TEAL} />
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: TEAL, fontWeight: 600 }}>Aggiungi piatto</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: TEAL, fontWeight: 600 }}>Aggiungi piatto</span>
             </button>
           </div>
         )}
@@ -3534,10 +3536,10 @@ function ExcursionEditor({ excursion, onClose, onSave, saving }) {
     <div className="fixed inset-0 z-30 flex items-center justify-center px-6" style={{ backgroundColor: "rgba(27,42,65,0.5)" }}>
       <div className="w-full max-w-lg rounded-2xl overflow-hidden" style={{ backgroundColor: PAPER, maxHeight: "88vh", overflowY: "auto" }}>
         <div className="flex items-center justify-between px-6 pt-5 pb-4" style={{ borderBottom: `1px solid ${LINE}` }}>
-          <h2 className="italic" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "22px", color: INK }}>
+          <h2 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700, fontSize: "20px", color: INK }}>
             {excursion ? "Modifica escursione" : "Nuova escursione"}
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
+          <button onClick={onClose} className="p-1.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
             <X size={15} color={INK} />
           </button>
         </div>
@@ -3550,13 +3552,13 @@ function ExcursionEditor({ excursion, onClose, onSave, saving }) {
           </Field>
           <Field label="Link ufficiale">
             <div className="relative">
-              <LinkIcon size={14} color="#8A8371" className="absolute left-3 top-1/2 -translate-y-1/2" />
+              <LinkIcon size={14} color="#6E6E6E" className="absolute left-3 top-1/2 -translate-y-1/2" />
               <input value={form.officialUrl || ""} onChange={(e) => setForm({ ...form, officialUrl: e.target.value })} placeholder="https://..." className="w-full pl-9 pr-3 py-2.5 rounded-xl outline-none" style={inputStyle()} />
             </div>
           </Field>
           <div className="grid grid-cols-3 gap-4">
             <Field label="Durata (h)">
-              <input value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="3.5" className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }} />
+              <input value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="3.5" className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }} />
             </Field>
             <Field label="Difficoltà">
               <select value={form.difficulty} onChange={(e) => setForm({ ...form, difficulty: e.target.value })} className="w-full px-3 py-2.5 rounded-xl outline-none" style={inputStyle()}>
@@ -3564,7 +3566,7 @@ function ExcursionEditor({ excursion, onClose, onSave, saving }) {
               </select>
             </Field>
             <Field label="Prezzo (€)">
-              <input value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="0" className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'IBM Plex Mono', monospace" }} />
+              <input value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="0" className="w-full px-3 py-2.5 rounded-xl outline-none" style={{ ...inputStyle(), fontFamily: "'Montserrat', sans-serif" }} />
             </Field>
           </div>
           <PhotoAttachField
@@ -3578,22 +3580,22 @@ function ExcursionEditor({ excursion, onClose, onSave, saving }) {
               <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.bookable ? TEAL : "#D8CDB2", justifyContent: form.bookable ? "flex-end" : "flex-start" }}>
                 <div className="w-4 h-4 rounded-full bg-white" />
               </div>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Prenotabile</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Prenotabile</span>
             </button>
             <button onClick={() => setForm({ ...form, published: !form.published })} className="flex items-center gap-2">
               <div className="w-9 h-5 rounded-full flex items-center px-0.5" style={{ backgroundColor: form.published ? TEAL : "#D8CDB2", justifyContent: form.published ? "flex-end" : "flex-start" }}>
                 <div className="w-4 h-4 rounded-full bg-white" />
               </div>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: INK }}>Pubblicata</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: INK }}>Pubblicata</span>
             </button>
           </div>
         </div>
         <div className="flex items-center justify-end gap-3 px-6 py-4" style={{ borderTop: `1px solid ${LINE}` }}>
           <button onClick={onClose} className="px-4 py-2.5 rounded-full" style={{ border: `1px solid ${LINE}` }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: INK }}>Annulla</span>
           </button>
           <button onClick={() => onSave(form)} disabled={saving} className="px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY, opacity: saving ? 0.7 : 1 }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva escursione"}</span>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>{saving ? "Salvataggio..." : "Salva escursione"}</span>
           </button>
         </div>
       </div>
@@ -3661,46 +3663,46 @@ function ExcursionsManager() {
 
   return (
     <div className="max-w-4xl">
-      {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
+      {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: CLAY, marginBottom: "10px" }}>{error}</p>}
       <div className="flex justify-end mb-5">
         <button onClick={() => setCreating(true)} className="flex items-center gap-1.5 px-4 py-2.5 rounded-full active:scale-[0.98] transition-transform" style={{ backgroundColor: CLAY }}>
           <Plus size={14} color={PARCHMENT} />
-          <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuova escursione</span>
+          <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", fontWeight: 600, color: PARCHMENT }}>Nuova escursione</span>
         </button>
       </div>
       {loading ? (
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Caricamento escursioni...</p>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Caricamento escursioni...</p>
       ) : (
         <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
           {excursions.map((e, i) => {
             const diff = DIFFICULTY_META[e.difficulty];
             return (
               <div key={e.id} className="flex items-center gap-4 px-5 py-4" style={{ backgroundColor: PAPER, borderTop: i === 0 ? "none" : `1px solid ${LINE}` }}>
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                   <Mountain size={17} color={TEAL} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{e.name}</p>
+                    <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13.5px", fontWeight: 600, color: INK }}>{e.name}</p>
                     <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: diff.bg }}>
-                      <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: diff.text }}>{diff.label.toUpperCase()}</span>
+                      <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: diff.text }}>{diff.label.toUpperCase()}</span>
                     </span>
                     {Number(e.price) > 0 && (
-                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
-                        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: CLAY }}>{e.price} €</span>
+                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
+                        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: CLAY }}>{e.price} €</span>
                       </span>
                     )}
                     {!e.published && (
-                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F1EAD9" }}>
-                        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", color: "#8A8371" }}>BOZZA</span>
+                      <span className="px-2 py-0.5 rounded-full" style={{ backgroundColor: "#F0EDF7" }}>
+                        <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", color: "#6E6E6E" }}>BOZZA</span>
                       </span>
                     )}
                   </div>
-                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginTop: "2px" }}>
+                  <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginTop: "2px" }}>
                     {e.meetingPoint} · {e.duration}h
                   </p>
                 </div>
-                <button onClick={() => setEditing(e)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F1EAD9" }}>
+                <button onClick={() => setEditing(e)} className="p-2 rounded-lg shrink-0" style={{ backgroundColor: "#F0EDF7" }}>
                   <Pencil size={13} color={INK} />
                 </button>
               </div>
@@ -3708,7 +3710,7 @@ function ExcursionsManager() {
           })}
           {excursions.length === 0 && (
             <div className="py-10 text-center" style={{ backgroundColor: PAPER }}>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12.5px", color: "#8A8371" }}>Nessuna escursione configurata.</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12.5px", color: "#6E6E6E" }}>Nessuna escursione configurata.</span>
             </div>
           )}
         </div>
@@ -3724,9 +3726,9 @@ function HostAuthScreen({ onSuccess }) {
   // Colori dedicati a questa schermata (viola scuro + rosa corallo),
   // usati SOLO qui: il resto della dashboard resta con la sua palette
   // abituale (blu notte/rame/ottone).
-  const AUTH_PURPLE = "#3D1B7A";
-  const AUTH_PURPLE_DARK = "#2E1560";
-  const AUTH_CORAL = "#E8768C";
+  const AUTH_PURPLE = "#380D82";
+  const AUTH_PURPLE_DARK = "#44109B";
+  const AUTH_CORAL = "#DC6E8B";
   const AUTH_CORAL_DARK = "#D96481";
   const [mode, setMode] = useState("login"); // "register" | "login" | "forgot"
   const [remember, setRemember] = useState(true);
@@ -3851,7 +3853,7 @@ function HostAuthScreen({ onSuccess }) {
   return (
     <div className="w-full min-h-screen flex" style={{ backgroundColor: AUTH_PURPLE_DARK }}>
       <style>{`
-        @import url(https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap);
+        @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap);
       `}</style>
 
       <div className="flex-1 flex items-center justify-center py-10 px-4">
@@ -3860,10 +3862,10 @@ function HostAuthScreen({ onSuccess }) {
           <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-3 border-2 bg-white" style={{ borderColor: AUTH_CORAL }}>
             <img src="/logo-icon.png" alt="EvolutionTrip" className="w-full h-full object-cover" />
           </div>
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "9px", letterSpacing: "0.12em", color: AUTH_CORAL }}>
+          <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "9px", letterSpacing: "0.12em", color: AUTH_CORAL }}>
             I CONSIGLI PER I TUOI OSPITI
           </p>
-          <p className="mt-1" style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "22px", fontWeight: 800, color: mode === "login" ? AUTH_CORAL : PARCHMENT }}>
+          <p className="mt-1" style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "22px", fontWeight: 800, color: mode === "login" ? AUTH_CORAL : PARCHMENT }}>
             {mode === "register" ? "Create il vostro account gratuito" : mode === "forgot" ? "Reimpostate la password" : "Login"}
           </p>
         </div>
@@ -3875,8 +3877,8 @@ function HostAuthScreen({ onSuccess }) {
                 <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3 border-2" style={{ borderColor: TEAL, borderStyle: "dashed" }}>
                   <Check size={20} color={TEAL} />
                 </div>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: INK, fontWeight: 600 }}>Email inviata</p>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginTop: "4px" }}>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: INK, fontWeight: 600 }}>Email inviata</p>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginTop: "4px" }}>
                   Controllate {resetEmail} per il link di reimpostazione password.
                 </p>
                 <button
@@ -3885,12 +3887,12 @@ function HostAuthScreen({ onSuccess }) {
                   className="w-full py-3 rounded-full mt-4"
                   style={{ backgroundColor: INK }}
                 >
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>Torna al login</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>Torna al login</span>
                 </button>
               </div>
             ) : (
               <>
-                <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371", marginBottom: "2px" }}>
+                <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E", marginBottom: "2px" }}>
                   Inserite l'email con cui avete registrato la struttura: vi invieremo un link per reimpostare la password.
                 </p>
                 <Field label="Email">
@@ -3902,12 +3904,12 @@ function HostAuthScreen({ onSuccess }) {
                     style={inputStyle()}
                   />
                 </Field>
-                {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: AUTH_CORAL_DARK }}>{error}</p>}
+                {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: AUTH_CORAL_DARK }}>{error}</p>}
                 <button type="submit" className="w-full py-3 rounded-full mt-2 active:scale-[0.98] transition-transform" style={{ backgroundColor: AUTH_CORAL }}>
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>Invia link di reset</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>Invia link di reset</span>
                 </button>
                 <button type="button" onClick={() => { setMode("login"); setError(""); }} className="w-full py-2">
-                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: "#8A8371" }}>← Torna indietro</span>
+                  <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: "#6E6E6E" }}>← Torna indietro</span>
                 </button>
               </>
             )}
@@ -3960,7 +3962,7 @@ function HostAuthScreen({ onSuccess }) {
               <div className="w-4 h-4 rounded flex items-center justify-center" style={{ border: `1.5px solid ${LINE}`, backgroundColor: remember ? CLAY : "transparent" }}>
                 {remember && <Check size={11} color={PARCHMENT} />}
               </div>
-              <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", color: INK }}>Ricordami</span>
+              <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", color: INK }}>Ricordami</span>
             </button>
           )}
           {mode === "register" && (
@@ -3976,10 +3978,10 @@ function HostAuthScreen({ onSuccess }) {
             </Field>
           )}
 
-          {error && <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: CLAY }}>{error}</p>}
+          {error && <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: CLAY }}>{error}</p>}
 
           <button type="submit" className="w-full py-3 rounded-full mt-2 active:scale-[0.98] transition-transform" style={{ backgroundColor: AUTH_CORAL }}>
-            <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>
+            <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", fontWeight: 600, color: PARCHMENT }}>
               {mode === "register" ? "Inizia la prova gratuita di 14 giorni" : "Accedi"}
             </span>
           </button>
@@ -3992,7 +3994,7 @@ function HostAuthScreen({ onSuccess }) {
                 className="flex-1 py-2.5 rounded-full"
                 style={{ border: `1px solid ${LINE}` }}
               >
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Registrati</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Registrati</span>
               </button>
               <button
                 type="button"
@@ -4000,18 +4002,18 @@ function HostAuthScreen({ onSuccess }) {
                 className="flex-1 py-2.5 rounded-full"
                 style={{ border: `1px solid ${LINE}` }}
               >
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Password dimenticata</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "12px", fontWeight: 600, color: INK }}>Password dimenticata</span>
               </button>
             </div>
           )}
 
           {mode === "register" && (
             <>
-              <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "10.5px", color: "#8A8371", textAlign: "center" }}>
+              <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "10.5px", color: "#6E6E6E", textAlign: "center" }}>
                 Nessuna carta richiesta ora. Creando l'account accettate termini e informativa privacy.
               </p>
               <button type="button" onClick={() => { setMode("login"); setError(""); }} className="w-full py-1">
-                <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "11.5px", color: TEAL }}>Avete già un account? Accedi</span>
+                <span style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "11.5px", color: TEAL }}>Avete già un account? Accedi</span>
               </button>
             </>
           )}
@@ -4028,7 +4030,7 @@ function HostAuthScreen({ onSuccess }) {
           <path d="M60 380 C 150 400, 230 420, 300 400" stroke={AUTH_CORAL} strokeWidth="2" strokeDasharray="5 5" fill="none" opacity="0.5" />
 
           <rect x="140" y="70" width="180" height="360" rx="28" fill={PAPER} stroke={LINE} strokeWidth="2" />
-          <rect x="156" y="94" width="148" height="290" rx="6" fill="#F1EAD9" />
+          <rect x="156" y="94" width="148" height="290" rx="6" fill="#F0EDF7" />
           <line x1="156" y1="140" x2="304" y2="140" stroke="#E4DAC4" strokeWidth="1.5" />
           <line x1="156" y1="190" x2="304" y2="190" stroke="#E4DAC4" strokeWidth="1.5" />
           <line x1="156" y1="240" x2="304" y2="240" stroke="#E4DAC4" strokeWidth="1.5" />
@@ -4090,8 +4092,8 @@ export default function HostDashboard() {
 
   if (authState === "checking") {
     return (
-      <div className="w-full min-h-screen flex items-center justify-center" style={{ backgroundColor: "#EDE7D8" }}>
-        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: "13px", color: "#8A8371" }}>Verifica sessione in corso...</p>
+      <div className="w-full min-h-screen flex items-center justify-center" style={{ backgroundColor: "#F5F3FA" }}>
+        <p style={{ fontFamily: "'Montserrat', sans-serif", fontSize: "13px", color: "#6E6E6E" }}>Verifica sessione in corso...</p>
       </div>
     );
   }
@@ -4126,9 +4128,9 @@ function HostDashboardShell({ active, setActive }) {
   const header = headers[active] || { title: "Prossimo passo", subtitle: "Questa sezione arriva nel prossimo step della Fase 2." };
 
   return (
-    <div className="w-full min-h-screen flex" style={{ backgroundColor: "#EDE7D8" }}>
+    <div className="w-full min-h-screen flex" style={{ backgroundColor: "#F5F3FA" }}>
       <style>{`
-        @import url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap);
+        @import url(https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Montserrat:wght@400;500;600;700;800&display=swap);
       `}</style>
       <Sidebar active={active} setActive={setActive} />
       <div className="flex-1 flex flex-col">
